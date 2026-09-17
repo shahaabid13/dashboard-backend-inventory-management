@@ -1,0 +1,5545 @@
+[
+  {
+    "id": "PCR to Rek Chowk",
+    "display_name": null,
+    "from_junction_id": "secretariate",
+    "from_junction_name": "Secretariate",
+    "from_confident": true,
+    "to_junction_id": "rek-chowk",
+    "to_junction_name": "Rek Chowk",
+    "to_confident": true,
+    "length_m": 335.0,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073448,
+        74.799123
+      ],
+      [
+        34.072726,
+        74.797424
+      ],
+      [
+        34.072552,
+        74.796605
+      ],
+      [
+        34.072597,
+        74.796195
+      ],
+      [
+        34.072415,
+        74.795781
+      ]
+    ]
+  },
+  {
+    "id": "R1",
+    "display_name": null,
+    "from_junction_id": "router-2",
+    "from_junction_name": "Router 2",
+    "from_confident": true,
+    "to_junction_id": "hmt",
+    "to_junction_name": "HMT",
+    "to_confident": false,
+    "length_m": 2252.9,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.102617,
+        74.735465
+      ],
+      [
+        34.101964,
+        74.737916
+      ],
+      [
+        34.101954,
+        74.738128
+      ],
+      [
+        34.104228,
+        74.739174
+      ],
+      [
+        34.108981,
+        74.745218
+      ],
+      [
+        34.108594,
+        74.746445
+      ],
+      [
+        34.106248,
+        74.754961
+      ],
+      [
+        34.106207,
+        74.755071
+      ]
+    ]
+  },
+  {
+    "id": "R2",
+    "display_name": null,
+    "from_junction_id": "hmt",
+    "from_junction_name": "HMT",
+    "from_confident": false,
+    "to_junction_id": "qamerwari",
+    "to_junction_name": "Qamerwari",
+    "to_confident": true,
+    "length_m": 2733.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.106206,
+        74.755078
+      ],
+      [
+        34.102854,
+        74.764322
+      ],
+      [
+        34.096341,
+        74.773783
+      ],
+      [
+        34.091114,
+        74.777441
+      ]
+    ]
+  },
+  {
+    "id": "R3",
+    "display_name": null,
+    "from_junction_id": "bemina-bypass",
+    "from_junction_name": "Bemina Bypass",
+    "from_confident": true,
+    "to_junction_id": "hmt",
+    "to_junction_name": "HMT",
+    "to_confident": false,
+    "length_m": 3982.4,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.07202,
+        74.76771
+      ],
+      [
+        34.077357,
+        74.765836
+      ],
+      [
+        34.078839,
+        74.765281
+      ],
+      [
+        34.086137,
+        74.7627
+      ],
+      [
+        34.088751,
+        74.761747
+      ],
+      [
+        34.092236,
+        74.760428
+      ],
+      [
+        34.096984,
+        74.75861
+      ],
+      [
+        34.099504,
+        74.757575
+      ],
+      [
+        34.099967,
+        74.757165
+      ],
+      [
+        34.100267,
+        74.757022
+      ],
+      [
+        34.101019,
+        74.756949
+      ],
+      [
+        34.101345,
+        74.756935
+      ],
+      [
+        34.102916,
+        74.756335
+      ],
+      [
+        34.106202,
+        74.755065
+      ]
+    ]
+  },
+  {
+    "id": "R4",
+    "display_name": null,
+    "from_junction_id": "qamerwari",
+    "from_junction_name": "Qamerwari",
+    "from_confident": true,
+    "to_junction_id": "seikdafr",
+    "to_junction_name": "Seikdafr",
+    "to_confident": true,
+    "length_m": 1573.6,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.091098,
+        74.77744
+      ],
+      [
+        34.091258,
+        74.777868
+      ],
+      [
+        34.091374,
+        74.778168
+      ],
+      [
+        34.091465,
+        74.778301
+      ],
+      [
+        34.091551,
+        74.778437
+      ],
+      [
+        34.092155,
+        74.779185
+      ],
+      [
+        34.092962,
+        74.780178
+      ],
+      [
+        34.093485,
+        74.780852
+      ],
+      [
+        34.093907,
+        74.781341
+      ],
+      [
+        34.095904,
+        74.783297
+      ],
+      [
+        34.09622,
+        74.783603
+      ],
+      [
+        34.096307,
+        74.783789
+      ],
+      [
+        34.096314,
+        74.784024
+      ],
+      [
+        34.096163,
+        74.784615
+      ],
+      [
+        34.096048,
+        74.785377
+      ],
+      [
+        34.095851,
+        74.787088
+      ],
+      [
+        34.095768,
+        74.788798
+      ],
+      [
+        34.095585,
+        74.789944
+      ],
+      [
+        34.095552,
+        74.791076
+      ],
+      [
+        34.095544,
+        74.791779
+      ]
+    ]
+  },
+  {
+    "id": "R5",
+    "display_name": null,
+    "from_junction_id": "bemina-bypass",
+    "from_junction_name": "Bemina Bypass",
+    "from_confident": true,
+    "to_junction_id": "tengpora-crossing-by-pass",
+    "to_junction_name": "Tengpora crossing By pass",
+    "to_confident": false,
+    "length_m": 2456.0,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.07202,
+        74.767709
+      ],
+      [
+        34.071628,
+        74.767932
+      ],
+      [
+        34.071008,
+        74.768296
+      ],
+      [
+        34.070529,
+        74.768667
+      ],
+      [
+        34.070001,
+        74.769289
+      ],
+      [
+        34.069529,
+        74.76998
+      ],
+      [
+        34.068845,
+        74.771424
+      ],
+      [
+        34.065175,
+        74.779474
+      ],
+      [
+        34.064548,
+        74.78124
+      ],
+      [
+        34.064057,
+        74.782435
+      ],
+      [
+        34.063475,
+        74.783516
+      ],
+      [
+        34.06196,
+        74.785077
+      ],
+      [
+        34.060833,
+        74.785688
+      ],
+      [
+        34.057957,
+        74.786386
+      ]
+    ]
+  },
+  {
+    "id": "R6",
+    "display_name": null,
+    "from_junction_id": "tengpora-crossing-by-pass",
+    "from_junction_name": "Tengpora crossing By pass",
+    "from_confident": true,
+    "to_junction_id": "hyderpora",
+    "to_junction_name": "Hyderpora",
+    "to_confident": true,
+    "length_m": 2274.4,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.05797,
+        74.786386
+      ],
+      [
+        34.057723,
+        74.786428
+      ],
+      [
+        34.057361,
+        74.786461
+      ],
+      [
+        34.056975,
+        74.786557
+      ],
+      [
+        34.056579,
+        74.786668
+      ],
+      [
+        34.056047,
+        74.786785
+      ],
+      [
+        34.055673,
+        74.786822
+      ],
+      [
+        34.05221,
+        74.787405
+      ],
+      [
+        34.045468,
+        74.788761
+      ],
+      [
+        34.041271,
+        74.789567
+      ],
+      [
+        34.037775,
+        74.790264
+      ]
+    ]
+  },
+  {
+    "id": "R7",
+    "display_name": null,
+    "from_junction_id": "humhama",
+    "from_junction_name": "Humhama",
+    "from_confident": true,
+    "to_junction_id": "hyderpora",
+    "to_junction_name": "Hyderpora",
+    "to_confident": true,
+    "length_m": 2830.1,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.021304,
+        74.770357
+      ],
+      [
+        34.02233,
+        74.772157
+      ],
+      [
+        34.023036,
+        74.773439
+      ],
+      [
+        34.023468,
+        74.774012
+      ],
+      [
+        34.02451,
+        74.775105
+      ],
+      [
+        34.026171,
+        74.776655
+      ],
+      [
+        34.027341,
+        74.777587
+      ],
+      [
+        34.028625,
+        74.778785
+      ],
+      [
+        34.030989,
+        74.780725
+      ],
+      [
+        34.031683,
+        74.781318
+      ],
+      [
+        34.032674,
+        74.782449
+      ],
+      [
+        34.033634,
+        74.783406
+      ],
+      [
+        34.034208,
+        74.783816
+      ],
+      [
+        34.034983,
+        74.784321
+      ],
+      [
+        34.03671,
+        74.785275
+      ],
+      [
+        34.036993,
+        74.785492
+      ],
+      [
+        34.037484,
+        74.786152
+      ],
+      [
+        34.038244,
+        74.78709
+      ],
+      [
+        34.038985,
+        74.788229
+      ],
+      [
+        34.038926,
+        74.788528
+      ],
+      [
+        34.03779,
+        74.790275
+      ]
+    ]
+  },
+  {
+    "id": "R8",
+    "display_name": null,
+    "from_junction_id": "nowgam-pohuru",
+    "from_junction_name": "Nowgam Pohuru",
+    "from_confident": true,
+    "to_junction_id": "nowgam-bypass",
+    "to_junction_name": "Nowgam Bypass",
+    "to_confident": true,
+    "length_m": 553.3,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.028258,
+        74.83047
+      ],
+      [
+        34.026856,
+        74.824708
+      ]
+    ]
+  },
+  {
+    "id": "R9",
+    "display_name": null,
+    "from_junction_id": "nowgam-bypass",
+    "from_junction_name": "Nowgam Bypass",
+    "from_confident": true,
+    "to_junction_id": "sanat-nagar",
+    "to_junction_name": "Sanat Nagar",
+    "to_confident": true,
+    "length_m": 2599.5,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.026842,
+        74.8247
+      ],
+      [
+        34.026428,
+        74.823082
+      ],
+      [
+        34.02597,
+        74.821264
+      ],
+      [
+        34.025496,
+        74.819438
+      ],
+      [
+        34.025029,
+        74.817625
+      ],
+      [
+        34.024602,
+        74.815922
+      ],
+      [
+        34.024156,
+        74.81404
+      ],
+      [
+        34.024086,
+        74.813221
+      ],
+      [
+        34.024067,
+        74.812457
+      ],
+      [
+        34.02412,
+        74.811692
+      ],
+      [
+        34.024264,
+        74.81099
+      ],
+      [
+        34.02455,
+        74.810001
+      ],
+      [
+        34.025717,
+        74.80711
+      ],
+      [
+        34.029035,
+        74.798248
+      ]
+    ]
+  },
+  {
+    "id": "R10",
+    "display_name": null,
+    "from_junction_id": "sanat-nagar",
+    "from_junction_name": "Sanat Nagar",
+    "from_confident": true,
+    "to_junction_id": "hyderpora",
+    "to_junction_name": "Hyderpora",
+    "to_confident": true,
+    "length_m": 1307.4,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.029037,
+        74.798235
+      ],
+      [
+        34.030045,
+        74.795797
+      ],
+      [
+        34.030612,
+        74.794489
+      ],
+      [
+        34.030799,
+        74.794153
+      ],
+      [
+        34.031658,
+        74.792981
+      ],
+      [
+        34.032096,
+        74.79248
+      ],
+      [
+        34.032696,
+        74.79197
+      ],
+      [
+        34.033344,
+        74.791585
+      ],
+      [
+        34.034221,
+        74.791149
+      ],
+      [
+        34.035563,
+        74.790762
+      ],
+      [
+        34.036272,
+        74.790575
+      ],
+      [
+        34.037781,
+        74.790266
+      ]
+    ]
+  },
+  {
+    "id": "R 11",
+    "display_name": null,
+    "from_junction_id": "buchpora",
+    "from_junction_name": "Buchpora",
+    "from_confident": false,
+    "to_junction_id": "skims",
+    "to_junction_name": "SKIMS",
+    "to_confident": true,
+    "length_m": 1897.0,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.152746,
+        74.802352
+      ],
+      [
+        34.152352,
+        74.802393
+      ],
+      [
+        34.151599,
+        74.802261
+      ],
+      [
+        34.151288,
+        74.802213
+      ],
+      [
+        34.150761,
+        74.802159
+      ],
+      [
+        34.150261,
+        74.802164
+      ],
+      [
+        34.149815,
+        74.802263
+      ],
+      [
+        34.148609,
+        74.802536
+      ],
+      [
+        34.147763,
+        74.802799
+      ],
+      [
+        34.147542,
+        74.802813
+      ],
+      [
+        34.146872,
+        74.802679
+      ],
+      [
+        34.146048,
+        74.802446
+      ],
+      [
+        34.14515,
+        74.802204
+      ],
+      [
+        34.142883,
+        74.801783
+      ],
+      [
+        34.142279,
+        74.801768
+      ],
+      [
+        34.140942,
+        74.801873
+      ],
+      [
+        34.139583,
+        74.801967
+      ],
+      [
+        34.13762,
+        74.802509
+      ],
+      [
+        34.13596,
+        74.803093
+      ]
+    ]
+  },
+  {
+    "id": "R 14",
+    "display_name": null,
+    "from_junction_id": "hazratbal",
+    "from_junction_name": "Hazratbal",
+    "from_confident": false,
+    "to_junction_id": "hazratbal",
+    "to_junction_name": "Hazratbal",
+    "to_confident": true,
+    "length_m": 612.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.132552,
+        74.84115
+      ],
+      [
+        34.131845,
+        74.841022
+      ],
+      [
+        34.131239,
+        74.840908
+      ],
+      [
+        34.130244,
+        74.840027
+      ],
+      [
+        34.129912,
+        74.839159
+      ],
+      [
+        34.129695,
+        74.838911
+      ],
+      [
+        34.129401,
+        74.838717
+      ],
+      [
+        34.129201,
+        74.838595
+      ],
+      [
+        34.128507,
+        74.838702
+      ],
+      [
+        34.127909,
+        74.838768
+      ]
+    ]
+  },
+  {
+    "id": "R 16",
+    "display_name": null,
+    "from_junction_id": "bota-kadal",
+    "from_junction_name": "Bota Kadal",
+    "from_confident": false,
+    "to_junction_id": "bota-kadal",
+    "to_junction_name": "Bota Kadal",
+    "to_confident": true,
+    "length_m": 963.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.127544,
+        74.818005
+      ],
+      [
+        34.126474,
+        74.817597
+      ],
+      [
+        34.124914,
+        74.8172
+      ],
+      [
+        34.124329,
+        74.817038
+      ],
+      [
+        34.122985,
+        74.816461
+      ],
+      [
+        34.122743,
+        74.815986
+      ],
+      [
+        34.122451,
+        74.815797
+      ],
+      [
+        34.121979,
+        74.815696
+      ],
+      [
+        34.121577,
+        74.81565
+      ],
+      [
+        34.12118,
+        74.814927
+      ],
+      [
+        34.12063,
+        74.814237
+      ],
+      [
+        34.120128,
+        74.813587
+      ]
+    ]
+  },
+  {
+    "id": "R 20",
+    "display_name": null,
+    "from_junction_id": "zero-bridge-rajbagh",
+    "from_junction_name": "Zero Bridge Rajbagh",
+    "from_confident": true,
+    "to_junction_id": "trc",
+    "to_junction_name": "TRC",
+    "to_confident": true,
+    "length_m": 559.4,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.068197,
+        74.827521
+      ],
+      [
+        34.071348,
+        74.82834
+      ],
+      [
+        34.073067,
+        74.829012
+      ]
+    ]
+  },
+  {
+    "id": "R12",
+    "display_name": null,
+    "from_junction_id": "skims",
+    "from_junction_name": "SKIMS",
+    "from_confident": true,
+    "to_junction_id": "seikdafr",
+    "to_junction_name": "Seikdafr",
+    "to_confident": true,
+    "length_m": 4886.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.135535,
+        74.803013
+      ],
+      [
+        34.134934,
+        74.802844
+      ],
+      [
+        34.133866,
+        74.802559
+      ],
+      [
+        34.132876,
+        74.802336
+      ],
+      [
+        34.131938,
+        74.802364
+      ],
+      [
+        34.13163,
+        74.802256
+      ],
+      [
+        34.131473,
+        74.802084
+      ],
+      [
+        34.131475,
+        74.801682
+      ],
+      [
+        34.131623,
+        74.80051
+      ],
+      [
+        34.131681,
+        74.799853
+      ],
+      [
+        34.131631,
+        74.799403
+      ],
+      [
+        34.13147,
+        74.799169
+      ],
+      [
+        34.130764,
+        74.798753
+      ],
+      [
+        34.129168,
+        74.797845
+      ],
+      [
+        34.127797,
+        74.79694
+      ],
+      [
+        34.127126,
+        74.796306
+      ],
+      [
+        34.124211,
+        74.795011
+      ],
+      [
+        34.122779,
+        74.794446
+      ],
+      [
+        34.121402,
+        74.794929
+      ],
+      [
+        34.120039,
+        74.795286
+      ],
+      [
+        34.117548,
+        74.795109
+      ],
+      [
+        34.115205,
+        74.794993
+      ],
+      [
+        34.114528,
+        74.794761
+      ],
+      [
+        34.113792,
+        74.794581
+      ],
+      [
+        34.112799,
+        74.794419
+      ],
+      [
+        34.111939,
+        74.794316
+      ],
+      [
+        34.109381,
+        74.794515
+      ],
+      [
+        34.109388,
+        74.794522
+      ],
+      [
+        34.109372,
+        74.794534
+      ],
+      [
+        34.103237,
+        74.79487
+      ],
+      [
+        34.097399,
+        74.793464
+      ],
+      [
+        34.096151,
+        74.79254
+      ],
+      [
+        34.095604,
+        74.792516
+      ]
+    ]
+  },
+  {
+    "id": "R15",
+    "display_name": null,
+    "from_junction_id": "hazratbal",
+    "from_junction_name": "Hazratbal",
+    "from_confident": true,
+    "to_junction_id": "bota-kadal",
+    "to_junction_name": "Bota Kadal",
+    "to_confident": true,
+    "length_m": 2968.3,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.127868,
+        74.838748
+      ],
+      [
+        34.127591,
+        74.835787
+      ],
+      [
+        34.127368,
+        74.83297
+      ],
+      [
+        34.127371,
+        74.832354
+      ],
+      [
+        34.127469,
+        74.832156
+      ],
+      [
+        34.127707,
+        74.83202
+      ],
+      [
+        34.128181,
+        74.831833
+      ],
+      [
+        34.128878,
+        74.831731
+      ],
+      [
+        34.129547,
+        74.831617
+      ],
+      [
+        34.130646,
+        74.831122
+      ],
+      [
+        34.131862,
+        74.830376
+      ],
+      [
+        34.13296,
+        74.830167
+      ],
+      [
+        34.133788,
+        74.829875
+      ],
+      [
+        34.134824,
+        74.829185
+      ],
+      [
+        34.135678,
+        74.828525
+      ],
+      [
+        34.135793,
+        74.8282
+      ],
+      [
+        34.135655,
+        74.82761
+      ],
+      [
+        34.134903,
+        74.826399
+      ],
+      [
+        34.134307,
+        74.82545
+      ],
+      [
+        34.133745,
+        74.824437
+      ],
+      [
+        34.13309,
+        74.823437
+      ],
+      [
+        34.131833,
+        74.82168
+      ],
+      [
+        34.131067,
+        74.821324
+      ],
+      [
+        34.130252,
+        74.820554
+      ],
+      [
+        34.129839,
+        74.819955
+      ],
+      [
+        34.128922,
+        74.818985
+      ],
+      [
+        34.12856,
+        74.818535
+      ],
+      [
+        34.127586,
+        74.81799
+      ]
+    ]
+  },
+  {
+    "id": "R17",
+    "display_name": null,
+    "from_junction_id": "bota-kadal",
+    "from_junction_name": "Bota Kadal",
+    "from_confident": true,
+    "to_junction_id": "mill-stop",
+    "to_junction_name": "Mill stop",
+    "to_confident": true,
+    "length_m": 689.7,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.120117,
+        74.813596
+      ],
+      [
+        34.119924,
+        74.812793
+      ],
+      [
+        34.119788,
+        74.811722
+      ],
+      [
+        34.119763,
+        74.811082
+      ],
+      [
+        34.119945,
+        74.810236
+      ],
+      [
+        34.120027,
+        74.810114
+      ],
+      [
+        34.120545,
+        74.810001
+      ],
+      [
+        34.120606,
+        74.809749
+      ],
+      [
+        34.120576,
+        74.80866
+      ],
+      [
+        34.120541,
+        74.806748
+      ]
+    ]
+  },
+  {
+    "id": "R19",
+    "display_name": null,
+    "from_junction_id": "sonwar",
+    "from_junction_name": "Sonwar",
+    "from_confident": true,
+    "to_junction_id": "trc",
+    "to_junction_name": "TRC",
+    "to_confident": true,
+    "length_m": 1190.4,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.070538,
+        74.840636
+      ],
+      [
+        34.071047,
+        74.839668
+      ],
+      [
+        34.072816,
+        74.836953
+      ],
+      [
+        34.073159,
+        74.836485
+      ],
+      [
+        34.073528,
+        74.835928
+      ],
+      [
+        34.073414,
+        74.832547
+      ],
+      [
+        34.07326,
+        74.831141
+      ],
+      [
+        34.073242,
+        74.8307
+      ],
+      [
+        34.0731,
+        74.828968
+      ]
+    ]
+  },
+  {
+    "id": "R21",
+    "display_name": null,
+    "from_junction_id": "baghaat",
+    "from_junction_name": "Baghaat",
+    "from_confident": true,
+    "to_junction_id": "hyderpora",
+    "to_junction_name": "Hyderpora",
+    "to_confident": true,
+    "length_m": 1519.4,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.044806,
+        74.802066
+      ],
+      [
+        34.042682,
+        74.80048
+      ],
+      [
+        34.040645,
+        74.799367
+      ],
+      [
+        34.039923,
+        74.798843
+      ],
+      [
+        34.03925,
+        74.797733
+      ],
+      [
+        34.038762,
+        74.796783
+      ],
+      [
+        34.038215,
+        74.795311
+      ],
+      [
+        34.037483,
+        74.794211
+      ],
+      [
+        34.037136,
+        74.793537
+      ],
+      [
+        34.036994,
+        74.792717
+      ],
+      [
+        34.037278,
+        74.791536
+      ],
+      [
+        34.037816,
+        74.790316
+      ]
+    ]
+  },
+  {
+    "id": "R22",
+    "display_name": null,
+    "from_junction_id": "baghaat",
+    "from_junction_name": "Baghaat",
+    "from_confident": true,
+    "to_junction_id": "sanat-nagar",
+    "to_junction_name": "Sanat Nagar",
+    "to_confident": true,
+    "length_m": 1832.8,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.044769,
+        74.802178
+      ],
+      [
+        34.042205,
+        74.803218
+      ],
+      [
+        34.040233,
+        74.802723
+      ],
+      [
+        34.037629,
+        74.801718
+      ],
+      [
+        34.034792,
+        74.800631
+      ],
+      [
+        34.032158,
+        74.799673
+      ],
+      [
+        34.029068,
+        74.798271
+      ]
+    ]
+  },
+  {
+    "id": "R23",
+    "display_name": null,
+    "from_junction_id": "natipora",
+    "from_junction_name": "Natipora",
+    "from_confident": true,
+    "to_junction_id": "nowgam-bypass",
+    "to_junction_name": "Nowgam Bypass",
+    "to_confident": true,
+    "length_m": 3062.8,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.047158,
+        74.808549
+      ],
+      [
+        34.047376,
+        74.809297
+      ],
+      [
+        34.047456,
+        74.809675
+      ],
+      [
+        34.047479,
+        74.809867
+      ],
+      [
+        34.047514,
+        74.810716
+      ],
+      [
+        34.047405,
+        74.811172
+      ],
+      [
+        34.04729,
+        74.811361
+      ],
+      [
+        34.047068,
+        74.81145
+      ],
+      [
+        34.046945,
+        74.811483
+      ],
+      [
+        34.046808,
+        74.811613
+      ],
+      [
+        34.046647,
+        74.81193
+      ],
+      [
+        34.046469,
+        74.812358
+      ],
+      [
+        34.046328,
+        74.812771
+      ],
+      [
+        34.046267,
+        74.813152
+      ],
+      [
+        34.046313,
+        74.813864
+      ],
+      [
+        34.046277,
+        74.814158
+      ],
+      [
+        34.045926,
+        74.815095
+      ],
+      [
+        34.045731,
+        74.815543
+      ],
+      [
+        34.045622,
+        74.815711
+      ],
+      [
+        34.045335,
+        74.81608
+      ],
+      [
+        34.04501,
+        74.816391
+      ],
+      [
+        34.044533,
+        74.816913
+      ],
+      [
+        34.044059,
+        74.817286
+      ],
+      [
+        34.043515,
+        74.817651
+      ],
+      [
+        34.043188,
+        74.817832
+      ],
+      [
+        34.042724,
+        74.818185
+      ],
+      [
+        34.042565,
+        74.818277
+      ],
+      [
+        34.041869,
+        74.818674
+      ],
+      [
+        34.041674,
+        74.818723
+      ],
+      [
+        34.041171,
+        74.818728
+      ],
+      [
+        34.040909,
+        74.818685
+      ],
+      [
+        34.040341,
+        74.818747
+      ],
+      [
+        34.03966,
+        74.81881
+      ],
+      [
+        34.038937,
+        74.818745
+      ],
+      [
+        34.037809,
+        74.818575
+      ],
+      [
+        34.036152,
+        74.818562
+      ],
+      [
+        34.033323,
+        74.820144
+      ],
+      [
+        34.031645,
+        74.821069
+      ],
+      [
+        34.030889,
+        74.821712
+      ],
+      [
+        34.029464,
+        74.822752
+      ],
+      [
+        34.02869,
+        74.823374
+      ],
+      [
+        34.027714,
+        74.82405
+      ],
+      [
+        34.026848,
+        74.824715
+      ]
+    ]
+  },
+  {
+    "id": "R24",
+    "display_name": null,
+    "from_junction_id": "mill-stop",
+    "from_junction_name": "Mill stop",
+    "from_confident": true,
+    "to_junction_id": "hawal",
+    "to_junction_name": "Hawal",
+    "to_confident": true,
+    "length_m": 1132.0,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.120545,
+        74.806736
+      ],
+      [
+        34.11939,
+        74.806525
+      ],
+      [
+        34.118754,
+        74.806416
+      ],
+      [
+        34.118204,
+        74.806346
+      ],
+      [
+        34.117052,
+        74.806291
+      ],
+      [
+        34.116047,
+        74.806296
+      ],
+      [
+        34.115077,
+        74.80633
+      ],
+      [
+        34.114529,
+        74.806526
+      ],
+      [
+        34.114187,
+        74.806794
+      ],
+      [
+        34.113553,
+        74.807417
+      ],
+      [
+        34.113058,
+        74.807994
+      ],
+      [
+        34.112114,
+        74.808632
+      ],
+      [
+        34.111205,
+        74.809427
+      ]
+    ]
+  },
+  {
+    "id": "R25",
+    "display_name": null,
+    "from_junction_id": "jk-bank-hq",
+    "from_junction_name": "JK Bank HQ",
+    "from_confident": true,
+    "to_junction_id": "router-8",
+    "to_junction_name": "Router 8",
+    "to_confident": true,
+    "length_m": 106.9,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.076568,
+        74.828952
+      ],
+      [
+        34.076534,
+        74.82881
+      ],
+      [
+        34.076324,
+        74.827829
+      ]
+    ]
+  },
+  {
+    "id": "R27",
+    "display_name": null,
+    "from_junction_id": "ikhwan-chowk",
+    "from_junction_name": "Ikhwan Chowk",
+    "from_confident": true,
+    "to_junction_id": "sangermal",
+    "to_junction_name": "Sangermal",
+    "to_confident": true,
+    "length_m": 965.7,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.083199,
+        74.819449
+      ],
+      [
+        34.082341,
+        74.819343
+      ],
+      [
+        34.081148,
+        74.819614
+      ],
+      [
+        34.080005,
+        74.819849
+      ],
+      [
+        34.079641,
+        74.81995
+      ],
+      [
+        34.078956,
+        74.819901
+      ],
+      [
+        34.078462,
+        74.819949
+      ],
+      [
+        34.074741,
+        74.821333
+      ]
+    ]
+  },
+  {
+    "id": "R28",
+    "display_name": null,
+    "from_junction_id": "trc",
+    "from_junction_name": "TRC",
+    "from_confident": true,
+    "to_junction_id": "router-8",
+    "to_junction_name": "Router 8",
+    "to_confident": true,
+    "length_m": 378.2,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.073061,
+        74.828965
+      ],
+      [
+        34.074465,
+        74.828539
+      ],
+      [
+        34.076329,
+        74.82783
+      ]
+    ]
+  },
+  {
+    "id": "R29",
+    "display_name": null,
+    "from_junction_id": "router-8",
+    "from_junction_name": "Router 8",
+    "from_confident": true,
+    "to_junction_id": "sangermal",
+    "to_junction_name": "Sangermal",
+    "to_confident": true,
+    "length_m": 622.9,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.07633,
+        74.827844
+      ],
+      [
+        34.074648,
+        74.821392
+      ]
+    ]
+  },
+  {
+    "id": "R30",
+    "display_name": null,
+    "from_junction_id": "sangermal",
+    "from_junction_name": "Sangermal",
+    "from_confident": true,
+    "to_junction_id": "jee-enn",
+    "to_junction_name": "Jee Enn",
+    "to_confident": true,
+    "length_m": 126.0,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.074643,
+        74.82139
+      ],
+      [
+        34.07432,
+        74.820078
+      ]
+    ]
+  },
+  {
+    "id": "R31",
+    "display_name": null,
+    "from_junction_id": "poloview",
+    "from_junction_name": "Poloview",
+    "from_confident": true,
+    "to_junction_id": "jee-enn",
+    "to_junction_name": "Jee Enn",
+    "to_confident": true,
+    "length_m": 195.8,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.072613,
+        74.820066
+      ],
+      [
+        34.074371,
+        74.819973
+      ]
+    ]
+  },
+  {
+    "id": "R32",
+    "display_name": null,
+    "from_junction_id": "jee-enn",
+    "from_junction_name": "Jee Enn",
+    "from_confident": true,
+    "to_junction_id": "regal-crossing",
+    "to_junction_name": "Regal Crossing",
+    "to_confident": true,
+    "length_m": 435.9,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.074325,
+        74.820118
+      ],
+      [
+        34.074059,
+        74.818878
+      ],
+      [
+        34.073878,
+        74.818046
+      ],
+      [
+        34.073616,
+        74.817033
+      ],
+      [
+        34.073251,
+        74.815568
+      ]
+    ]
+  },
+  {
+    "id": "R33",
+    "display_name": null,
+    "from_junction_id": "regal-crossing",
+    "from_junction_name": "Regal Crossing",
+    "from_confident": true,
+    "to_junction_id": "regal-crossing",
+    "to_junction_name": "Regal Crossing",
+    "to_confident": true,
+    "length_m": 67.3,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.072762,
+        74.815853
+      ],
+      [
+        34.073345,
+        74.815657
+      ]
+    ]
+  },
+  {
+    "id": "R34",
+    "display_name": null,
+    "from_junction_id": "regal-crossing",
+    "from_junction_name": "Regal Crossing",
+    "from_confident": true,
+    "to_junction_id": "clock-tower",
+    "to_junction_name": "Clock Tower",
+    "to_confident": true,
+    "length_m": 505.8,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073256,
+        74.815567
+      ],
+      [
+        34.0722,
+        74.81132
+      ],
+      [
+        34.071929,
+        74.810315
+      ]
+    ]
+  },
+  {
+    "id": "R36",
+    "display_name": null,
+    "from_junction_id": "iqbal-park",
+    "from_junction_name": "Iqbal Park",
+    "from_confident": true,
+    "to_junction_id": "jehangir-chowk",
+    "to_junction_name": "Jehangir Chowk",
+    "to_confident": true,
+    "length_m": 831.2,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.064131,
+        74.803405
+      ],
+      [
+        34.06657,
+        74.803687
+      ],
+      [
+        34.067032,
+        74.803663
+      ],
+      [
+        34.069147,
+        74.803529
+      ],
+      [
+        34.070937,
+        74.803589
+      ],
+      [
+        34.071518,
+        74.803951
+      ]
+    ]
+  },
+  {
+    "id": "High Court to Amirakadal Bridge",
+    "display_name": null,
+    "from_junction_id": "router-10",
+    "from_junction_name": "Router 10",
+    "from_confident": false,
+    "to_junction_id": "jehangir-chowk",
+    "to_junction_name": "Jehangir Chowk",
+    "to_confident": true,
+    "length_m": 333.2,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.071487,
+        74.806205
+      ],
+      [
+        34.071522,
+        74.803963
+      ],
+      [
+        34.071962,
+        74.802695
+      ]
+    ]
+  },
+  {
+    "id": "R39",
+    "display_name": null,
+    "from_junction_id": "barbar-shah",
+    "from_junction_name": "Barbar Shah",
+    "from_confident": true,
+    "to_junction_id": "ikhwan-chowk",
+    "to_junction_name": "Ikhwan Chowk",
+    "to_confident": false,
+    "length_m": 633.3,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.078419,
+        74.813253
+      ],
+      [
+        34.078406,
+        74.814293
+      ],
+      [
+        34.078693,
+        74.815693
+      ],
+      [
+        34.079008,
+        74.817146
+      ],
+      [
+        34.079164,
+        74.817786
+      ],
+      [
+        34.079385,
+        74.818576
+      ],
+      [
+        34.079691,
+        74.819917
+      ]
+    ]
+  },
+  {
+    "id": "R40",
+    "display_name": null,
+    "from_junction_id": "secretariate",
+    "from_junction_name": "Secretariate",
+    "from_confident": true,
+    "to_junction_id": "jehangir-chowk",
+    "to_junction_name": "Jehangir Chowk",
+    "to_confident": true,
+    "length_m": 367.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073423,
+        74.799149
+      ],
+      [
+        34.072594,
+        74.800943
+      ],
+      [
+        34.071952,
+        74.802712
+      ]
+    ]
+  },
+  {
+    "id": "R41",
+    "display_name": null,
+    "from_junction_id": "clock-tower",
+    "from_junction_name": "Clock Tower",
+    "from_confident": true,
+    "to_junction_id": "router-10",
+    "to_junction_name": "Router 10",
+    "to_confident": false,
+    "length_m": 386.1,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.071931,
+        74.810327
+      ],
+      [
+        34.071672,
+        74.809317
+      ],
+      [
+        34.071608,
+        74.808779
+      ],
+      [
+        34.071557,
+        74.807934
+      ],
+      [
+        34.071477,
+        74.807226
+      ],
+      [
+        34.071492,
+        74.806197
+      ]
+    ]
+  },
+  {
+    "id": "R42",
+    "display_name": null,
+    "from_junction_id": "secretariate",
+    "from_junction_name": "Secretariate",
+    "from_confident": true,
+    "to_junction_id": "fire-services",
+    "to_junction_name": "Fire Services",
+    "to_confident": true,
+    "length_m": 253.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073401,
+        74.799227
+      ],
+      [
+        34.074615,
+        74.796903
+      ]
+    ]
+  },
+  {
+    "id": "R43",
+    "display_name": null,
+    "from_junction_id": "karan-nagar",
+    "from_junction_name": "Karan Nagar",
+    "from_confident": true,
+    "to_junction_id": "seikdafr",
+    "to_junction_name": "Seikdafr",
+    "to_confident": true,
+    "length_m": 1981.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.079532,
+        74.799945
+      ],
+      [
+        34.079527,
+        74.799959
+      ],
+      [
+        34.081547,
+        74.798442
+      ],
+      [
+        34.083565,
+        74.797147
+      ],
+      [
+        34.086419,
+        74.795645
+      ],
+      [
+        34.088423,
+        74.794254
+      ],
+      [
+        34.089007,
+        74.793542
+      ],
+      [
+        34.089638,
+        74.793089
+      ],
+      [
+        34.090297,
+        74.792864
+      ],
+      [
+        34.090686,
+        74.79276
+      ],
+      [
+        34.091971,
+        74.791904
+      ],
+      [
+        34.094657,
+        74.791434
+      ],
+      [
+        34.095522,
+        74.791659
+      ]
+    ]
+  },
+  {
+    "id": "R46",
+    "display_name": null,
+    "from_junction_id": "rainawari",
+    "from_junction_name": "Rainawari",
+    "from_confident": false,
+    "to_junction_id": "rainawari-hospital",
+    "to_junction_name": "Rainawari Hospital",
+    "to_confident": true,
+    "length_m": 604.4,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.102154,
+        74.821959
+      ],
+      [
+        34.09778,
+        74.822891
+      ],
+      [
+        34.0971,
+        74.822015
+      ]
+    ]
+  },
+  {
+    "id": "R47",
+    "display_name": null,
+    "from_junction_id": "rainawari-hospital",
+    "from_junction_name": "Rainawari Hospital",
+    "from_confident": true,
+    "to_junction_id": "sheeraz",
+    "to_junction_name": "Sheeraz",
+    "to_confident": true,
+    "length_m": 640.4,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.09712,
+        74.822011
+      ],
+      [
+        34.096342,
+        74.821507
+      ],
+      [
+        34.0961,
+        74.821378
+      ],
+      [
+        34.095413,
+        74.821023
+      ],
+      [
+        34.094864,
+        74.82075
+      ],
+      [
+        34.093292,
+        74.820032
+      ],
+      [
+        34.092368,
+        74.819529
+      ],
+      [
+        34.091862,
+        74.819196
+      ]
+    ]
+  },
+  {
+    "id": "R48",
+    "display_name": null,
+    "from_junction_id": "sheeraz",
+    "from_junction_name": "Sheeraz",
+    "from_confident": true,
+    "to_junction_id": "nowhatta",
+    "to_junction_name": "Nowhatta",
+    "to_confident": true,
+    "length_m": 1062.8,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.091854,
+        74.819267
+      ],
+      [
+        34.09236,
+        74.817899
+      ],
+      [
+        34.092993,
+        74.817117
+      ],
+      [
+        34.093831,
+        74.815763
+      ],
+      [
+        34.095038,
+        74.813824
+      ],
+      [
+        34.095497,
+        74.81349
+      ],
+      [
+        34.096189,
+        74.813057
+      ],
+      [
+        34.097108,
+        74.812433
+      ],
+      [
+        34.098523,
+        74.811448
+      ]
+    ]
+  },
+  {
+    "id": "R49",
+    "display_name": null,
+    "from_junction_id": "nowhatta",
+    "from_junction_name": "Nowhatta",
+    "from_confident": true,
+    "to_junction_id": "gojwara",
+    "to_junction_name": "Gojwara",
+    "to_confident": true,
+    "length_m": 381.5,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.098493,
+        74.811391
+      ],
+      [
+        34.098298,
+        74.811006
+      ],
+      [
+        34.098626,
+        74.810727
+      ],
+      [
+        34.099225,
+        74.810467
+      ],
+      [
+        34.09968,
+        74.810086
+      ],
+      [
+        34.100214,
+        74.809754
+      ],
+      [
+        34.101036,
+        74.809425
+      ]
+    ]
+  },
+  {
+    "id": "R50",
+    "display_name": null,
+    "from_junction_id": "hawal",
+    "from_junction_name": "Hawal",
+    "from_confident": true,
+    "to_junction_id": "hawal",
+    "to_junction_name": "Hawal",
+    "to_confident": false,
+    "length_m": 231.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.111219,
+        74.80943
+      ],
+      [
+        34.110699,
+        74.809418
+      ],
+      [
+        34.110219,
+        74.809393
+      ],
+      [
+        34.109143,
+        74.809243
+      ]
+    ]
+  },
+  {
+    "id": "R51",
+    "display_name": null,
+    "from_junction_id": "hawal",
+    "from_junction_name": "Hawal",
+    "from_confident": false,
+    "to_junction_id": "gojwara",
+    "to_junction_name": "Gojwara",
+    "to_confident": true,
+    "length_m": 911.5,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.109166,
+        74.809255
+      ],
+      [
+        34.107487,
+        74.809088
+      ],
+      [
+        34.106638,
+        74.808972
+      ],
+      [
+        34.105807,
+        74.808933
+      ],
+      [
+        34.104471,
+        74.808852
+      ],
+      [
+        34.103049,
+        74.808836
+      ],
+      [
+        34.10154,
+        74.809245
+      ],
+      [
+        34.101042,
+        74.809426
+      ]
+    ]
+  },
+  {
+    "id": "R52",
+    "display_name": null,
+    "from_junction_id": "gojwara",
+    "from_junction_name": "Gojwara",
+    "from_confident": true,
+    "to_junction_id": "gojwara",
+    "to_junction_name": "Gojwara",
+    "to_confident": true,
+    "length_m": 0,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.101084,
+        74.809395
+      ]
+    ]
+  },
+  {
+    "id": "R55",
+    "display_name": null,
+    "from_junction_id": "rajouri-kadal",
+    "from_junction_name": "Rajouri Kadal",
+    "from_confident": true,
+    "to_junction_id": "seikdafr",
+    "to_junction_name": "Seikdafr",
+    "to_confident": true,
+    "length_m": 1441.9,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.09935,
+        74.80537
+      ],
+      [
+        34.099615,
+        74.804956
+      ],
+      [
+        34.099713,
+        74.804362
+      ],
+      [
+        34.099382,
+        74.803795
+      ],
+      [
+        34.099281,
+        74.803544
+      ],
+      [
+        34.09892,
+        74.802327
+      ],
+      [
+        34.098516,
+        74.801849
+      ],
+      [
+        34.098158,
+        74.801331
+      ],
+      [
+        34.097648,
+        74.800473
+      ],
+      [
+        34.096917,
+        74.799905
+      ],
+      [
+        34.0967,
+        74.799718
+      ],
+      [
+        34.09637,
+        74.799152
+      ],
+      [
+        34.095905,
+        74.798421
+      ],
+      [
+        34.095456,
+        74.797427
+      ],
+      [
+        34.095165,
+        74.79644
+      ],
+      [
+        34.095008,
+        74.795416
+      ],
+      [
+        34.095242,
+        74.794035
+      ],
+      [
+        34.095571,
+        74.791836
+      ]
+    ]
+  },
+  {
+    "id": "R56",
+    "display_name": null,
+    "from_junction_id": "dalgate",
+    "from_junction_name": "Dalgate",
+    "from_confident": true,
+    "to_junction_id": "police-golf-course",
+    "to_junction_name": "Police Golf Course",
+    "to_confident": true,
+    "length_m": 4159.7,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.080284,
+        74.829373
+      ],
+      [
+        34.080532,
+        74.829567
+      ],
+      [
+        34.080948,
+        74.830107
+      ],
+      [
+        34.081024,
+        74.830157
+      ],
+      [
+        34.082059,
+        74.832335
+      ],
+      [
+        34.082311,
+        74.832915
+      ],
+      [
+        34.082505,
+        74.833396
+      ],
+      [
+        34.08356,
+        74.835376
+      ],
+      [
+        34.084821,
+        74.837155
+      ],
+      [
+        34.085608,
+        74.838361
+      ],
+      [
+        34.088128,
+        74.842114
+      ],
+      [
+        34.088652,
+        74.84299
+      ],
+      [
+        34.089126,
+        74.84407
+      ],
+      [
+        34.089437,
+        74.845308
+      ],
+      [
+        34.089493,
+        74.845715
+      ],
+      [
+        34.089155,
+        74.846373
+      ],
+      [
+        34.088128,
+        74.847718
+      ],
+      [
+        34.087298,
+        74.849016
+      ],
+      [
+        34.086215,
+        74.850647
+      ],
+      [
+        34.08235,
+        74.854669
+      ],
+      [
+        34.082083,
+        74.855648
+      ],
+      [
+        34.083592,
+        74.862199
+      ],
+      [
+        34.08382,
+        74.86274
+      ],
+      [
+        34.086173,
+        74.864295
+      ],
+      [
+        34.086874,
+        74.864875
+      ]
+    ]
+  },
+  {
+    "id": "R57",
+    "display_name": null,
+    "from_junction_id": "hmt",
+    "from_junction_name": "HMT",
+    "from_confident": true,
+    "to_junction_id": "router-1",
+    "to_junction_name": "Router 1",
+    "to_confident": false,
+    "length_m": 6277.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.10932,
+        74.745237
+      ],
+      [
+        34.112963,
+        74.713101
+      ],
+      [
+        34.119554,
+        74.687985
+      ],
+      [
+        34.121084,
+        74.67876
+      ]
+    ]
+  },
+  {
+    "id": "R62",
+    "display_name": null,
+    "from_junction_id": "khayam-chowk-p-1",
+    "from_junction_name": "Khayam Chowk P-1",
+    "from_confident": true,
+    "to_junction_id": "jk-bank-hq",
+    "to_junction_name": "JK Bank HQ",
+    "to_confident": true,
+    "length_m": 1218.0,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.084688,
+        74.822885
+      ],
+      [
+        34.083179,
+        74.824832
+      ],
+      [
+        34.082883,
+        74.825007
+      ],
+      [
+        34.082017,
+        74.826635
+      ],
+      [
+        34.080064,
+        74.829209
+      ],
+      [
+        34.076762,
+        74.829599
+      ],
+      [
+        34.076592,
+        74.828899
+      ]
+    ]
+  },
+  {
+    "id": "R63",
+    "display_name": null,
+    "from_junction_id": "khayam-chowk-p-1",
+    "from_junction_name": "Khayam Chowk P-1",
+    "from_confident": true,
+    "to_junction_id": "sheeraz",
+    "to_junction_name": "Sheeraz",
+    "to_confident": true,
+    "length_m": 944.2,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.084672,
+        74.822893
+      ],
+      [
+        34.085037,
+        74.822639
+      ],
+      [
+        34.085309,
+        74.822753
+      ],
+      [
+        34.085551,
+        74.823035
+      ],
+      [
+        34.085807,
+        74.823144
+      ],
+      [
+        34.08611,
+        74.823296
+      ],
+      [
+        34.086364,
+        74.823399
+      ],
+      [
+        34.087027,
+        74.822844
+      ],
+      [
+        34.087398,
+        74.82263
+      ],
+      [
+        34.088838,
+        74.822035
+      ],
+      [
+        34.089096,
+        74.821854
+      ],
+      [
+        34.089664,
+        74.821188
+      ],
+      [
+        34.090847,
+        74.82016
+      ],
+      [
+        34.091867,
+        74.819205
+      ]
+    ]
+  },
+  {
+    "id": "R64",
+    "display_name": null,
+    "from_junction_id": "nit",
+    "from_junction_name": "NIT",
+    "from_confident": true,
+    "to_junction_id": "rainawari",
+    "to_junction_name": "Rainawari",
+    "to_confident": true,
+    "length_m": 3519.7,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.125009,
+        74.837577
+      ],
+      [
+        34.121013,
+        74.835395
+      ],
+      [
+        34.116237,
+        74.835959
+      ],
+      [
+        34.113371,
+        74.836926
+      ],
+      [
+        34.112476,
+        74.837407
+      ],
+      [
+        34.111656,
+        74.83743
+      ],
+      [
+        34.104728,
+        74.831983
+      ],
+      [
+        34.104393,
+        74.830007
+      ],
+      [
+        34.10457,
+        74.828551
+      ],
+      [
+        34.104479,
+        74.827358
+      ],
+      [
+        34.104321,
+        74.826639
+      ],
+      [
+        34.103297,
+        74.82344
+      ],
+      [
+        34.103109,
+        74.823027
+      ],
+      [
+        34.102848,
+        74.822581
+      ],
+      [
+        34.102515,
+        74.822275
+      ],
+      [
+        34.102333,
+        74.822175
+      ],
+      [
+        34.102011,
+        74.822084
+      ],
+      [
+        34.102028,
+        74.822144
+      ],
+      [
+        34.102048,
+        74.822124
+      ],
+      [
+        34.102163,
+        74.822023
+      ],
+      [
+        34.102092,
+        74.82198
+      ]
+    ]
+  },
+  {
+    "id": "R65",
+    "display_name": null,
+    "from_junction_id": "mehjoor",
+    "from_junction_name": "Mehjoor",
+    "from_confident": true,
+    "to_junction_id": "sonwar",
+    "to_junction_name": "Sonwar",
+    "to_confident": false,
+    "length_m": 4955.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.039727,
+        74.87761
+      ],
+      [
+        34.039932,
+        74.877631
+      ],
+      [
+        34.039829,
+        74.877747
+      ],
+      [
+        34.03998,
+        74.877772
+      ],
+      [
+        34.042956,
+        74.87248
+      ],
+      [
+        34.045676,
+        74.870661
+      ],
+      [
+        34.047402,
+        74.867938
+      ],
+      [
+        34.048571,
+        74.866146
+      ],
+      [
+        34.049968,
+        74.86363
+      ],
+      [
+        34.054948,
+        74.860774
+      ],
+      [
+        34.055705,
+        74.860108
+      ],
+      [
+        34.062921,
+        74.849444
+      ],
+      [
+        34.068501,
+        74.843636
+      ],
+      [
+        34.069207,
+        74.843039
+      ],
+      [
+        34.06957,
+        74.842485
+      ],
+      [
+        34.070506,
+        74.840703
+      ]
+    ]
+  },
+  {
+    "id": "R68",
+    "display_name": null,
+    "from_junction_id": "khanyar-near-police-station",
+    "from_junction_name": "Khanyar near police station",
+    "from_confident": true,
+    "to_junction_id": "khanyar",
+    "to_junction_name": "Khanyar",
+    "to_confident": true,
+    "length_m": 288.4,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.092808,
+        74.812761
+      ],
+      [
+        34.092932,
+        74.813058
+      ],
+      [
+        34.092971,
+        74.813622
+      ],
+      [
+        34.093082,
+        74.814111
+      ],
+      [
+        34.093317,
+        74.814455
+      ],
+      [
+        34.094097,
+        74.815323
+      ]
+    ]
+  },
+  {
+    "id": "R69",
+    "display_name": null,
+    "from_junction_id": "ikhwan-chowk",
+    "from_junction_name": "Ikhwan Chowk",
+    "from_confident": true,
+    "to_junction_id": "khanyar-near-police-station",
+    "to_junction_name": "Khanyar near police station",
+    "to_confident": true,
+    "length_m": 1267.2,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.083232,
+        74.819497
+      ],
+      [
+        34.083917,
+        74.819517
+      ],
+      [
+        34.085335,
+        74.81911
+      ],
+      [
+        34.086109,
+        74.818573
+      ],
+      [
+        34.08767,
+        74.817506
+      ],
+      [
+        34.088474,
+        74.816624
+      ],
+      [
+        34.090304,
+        74.814956
+      ],
+      [
+        34.090873,
+        74.814507
+      ],
+      [
+        34.091129,
+        74.814003
+      ],
+      [
+        34.091386,
+        74.813768
+      ],
+      [
+        34.092249,
+        74.813343
+      ],
+      [
+        34.092629,
+        74.813071
+      ],
+      [
+        34.092849,
+        74.812786
+      ]
+    ]
+  },
+  {
+    "id": "R70",
+    "display_name": null,
+    "from_junction_id": "qamerwari",
+    "from_junction_name": "Qamerwari",
+    "from_confident": true,
+    "to_junction_id": "fire-services",
+    "to_junction_name": "Fire Services",
+    "to_confident": true,
+    "length_m": 2988.8,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.091189,
+        74.777445
+      ],
+      [
+        34.082176,
+        74.783497
+      ],
+      [
+        34.081611,
+        74.784319
+      ],
+      [
+        34.081612,
+        74.7929
+      ],
+      [
+        34.080415,
+        74.794217
+      ],
+      [
+        34.075833,
+        74.794703
+      ],
+      [
+        34.075455,
+        74.794735
+      ],
+      [
+        34.074619,
+        74.796897
+      ]
+    ]
+  },
+  {
+    "id": "R72",
+    "display_name": null,
+    "from_junction_id": "router-2",
+    "from_junction_name": "Router 2",
+    "from_confident": false,
+    "to_junction_id": "bemina-bypass",
+    "to_junction_name": "Bemina Bypass",
+    "to_confident": true,
+    "length_m": 5878.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.101945,
+        74.737961
+      ],
+      [
+        34.101051,
+        74.737386
+      ],
+      [
+        34.100056,
+        74.736631
+      ],
+      [
+        34.099361,
+        74.735903
+      ],
+      [
+        34.099122,
+        74.735693
+      ],
+      [
+        34.098248,
+        74.736995
+      ],
+      [
+        34.097406,
+        74.738133
+      ],
+      [
+        34.096436,
+        74.739324
+      ],
+      [
+        34.0958,
+        74.739919
+      ],
+      [
+        34.095171,
+        74.74018
+      ],
+      [
+        34.093661,
+        74.740295
+      ],
+      [
+        34.091192,
+        74.739006
+      ],
+      [
+        34.090594,
+        74.739199
+      ],
+      [
+        34.090358,
+        74.73923
+      ],
+      [
+        34.08875,
+        74.738346
+      ],
+      [
+        34.088523,
+        74.73827
+      ],
+      [
+        34.088004,
+        74.739371
+      ],
+      [
+        34.087199,
+        74.739706
+      ],
+      [
+        34.086291,
+        74.740141
+      ],
+      [
+        34.085619,
+        74.739988
+      ],
+      [
+        34.085599,
+        74.73999
+      ],
+      [
+        34.085006,
+        74.739832
+      ],
+      [
+        34.083664,
+        74.740137
+      ],
+      [
+        34.08239,
+        74.740603
+      ],
+      [
+        34.080731,
+        74.741494
+      ],
+      [
+        34.079792,
+        74.742102
+      ],
+      [
+        34.07944,
+        74.742507
+      ],
+      [
+        34.079424,
+        74.742567
+      ],
+      [
+        34.079005,
+        74.743761
+      ],
+      [
+        34.07867,
+        74.744105
+      ],
+      [
+        34.078653,
+        74.744126
+      ],
+      [
+        34.078502,
+        74.744712
+      ],
+      [
+        34.078385,
+        74.745502
+      ],
+      [
+        34.078234,
+        74.746513
+      ],
+      [
+        34.078279,
+        74.747014
+      ],
+      [
+        34.078017,
+        74.747942
+      ],
+      [
+        34.077756,
+        74.748634
+      ],
+      [
+        34.077558,
+        74.74925
+      ],
+      [
+        34.077315,
+        74.749775
+      ],
+      [
+        34.076982,
+        74.750266
+      ],
+      [
+        34.076951,
+        74.75032
+      ],
+      [
+        34.076636,
+        74.750666
+      ],
+      [
+        34.076203,
+        74.750925
+      ],
+      [
+        34.076173,
+        74.751049
+      ],
+      [
+        34.075847,
+        74.751566
+      ],
+      [
+        34.075464,
+        74.751906
+      ],
+      [
+        34.075434,
+        74.751959
+      ],
+      [
+        34.075405,
+        74.752047
+      ],
+      [
+        34.075156,
+        74.75226
+      ],
+      [
+        34.074879,
+        74.752473
+      ],
+      [
+        34.074244,
+        74.752844
+      ],
+      [
+        34.073642,
+        74.753483
+      ],
+      [
+        34.073011,
+        74.75426
+      ],
+      [
+        34.072455,
+        74.75507
+      ],
+      [
+        34.071797,
+        74.755708
+      ],
+      [
+        34.070658,
+        74.756399
+      ],
+      [
+        34.070502,
+        74.756664
+      ],
+      [
+        34.070277,
+        74.757089
+      ],
+      [
+        34.070277,
+        74.757135
+      ],
+      [
+        34.070235,
+        74.757371
+      ],
+      [
+        34.070221,
+        74.757372
+      ],
+      [
+        34.069765,
+        74.757471
+      ],
+      [
+        34.069385,
+        74.757547
+      ],
+      [
+        34.06909,
+        74.757872
+      ],
+      [
+        34.069051,
+        74.757965
+      ],
+      [
+        34.068747,
+        74.758301
+      ],
+      [
+        34.068708,
+        74.758319
+      ],
+      [
+        34.069337,
+        74.759035
+      ],
+      [
+        34.070002,
+        74.760428
+      ],
+      [
+        34.070079,
+        74.760607
+      ],
+      [
+        34.070543,
+        74.762263
+      ],
+      [
+        34.070827,
+        74.763994
+      ],
+      [
+        34.071319,
+        74.765386
+      ],
+      [
+        34.071813,
+        74.767122
+      ],
+      [
+        34.0721,
+        74.76773
+      ]
+    ]
+  },
+  {
+    "id": "Duct from Hazratbal towards Rainawari - 1",
+    "display_name": null,
+    "from_junction_id": "hazratbal",
+    "from_junction_name": "Hazratbal",
+    "from_confident": true,
+    "to_junction_id": "rainawari",
+    "to_junction_name": "Rainawari",
+    "to_confident": true,
+    "length_m": 3835.8,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.127945,
+        74.838778
+      ],
+      [
+        34.126819,
+        74.838777
+      ],
+      [
+        34.125326,
+        74.837521
+      ],
+      [
+        34.120967,
+        74.835374
+      ],
+      [
+        34.116262,
+        74.835948
+      ],
+      [
+        34.113776,
+        74.836779
+      ],
+      [
+        34.11246,
+        74.837387
+      ],
+      [
+        34.111639,
+        74.837389
+      ],
+      [
+        34.104664,
+        74.831938
+      ],
+      [
+        34.104362,
+        74.829897
+      ],
+      [
+        34.104544,
+        74.828554
+      ],
+      [
+        34.104511,
+        74.827472
+      ],
+      [
+        34.10358,
+        74.824234
+      ],
+      [
+        34.102989,
+        74.822785
+      ],
+      [
+        34.102147,
+        74.821964
+      ]
+    ]
+  },
+  {
+    "id": "Rambagh to Natipora",
+    "display_name": null,
+    "from_junction_id": "rambagh",
+    "from_junction_name": "Rambagh",
+    "from_confident": true,
+    "to_junction_id": "natipora",
+    "to_junction_name": "Natipora",
+    "to_confident": true,
+    "length_m": 617.6,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.051951,
+        74.805029
+      ],
+      [
+        34.049713,
+        74.806731
+      ],
+      [
+        34.047224,
+        74.808547
+      ]
+    ]
+  },
+  {
+    "id": "Abdullah Bridge to Convent",
+    "display_name": null,
+    "from_junction_id": "zero-bridge-rajbagh",
+    "from_junction_name": "Zero Bridge Rajbagh",
+    "from_confident": true,
+    "to_junction_id": "router-9",
+    "to_junction_name": "Router 9",
+    "to_confident": true,
+    "length_m": 578.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.069165,
+        74.827846
+      ],
+      [
+        34.070311,
+        74.821724
+      ]
+    ]
+  },
+  {
+    "id": "OFC from Pandach to Habak",
+    "display_name": null,
+    "from_junction_id": "habak",
+    "from_junction_name": "Habak",
+    "from_confident": true,
+    "to_junction_id": "pandach",
+    "to_junction_name": "Pandach",
+    "to_confident": true,
+    "length_m": 7158.4,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.13958,
+        74.839616
+      ],
+      [
+        34.140844,
+        74.838736
+      ],
+      [
+        34.14135,
+        74.838443
+      ],
+      [
+        34.143131,
+        74.8384
+      ],
+      [
+        34.144191,
+        74.837509
+      ],
+      [
+        34.149322,
+        74.83705
+      ],
+      [
+        34.149297,
+        74.836841
+      ],
+      [
+        34.150219,
+        74.83629
+      ],
+      [
+        34.156529,
+        74.833865
+      ],
+      [
+        34.160042,
+        74.830705
+      ],
+      [
+        34.164083,
+        74.828637
+      ],
+      [
+        34.165775,
+        74.827817
+      ],
+      [
+        34.168384,
+        74.822537
+      ],
+      [
+        34.175193,
+        74.818978
+      ],
+      [
+        34.178484,
+        74.818298
+      ],
+      [
+        34.191613,
+        74.808321
+      ],
+      [
+        34.195948,
+        74.807658
+      ]
+    ]
+  },
+  {
+    "id": "Duct from TRC to De Linz",
+    "display_name": null,
+    "from_junction_id": "router-8",
+    "from_junction_name": "Router 8",
+    "from_confident": true,
+    "to_junction_id": "trc",
+    "to_junction_name": "TRC",
+    "to_confident": true,
+    "length_m": 300.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073313,
+        74.82571
+      ],
+      [
+        34.073061,
+        74.82896
+      ]
+    ]
+  },
+  {
+    "id": "Duct laid by Contractor of RR",
+    "display_name": null,
+    "from_junction_id": "poloview",
+    "from_junction_name": "Poloview",
+    "from_confident": true,
+    "to_junction_id": "trc",
+    "to_junction_name": "TRC",
+    "to_confident": false,
+    "length_m": 528.9,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.072652,
+        74.82016
+      ],
+      [
+        34.072406,
+        74.822216
+      ],
+      [
+        34.072698,
+        74.823176
+      ],
+      [
+        34.073278,
+        74.825724
+      ]
+    ]
+  },
+  {
+    "id": "Convent to Rajbagh PS",
+    "display_name": null,
+    "from_junction_id": "router-9",
+    "from_junction_name": "Router 9",
+    "from_confident": true,
+    "to_junction_id": "rajbagh-near-ps",
+    "to_junction_name": "RajBagh Near PS",
+    "to_confident": true,
+    "length_m": 560.3,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.070312,
+        74.821726
+      ],
+      [
+        34.070305,
+        74.821492
+      ],
+      [
+        34.065478,
+        74.822012
+      ]
+    ]
+  },
+  {
+    "id": "Rajbagh PS to Jawahar Nagar 1",
+    "display_name": null,
+    "from_junction_id": "rajbagh-near-ps",
+    "from_junction_name": "RajBagh Near PS",
+    "from_confident": true,
+    "to_junction_id": "rajbagh-near-ps",
+    "to_junction_name": "RajBagh Near PS",
+    "to_confident": false,
+    "length_m": 363.5,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.065486,
+        74.822004
+      ],
+      [
+        34.064123,
+        74.818417
+      ]
+    ]
+  },
+  {
+    "id": "Jawahar Nagar 1 to Jawahar Nagar 2",
+    "display_name": null,
+    "from_junction_id": "rajbagh-near-ps",
+    "from_junction_name": "RajBagh Near PS",
+    "from_confident": true,
+    "to_junction_id": "jawahar-nagar",
+    "to_junction_name": "Jawahar Nagar",
+    "to_confident": true,
+    "length_m": 502.6,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.064139,
+        74.818462
+      ],
+      [
+        34.064118,
+        74.817773
+      ],
+      [
+        34.06471,
+        74.815076
+      ],
+      [
+        34.063996,
+        74.813298
+      ]
+    ]
+  },
+  {
+    "id": "Jawahar Nagar 2 to Fly over",
+    "display_name": null,
+    "from_junction_id": "jawahar-nagar",
+    "from_junction_name": "Jawahar Nagar",
+    "from_confident": true,
+    "to_junction_id": "stadium-curve",
+    "to_junction_name": "Stadium Curve",
+    "to_confident": true,
+    "length_m": 677.1,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.064016,
+        74.813248
+      ],
+      [
+        34.062663,
+        74.808676
+      ],
+      [
+        34.062033,
+        74.806325
+      ],
+      [
+        34.062016,
+        74.806338
+      ]
+    ]
+  },
+  {
+    "id": "River Front RHS 5",
+    "display_name": null,
+    "from_junction_id": "poloview",
+    "from_junction_name": "Poloview",
+    "from_confident": true,
+    "to_junction_id": "regal-crossing",
+    "to_junction_name": "Regal Crossing",
+    "to_confident": false,
+    "length_m": 342.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.072272,
+        74.81961
+      ],
+      [
+        34.072255,
+        74.818852
+      ],
+      [
+        34.072034,
+        74.818123
+      ],
+      [
+        34.071681,
+        74.817252
+      ],
+      [
+        34.07134,
+        74.816774
+      ],
+      [
+        34.071127,
+        74.816247
+      ]
+    ]
+  },
+  {
+    "id": "River Front RHS 6",
+    "display_name": null,
+    "from_junction_id": "regal-crossing",
+    "from_junction_name": "Regal Crossing",
+    "from_confident": false,
+    "to_junction_id": "clock-tower",
+    "to_junction_name": "Clock Tower",
+    "to_confident": false,
+    "length_m": 456.4,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.071142,
+        74.816256
+      ],
+      [
+        34.070499,
+        74.815078
+      ],
+      [
+        34.069928,
+        74.814229
+      ],
+      [
+        34.069395,
+        74.813205
+      ],
+      [
+        34.068933,
+        74.812096
+      ]
+    ]
+  },
+  {
+    "id": "River Front RHS 7",
+    "display_name": null,
+    "from_junction_id": "clock-tower",
+    "from_junction_name": "Clock Tower",
+    "from_confident": false,
+    "to_junction_id": "wq-monitor-3",
+    "to_junction_name": "WQ Monitor 3",
+    "to_confident": false,
+    "length_m": 253.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.068927,
+        74.812103
+      ],
+      [
+        34.068472,
+        74.81084
+      ],
+      [
+        34.068483,
+        74.809703
+      ],
+      [
+        34.068479,
+        74.809462
+      ]
+    ]
+  },
+  {
+    "id": "Single duct for Smart Elements on LHS",
+    "display_name": null,
+    "from_junction_id": "presentation-convent",
+    "from_junction_name": "Presentation convent",
+    "from_confident": true,
+    "to_junction_id": "wq-monitor-3",
+    "to_junction_name": "WQ Monitor 3",
+    "to_confident": false,
+    "length_m": 1343.4,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.070299,
+        74.821492
+      ],
+      [
+        34.070608,
+        74.820544
+      ],
+      [
+        34.070669,
+        74.819953
+      ],
+      [
+        34.070574,
+        74.819205
+      ],
+      [
+        34.070439,
+        74.818313
+      ],
+      [
+        34.070048,
+        74.816928
+      ],
+      [
+        34.069861,
+        74.816264
+      ],
+      [
+        34.069174,
+        74.815082
+      ],
+      [
+        34.067788,
+        74.812832
+      ],
+      [
+        34.067681,
+        74.812552
+      ],
+      [
+        34.067126,
+        74.811275
+      ],
+      [
+        34.066621,
+        74.810345
+      ],
+      [
+        34.066623,
+        74.809762
+      ],
+      [
+        34.066597,
+        74.809399
+      ],
+      [
+        34.066252,
+        74.808397
+      ]
+    ]
+  },
+  {
+    "id": "Jehangir Chowk to DC Office",
+    "display_name": null,
+    "from_junction_id": "router-10",
+    "from_junction_name": "Router 10",
+    "from_confident": true,
+    "to_junction_id": "jehangir-chowk",
+    "to_junction_name": "Jehangir Chowk",
+    "to_confident": true,
+    "length_m": 415.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.071477,
+        74.804462
+      ],
+      [
+        34.074014,
+        74.804443
+      ],
+      [
+        34.075139,
+        74.804954
+      ]
+    ]
+  },
+  {
+    "id": "DC Office towards Karan Nagar",
+    "display_name": null,
+    "from_junction_id": "router-10",
+    "from_junction_name": "Router 10",
+    "from_confident": false,
+    "to_junction_id": "karan-nagar",
+    "to_junction_name": "Karan Nagar",
+    "to_confident": true,
+    "length_m": 742.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.074006,
+        74.804426
+      ],
+      [
+        34.075175,
+        74.804104
+      ],
+      [
+        34.075754,
+        74.803675
+      ],
+      [
+        34.076688,
+        74.802485
+      ],
+      [
+        34.079422,
+        74.799958
+      ]
+    ]
+  },
+  {
+    "id": "Habak towards NIT",
+    "display_name": null,
+    "from_junction_id": "habak",
+    "from_junction_name": "Habak",
+    "from_confident": true,
+    "to_junction_id": "hazratbal",
+    "to_junction_name": "Hazratbal",
+    "to_confident": true,
+    "length_m": 803.1,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.139577,
+        74.839667
+      ],
+      [
+        34.138266,
+        74.839899
+      ],
+      [
+        34.137021,
+        74.840133
+      ],
+      [
+        34.135454,
+        74.840715
+      ],
+      [
+        34.134007,
+        74.841244
+      ],
+      [
+        34.132521,
+        74.841191
+      ]
+    ]
+  },
+  {
+    "id": "U1",
+    "display_name": "Untitled Path",
+    "from_junction_id": "router-5",
+    "from_junction_name": "Router 5",
+    "from_confident": false,
+    "to_junction_id": "router-5",
+    "to_junction_name": "Router 5",
+    "to_confident": false,
+    "length_m": 1505.5,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.03847,
+        74.870693
+      ],
+      [
+        34.039998,
+        74.877212
+      ],
+      [
+        34.039826,
+        74.879164
+      ],
+      [
+        34.042922,
+        74.872543
+      ]
+    ]
+  },
+  {
+    "id": "U2",
+    "display_name": "Untitled Path",
+    "from_junction_id": "sanat-nagar",
+    "from_junction_name": "Sanat Nagar",
+    "from_confident": true,
+    "to_junction_id": "sanat-nagar",
+    "to_junction_name": "Sanat Nagar",
+    "to_confident": false,
+    "length_m": 978.5,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.0289,
+        74.798285
+      ],
+      [
+        34.025199,
+        74.807918
+      ]
+    ]
+  },
+  {
+    "id": "U3",
+    "display_name": "Untitled Path",
+    "from_junction_id": "nowgam-bypass",
+    "from_junction_name": "Nowgam Bypass",
+    "from_confident": true,
+    "to_junction_id": "router-5",
+    "to_junction_name": "Router 5",
+    "to_confident": false,
+    "length_m": 4654.5,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.026807,
+        74.824669
+      ],
+      [
+        34.035722,
+        74.859752
+      ],
+      [
+        34.036719,
+        74.859722
+      ],
+      [
+        34.038017,
+        74.860411
+      ],
+      [
+        34.038512,
+        74.862755
+      ],
+      [
+        34.03807,
+        74.865741
+      ],
+      [
+        34.037455,
+        74.866772
+      ],
+      [
+        34.03848,
+        74.870764
+      ]
+    ]
+  },
+  {
+    "id": "U4",
+    "display_name": "Untitled Path",
+    "from_junction_id": "fire-services",
+    "from_junction_name": "Fire Services",
+    "from_confident": true,
+    "to_junction_id": "karan-nagar",
+    "to_junction_name": "Karan Nagar",
+    "to_confident": true,
+    "length_m": 606.3,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.074555,
+        74.797054
+      ],
+      [
+        34.079446,
+        74.799964
+      ]
+    ]
+  },
+  {
+    "id": "U5",
+    "display_name": "Untitled Path",
+    "from_junction_id": "skims",
+    "from_junction_name": "SKIMS",
+    "from_confident": true,
+    "to_junction_id": "skims",
+    "to_junction_name": "SKIMS",
+    "to_confident": true,
+    "length_m": 47.7,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.135535,
+        74.802993
+      ],
+      [
+        34.135955,
+        74.803096
+      ]
+    ]
+  },
+  {
+    "id": "U6",
+    "display_name": "Untitled Path",
+    "from_junction_id": "seikdafr",
+    "from_junction_name": "Seikdafr",
+    "from_confident": true,
+    "to_junction_id": "seikdafr",
+    "to_junction_name": "Seikdafr",
+    "to_confident": true,
+    "length_m": 88.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.095517,
+        74.791655
+      ],
+      [
+        34.095545,
+        74.791686
+      ],
+      [
+        34.095541,
+        74.791756
+      ],
+      [
+        34.095468,
+        74.792392
+      ],
+      [
+        34.095632,
+        74.792401
+      ]
+    ]
+  },
+  {
+    "id": "U7",
+    "display_name": "Untitled Path",
+    "from_junction_id": "buchpora",
+    "from_junction_name": "Buchpora",
+    "from_confident": true,
+    "to_junction_id": "habak",
+    "to_junction_name": "Habak",
+    "to_confident": true,
+    "length_m": 3332.2,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.151981,
+        74.808471
+      ],
+      [
+        34.151497,
+        74.812483
+      ],
+      [
+        34.148591,
+        74.819009
+      ],
+      [
+        34.148178,
+        74.820331
+      ],
+      [
+        34.147694,
+        74.821306
+      ],
+      [
+        34.147318,
+        74.822238
+      ],
+      [
+        34.147145,
+        74.822907
+      ],
+      [
+        34.147389,
+        74.823928
+      ],
+      [
+        34.14721,
+        74.824599
+      ],
+      [
+        34.146213,
+        74.825597
+      ],
+      [
+        34.144672,
+        74.827111
+      ],
+      [
+        34.142638,
+        74.831006
+      ],
+      [
+        34.142066,
+        74.832299
+      ],
+      [
+        34.141786,
+        74.832631
+      ],
+      [
+        34.140734,
+        74.834472
+      ],
+      [
+        34.140772,
+        74.838603
+      ],
+      [
+        34.139522,
+        74.839603
+      ]
+    ]
+  },
+  {
+    "id": "U8",
+    "display_name": "Untitled Path",
+    "from_junction_id": "habak",
+    "from_junction_name": "Habak",
+    "from_confident": true,
+    "to_junction_id": "police-golf-course",
+    "to_junction_name": "Police Golf Course",
+    "to_confident": false,
+    "length_m": 10433.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.139531,
+        74.839629
+      ],
+      [
+        34.1405,
+        74.840885
+      ],
+      [
+        34.1414,
+        74.841317
+      ],
+      [
+        34.143348,
+        74.841589
+      ],
+      [
+        34.145213,
+        74.842484
+      ],
+      [
+        34.145904,
+        74.843259
+      ],
+      [
+        34.146023,
+        74.844794
+      ],
+      [
+        34.145894,
+        74.847206
+      ],
+      [
+        34.147124,
+        74.853109
+      ],
+      [
+        34.147031,
+        74.854962
+      ],
+      [
+        34.146561,
+        74.856108
+      ],
+      [
+        34.143217,
+        74.860714
+      ],
+      [
+        34.135323,
+        74.866649
+      ],
+      [
+        34.13456,
+        74.867937
+      ],
+      [
+        34.132105,
+        74.873564
+      ],
+      [
+        34.131558,
+        74.874514
+      ],
+      [
+        34.130102,
+        74.875857
+      ],
+      [
+        34.128233,
+        74.877086
+      ],
+      [
+        34.126026,
+        74.877811
+      ],
+      [
+        34.119914,
+        74.880485
+      ],
+      [
+        34.118873,
+        74.880841
+      ],
+      [
+        34.117083,
+        74.880965
+      ],
+      [
+        34.115791,
+        74.880254
+      ],
+      [
+        34.114386,
+        74.878884
+      ],
+      [
+        34.113863,
+        74.878523
+      ],
+      [
+        34.111521,
+        74.877697
+      ],
+      [
+        34.110096,
+        74.87723
+      ],
+      [
+        34.109548,
+        74.876931
+      ],
+      [
+        34.107971,
+        74.87567
+      ],
+      [
+        34.107367,
+        74.875702
+      ],
+      [
+        34.105352,
+        74.87682
+      ],
+      [
+        34.104362,
+        74.877121
+      ],
+      [
+        34.102394,
+        74.877107
+      ],
+      [
+        34.100108,
+        74.877041
+      ],
+      [
+        34.099211,
+        74.876722
+      ],
+      [
+        34.098412,
+        74.876003
+      ],
+      [
+        34.098233,
+        74.875532
+      ],
+      [
+        34.097841,
+        74.873444
+      ],
+      [
+        34.097526,
+        74.872981
+      ],
+      [
+        34.096974,
+        74.872483
+      ],
+      [
+        34.096498,
+        74.872465
+      ],
+      [
+        34.095762,
+        74.872683
+      ],
+      [
+        34.0943,
+        74.873048
+      ],
+      [
+        34.093752,
+        74.873048
+      ],
+      [
+        34.093256,
+        74.872807
+      ],
+      [
+        34.092844,
+        74.872172
+      ],
+      [
+        34.092634,
+        74.871197
+      ],
+      [
+        34.092124,
+        74.86789
+      ],
+      [
+        34.090815,
+        74.866829
+      ],
+      [
+        34.08855,
+        74.866893
+      ],
+      [
+        34.088061,
+        74.866643
+      ],
+      [
+        34.087635,
+        74.865577
+      ],
+      [
+        34.086839,
+        74.864857
+      ]
+    ]
+  },
+  {
+    "id": "U9",
+    "display_name": "Untitled Path",
+    "from_junction_id": "dalgate",
+    "from_junction_name": "Dalgate",
+    "from_confident": true,
+    "to_junction_id": "dalgate",
+    "to_junction_name": "Dalgate",
+    "to_confident": true,
+    "length_m": 29.6,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.080061,
+        74.82922
+      ],
+      [
+        34.080292,
+        74.829378
+      ]
+    ]
+  },
+  {
+    "id": "U10",
+    "display_name": "Untitled Path",
+    "from_junction_id": "buchpora",
+    "from_junction_name": "Buchpora",
+    "from_confident": false,
+    "to_junction_id": "buchpora",
+    "to_junction_name": "Buchpora",
+    "to_confident": true,
+    "length_m": 581.3,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.152705,
+        74.802326
+      ],
+      [
+        34.152635,
+        74.8037
+      ],
+      [
+        34.152512,
+        74.804366
+      ],
+      [
+        34.152133,
+        74.805034
+      ],
+      [
+        34.152166,
+        74.807142
+      ],
+      [
+        34.152024,
+        74.808471
+      ]
+    ]
+  },
+  {
+    "id": "U11",
+    "display_name": "Untitled Path",
+    "from_junction_id": "buchpora",
+    "from_junction_name": "Buchpora",
+    "from_confident": true,
+    "to_junction_id": "pandach",
+    "to_junction_name": "Pandach",
+    "to_confident": true,
+    "length_m": 4845.2,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.152098,
+        74.808399
+      ],
+      [
+        34.154975,
+        74.808175
+      ],
+      [
+        34.160882,
+        74.808305
+      ],
+      [
+        34.166024,
+        74.808324
+      ],
+      [
+        34.171707,
+        74.808263
+      ],
+      [
+        34.179005,
+        74.807716
+      ],
+      [
+        34.182488,
+        74.807579
+      ],
+      [
+        34.19064,
+        74.807594
+      ],
+      [
+        34.195614,
+        74.80687
+      ]
+    ]
+  },
+  {
+    "id": "U12",
+    "display_name": "Untitled Path",
+    "from_junction_id": "pandach",
+    "from_junction_name": "Pandach",
+    "from_confident": true,
+    "to_junction_id": "pandach",
+    "to_junction_name": "Pandach",
+    "to_confident": true,
+    "length_m": 84.3,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.195569,
+        74.806809
+      ],
+      [
+        34.195805,
+        74.807681
+      ]
+    ]
+  },
+  {
+    "id": "U13",
+    "display_name": "Untitled Path",
+    "from_junction_id": "rajouri-kadal",
+    "from_junction_name": "Rajouri Kadal",
+    "from_confident": true,
+    "to_junction_id": "gojwara",
+    "to_junction_name": "Gojwara",
+    "to_confident": true,
+    "length_m": 402.8,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.099409,
+        74.805522
+      ],
+      [
+        34.099812,
+        74.806071
+      ],
+      [
+        34.101006,
+        74.809413
+      ]
+    ]
+  },
+  {
+    "id": "U14",
+    "display_name": "Untitled Path",
+    "from_junction_id": "trc",
+    "from_junction_name": "TRC",
+    "from_confident": false,
+    "to_junction_id": "poloview",
+    "to_junction_name": "Poloview",
+    "to_confident": false,
+    "length_m": 315.9,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073329,
+        74.825744
+      ],
+      [
+        34.072584,
+        74.822654
+      ],
+      [
+        34.072738,
+        74.822553
+      ]
+    ]
+  },
+  {
+    "id": "U15",
+    "display_name": "Untitled Path",
+    "from_junction_id": "trc",
+    "from_junction_name": "TRC",
+    "from_confident": true,
+    "to_junction_id": "wq-monitor-2",
+    "to_junction_name": "WQ Monitor 2",
+    "to_confident": true,
+    "length_m": 179.9,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.070861,
+        74.828235
+      ],
+      [
+        34.070683,
+        74.830177
+      ]
+    ]
+  },
+  {
+    "id": "U16",
+    "display_name": "Untitled Path",
+    "from_junction_id": "sangermal",
+    "from_junction_name": "Sangermal",
+    "from_confident": true,
+    "to_junction_id": "bohri-kadal",
+    "to_junction_name": "Bohri Kadal",
+    "to_confident": false,
+    "length_m": 2517.9,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.074747,
+        74.821328
+      ],
+      [
+        34.078544,
+        74.819934
+      ],
+      [
+        34.079644,
+        74.819936
+      ],
+      [
+        34.08234,
+        74.819332
+      ],
+      [
+        34.083986,
+        74.819444
+      ],
+      [
+        34.085293,
+        74.819052
+      ],
+      [
+        34.087675,
+        74.817481
+      ],
+      [
+        34.089052,
+        74.816038
+      ],
+      [
+        34.090897,
+        74.814394
+      ],
+      [
+        34.091272,
+        74.813548
+      ],
+      [
+        34.09262,
+        74.812941
+      ],
+      [
+        34.093797,
+        74.811009
+      ],
+      [
+        34.094493,
+        74.810564
+      ]
+    ]
+  },
+  {
+    "id": "U17",
+    "display_name": "Untitled Path",
+    "from_junction_id": "ikhwan-chowk",
+    "from_junction_name": "Ikhwan Chowk",
+    "from_confident": false,
+    "to_junction_id": "barbar-shah",
+    "to_junction_name": "Barbar Shah",
+    "to_confident": true,
+    "length_m": 628.1,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.079673,
+        74.81991
+      ],
+      [
+        34.078421,
+        74.814211
+      ],
+      [
+        34.078453,
+        74.813288
+      ]
+    ]
+  },
+  {
+    "id": "U18",
+    "display_name": "Untitled Path",
+    "from_junction_id": "wq-monitor-3",
+    "from_junction_name": "WQ Monitor 3",
+    "from_confident": false,
+    "to_junction_id": "iqbal-park",
+    "to_junction_name": "Iqbal Park",
+    "to_confident": true,
+    "length_m": 592.0,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.066228,
+        74.808379
+      ],
+      [
+        34.065558,
+        74.8087
+      ],
+      [
+        34.065227,
+        74.807847
+      ],
+      [
+        34.064681,
+        74.805445
+      ],
+      [
+        34.064146,
+        74.803422
+      ]
+    ]
+  },
+  {
+    "id": "U19",
+    "display_name": "Untitled Path",
+    "from_junction_id": "iqbal-park",
+    "from_junction_name": "Iqbal Park",
+    "from_confident": true,
+    "to_junction_id": "stadium-curve",
+    "to_junction_name": "Stadium Curve",
+    "to_confident": true,
+    "length_m": 299.5,
+    "confirmed": true,
+    "diagram_confirmed": true,
+    "path": [
+      [
+        34.064639,
+        74.805458
+      ],
+      [
+        34.062073,
+        74.806447
+      ]
+    ]
+  },
+  {
+    "id": "U20",
+    "display_name": "Untitled Path",
+    "from_junction_id": "mill-stop",
+    "from_junction_name": "Mill stop",
+    "from_confident": true,
+    "to_junction_id": "skims",
+    "to_junction_name": "SKIMS",
+    "to_confident": true,
+    "length_m": 1765.5,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.120599,
+        74.806896
+      ],
+      [
+        34.122193,
+        74.806781
+      ],
+      [
+        34.123267,
+        74.806296
+      ],
+      [
+        34.125522,
+        74.80627
+      ],
+      [
+        34.127343,
+        74.806262
+      ],
+      [
+        34.128611,
+        74.805814
+      ],
+      [
+        34.130709,
+        74.805087
+      ],
+      [
+        34.132376,
+        74.804472
+      ],
+      [
+        34.133381,
+        74.8044
+      ],
+      [
+        34.134656,
+        74.803793
+      ],
+      [
+        34.136005,
+        74.803204
+      ]
+    ]
+  },
+  {
+    "id": "U21",
+    "display_name": "Untitled Path",
+    "from_junction_id": "bohri-kadal",
+    "from_junction_name": "Bohri Kadal",
+    "from_confident": true,
+    "to_junction_id": "router-7",
+    "to_junction_name": "Router 7",
+    "to_confident": true,
+    "length_m": 199.1,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.094535,
+        74.808547
+      ],
+      [
+        34.094429,
+        74.808929
+      ],
+      [
+        34.094665,
+        74.809736
+      ],
+      [
+        34.094616,
+        74.810356
+      ],
+      [
+        34.094482,
+        74.810586
+      ]
+    ]
+  },
+  {
+    "id": "Sonawar Arm 4",
+    "display_name": null,
+    "from_junction_id": "sonwar",
+    "from_junction_name": "Sonwar",
+    "from_confident": true,
+    "to_junction_id": "sonwar",
+    "to_junction_name": "Sonwar",
+    "to_confident": true,
+    "length_m": 29.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073522,
+        74.835922
+      ],
+      [
+        34.07378,
+        74.835974
+      ]
+    ]
+  },
+  {
+    "id": "Sonawar Arm 3",
+    "display_name": null,
+    "from_junction_id": "sonwar",
+    "from_junction_name": "Sonwar",
+    "from_confident": true,
+    "to_junction_id": "sonwar",
+    "to_junction_name": "Sonwar",
+    "to_confident": true,
+    "length_m": 25.3,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073522,
+        74.835926
+      ],
+      [
+        34.073396,
+        74.836155
+      ]
+    ]
+  },
+  {
+    "id": "Sonawar Arm 2",
+    "display_name": null,
+    "from_junction_id": "sonwar",
+    "from_junction_name": "Sonwar",
+    "from_confident": true,
+    "to_junction_id": "sonwar",
+    "to_junction_name": "Sonwar",
+    "to_confident": true,
+    "length_m": 58.0,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073524,
+        74.835934
+      ],
+      [
+        34.073712,
+        74.836522
+      ]
+    ]
+  },
+  {
+    "id": "Sonawar Arm 1",
+    "display_name": null,
+    "from_junction_id": "sonwar",
+    "from_junction_name": "Sonwar",
+    "from_confident": true,
+    "to_junction_id": "sonwar",
+    "to_junction_name": "Sonwar",
+    "to_confident": true,
+    "length_m": 63.3,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073525,
+        74.835918
+      ],
+      [
+        34.073468,
+        74.835235
+      ]
+    ]
+  },
+  {
+    "id": "U22",
+    "display_name": "Untitled Path",
+    "from_junction_id": "tengpora-crossing-by-pass",
+    "from_junction_name": "Tengpora crossing By pass",
+    "from_confident": false,
+    "to_junction_id": "jawahar-nagar",
+    "to_junction_name": "Jawahar Nagar",
+    "to_confident": true,
+    "length_m": 4160.2,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.058032,
+        74.786367
+      ],
+      [
+        34.05511,
+        74.793537
+      ],
+      [
+        34.054327,
+        74.800562
+      ],
+      [
+        34.053927,
+        74.801751
+      ],
+      [
+        34.055503,
+        74.806657
+      ],
+      [
+        34.057726,
+        74.811323
+      ],
+      [
+        34.059392,
+        74.817822
+      ],
+      [
+        34.059335,
+        74.820341
+      ],
+      [
+        34.064027,
+        74.813569
+      ]
+    ]
+  },
+  {
+    "id": "U23",
+    "display_name": "Untitled Path",
+    "from_junction_id": "rambagh",
+    "from_junction_name": "Rambagh",
+    "from_confident": true,
+    "to_junction_id": "rambagh",
+    "to_junction_name": "Rambagh",
+    "to_confident": false,
+    "length_m": 441.6,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.052085,
+        74.80504
+      ],
+      [
+        34.055954,
+        74.80396
+      ]
+    ]
+  },
+  {
+    "id": "U24",
+    "display_name": "Untitled Path",
+    "from_junction_id": "secretariate",
+    "from_junction_name": "Secretariate",
+    "from_confident": true,
+    "to_junction_id": "rek-chowk",
+    "to_junction_name": "Rek Chowk",
+    "to_confident": true,
+    "length_m": 328.1,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.073427,
+        74.799118
+      ],
+      [
+        34.072778,
+        74.797458
+      ],
+      [
+        34.072623,
+        74.796448
+      ],
+      [
+        34.072415,
+        74.795795
+      ]
+    ]
+  },
+  {
+    "id": "U25",
+    "display_name": "Untitled Path",
+    "from_junction_id": "tengpora-crossing-by-pass",
+    "from_junction_name": "Tengpora crossing By pass",
+    "from_confident": true,
+    "to_junction_id": "rek-chowk",
+    "to_junction_name": "Rek Chowk",
+    "to_confident": true,
+    "length_m": 1566.9,
+    "confirmed": true,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.06249,
+        74.784583
+      ],
+      [
+        34.063219,
+        74.785329
+      ],
+      [
+        34.063775,
+        74.786445
+      ],
+      [
+        34.064161,
+        74.787341
+      ],
+      [
+        34.065786,
+        74.789104
+      ],
+      [
+        34.066706,
+        74.790455
+      ],
+      [
+        34.067933,
+        74.791063
+      ],
+      [
+        34.068409,
+        74.79164
+      ],
+      [
+        34.069092,
+        74.792047
+      ],
+      [
+        34.070644,
+        74.793343
+      ],
+      [
+        34.072036,
+        74.794297
+      ],
+      [
+        34.071978,
+        74.794821
+      ],
+      [
+        34.072396,
+        74.79578
+      ]
+    ]
+  },
+  {
+    "id": "U26",
+    "display_name": "Untitled Path",
+    "from_junction_id": "barbar-shah",
+    "from_junction_name": "Barbar Shah",
+    "from_confident": true,
+    "to_junction_id": "regal-crossing",
+    "to_junction_name": "Regal Crossing",
+    "to_confident": false,
+    "length_m": 856.5,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.078418,
+        74.81322
+      ],
+      [
+        34.07746,
+        74.813135
+      ],
+      [
+        34.077194,
+        74.812473
+      ],
+      [
+        34.074923,
+        74.811322
+      ],
+      [
+        34.07363,
+        74.810493
+      ],
+      [
+        34.072829,
+        74.812976
+      ]
+    ]
+  },
+  {
+    "id": "U27",
+    "display_name": "Untitled Path",
+    "from_junction_id": "router-5",
+    "from_junction_name": "Router 5",
+    "from_confident": false,
+    "to_junction_id": "sonwar",
+    "to_junction_name": "Sonwar",
+    "to_confident": false,
+    "length_m": 4333.6,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.042919,
+        74.872462
+      ],
+      [
+        34.045705,
+        74.870804
+      ],
+      [
+        34.047443,
+        74.868133
+      ],
+      [
+        34.050424,
+        74.863609
+      ],
+      [
+        34.054919,
+        74.861047
+      ],
+      [
+        34.061029,
+        74.852462
+      ],
+      [
+        34.063851,
+        74.84817
+      ],
+      [
+        34.069347,
+        74.843114
+      ],
+      [
+        34.070502,
+        74.840483
+      ]
+    ]
+  },
+  {
+    "id": "U28",
+    "display_name": "Untitled Path",
+    "from_junction_id": "mehjoor",
+    "from_junction_name": "Mehjoor",
+    "from_confident": false,
+    "to_junction_id": "mehjoor",
+    "to_junction_name": "Mehjoor",
+    "to_confident": false,
+    "length_m": 656.8,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.039838,
+        74.879165
+      ],
+      [
+        34.038987,
+        74.879404
+      ],
+      [
+        34.038034,
+        74.878603
+      ],
+      [
+        34.036517,
+        74.877224
+      ],
+      [
+        34.038445,
+        74.877726
+      ]
+    ]
+  },
+  {
+    "id": "U29",
+    "display_name": "Untitled Path",
+    "from_junction_id": "kohni-khan-dalgate",
+    "from_junction_name": "Kohni Khan Dalgate",
+    "from_confident": false,
+    "to_junction_id": "ikhwan-chowk",
+    "to_junction_name": "Ikhwan Chowk",
+    "to_confident": false,
+    "length_m": 99.7,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.081047,
+        74.822406
+      ],
+      [
+        34.081382,
+        74.822192
+      ],
+      [
+        34.081511,
+        74.821587
+      ]
+    ]
+  },
+  {
+    "id": "U30",
+    "display_name": "Untitled Path",
+    "from_junction_id": "bota-kadal",
+    "from_junction_name": "Bota Kadal",
+    "from_confident": false,
+    "to_junction_id": "nit",
+    "to_junction_name": "NIT",
+    "to_confident": false,
+    "length_m": 1096.9,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.121584,
+        74.815663
+      ],
+      [
+        34.121625,
+        74.815744
+      ],
+      [
+        34.121027,
+        74.815939
+      ],
+      [
+        34.120997,
+        74.817299
+      ],
+      [
+        34.120854,
+        74.818904
+      ],
+      [
+        34.120752,
+        74.819203
+      ],
+      [
+        34.120596,
+        74.81955
+      ],
+      [
+        34.120628,
+        74.821532
+      ],
+      [
+        34.120814,
+        74.823579
+      ],
+      [
+        34.120966,
+        74.826912
+      ]
+    ]
+  },
+  {
+    "id": "U31",
+    "display_name": "Untitled Path",
+    "from_junction_id": "nit",
+    "from_junction_name": "NIT",
+    "from_confident": false,
+    "to_junction_id": "bota-kadal",
+    "to_junction_name": "Bota Kadal",
+    "to_confident": false,
+    "length_m": 3380.6,
+    "confirmed": false,
+    "diagram_confirmed": false,
+    "path": [
+      [
+        34.129006,
+        74.824774
+      ],
+      [
+        34.123501,
+        74.827244
+      ],
+      [
+        34.120869,
+        74.826849
+      ],
+      [
+        34.118054,
+        74.827292
+      ],
+      [
+        34.115778,
+        74.829124
+      ],
+      [
+        34.112616,
+        74.829783
+      ],
+      [
+        34.115984,
+        74.819381
+      ],
+      [
+        34.117436,
+        74.815076
+      ]
+    ]
+  }
+]

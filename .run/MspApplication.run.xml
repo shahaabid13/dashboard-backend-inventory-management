@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MspApplication" type="Application" factoryName="Application">
+    <envs>
+      <env name="AD_LDAP_PASSWORD" value="Admin@245,SDNET_DB_PASSWORD=#Root@321#" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.inventory.msp.MspApplication" />
+    <module name="msp" />
+    <option name="PROGRAM_PARAMETERS" value="$MAVEN_REPOSITORY$" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

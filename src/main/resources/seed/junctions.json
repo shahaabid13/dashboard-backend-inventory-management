@@ -1,0 +1,803 @@
+[
+  {
+    "id": "aali-masjid",
+    "name": "Aali Masjid",
+    "type": "junction",
+    "lat": 34.10465645602502,
+    "lon": 74.79483757986115,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "baghaat",
+    "name": "Baghaat",
+    "type": "junction",
+    "lat": 34.04480211604182,
+    "lon": 74.80214879678539,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "chasma-shahi-crossing",
+    "name": "Chasma Shahi Crossing",
+    "type": "junction",
+    "lat": 34.09386448073946,
+    "lon": 74.87308804546728,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "barbar-shah",
+    "name": "Barbar Shah",
+    "type": "junction",
+    "lat": 34.07838520612243,
+    "lon": 74.813181351157,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "bemina-bypass",
+    "name": "Bemina Bypass",
+    "type": "junction",
+    "lat": 34.07208676488062,
+    "lon": 74.76775086846773,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "bohri-kadal",
+    "name": "Bohri Kadal",
+    "type": "junction",
+    "lat": 34.09452754019745,
+    "lon": 74.8085133075204,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "bota-kadal",
+    "name": "Bota Kadal",
+    "type": "junction",
+    "lat": 34.12011178918242,
+    "lon": 74.81359005815321,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "buchpora",
+    "name": "Buchpora",
+    "type": "junction",
+    "lat": 34.15207357968893,
+    "lon": 74.80837933576925,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "police-golf-course",
+    "name": "Police Golf Course",
+    "type": "junction",
+    "lat": 34.08423123716238,
+    "lon": 74.8630631958633,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "clock-tower",
+    "name": "Clock Tower",
+    "type": "junction",
+    "lat": 34.07209901142504,
+    "lon": 74.81029920056714,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "dalgate",
+    "name": "Dalgate",
+    "type": "junction",
+    "lat": 34.0801111980192,
+    "lon": 74.82914973246736,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "fire-services",
+    "name": "Fire Services",
+    "type": "junction",
+    "lat": 34.07463948653325,
+    "lon": 74.79716358354939,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "gojwara",
+    "name": "Gojwara",
+    "type": "junction",
+    "lat": 34.10104714196603,
+    "lon": 74.80943246043505,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "habak",
+    "name": "Habak",
+    "type": "junction",
+    "lat": 34.13958274272299,
+    "lon": 74.83971637487394,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "hawal",
+    "name": "Hawal",
+    "type": "junction",
+    "lat": 34.11120990269476,
+    "lon": 74.80942533694704,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "hazratbal",
+    "name": "Hazratbal",
+    "type": "junction",
+    "lat": 34.12792785190909,
+    "lon": 74.83871495104364,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "hmt",
+    "name": "HMT",
+    "type": "junction",
+    "lat": 34.10948230148643,
+    "lon": 74.74464448149249,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "humhama",
+    "name": "Humhama",
+    "type": "junction",
+    "lat": 34.02140927419019,
+    "lon": 74.77031980404266,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "hyderpora",
+    "name": "Hyderpora",
+    "type": "junction",
+    "lat": 34.03777452065741,
+    "lon": 74.79028481215543,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "ikhwan-chowk",
+    "name": "Ikhwan Chowk",
+    "type": "junction",
+    "lat": 34.08322182006358,
+    "lon": 74.81945938358957,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "iqbal-park",
+    "name": "Iqbal Park",
+    "type": "junction",
+    "lat": 34.06420946235957,
+    "lon": 74.80320748041123,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "jawahar-nagar",
+    "name": "Jawahar Nagar",
+    "type": "junction",
+    "lat": 34.06399222122203,
+    "lon": 74.81319727895342,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "jee-enn",
+    "name": "Jee Enn",
+    "type": "junction",
+    "lat": 34.07432377649529,
+    "lon": 74.81994800947439,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "jehangir-chowk",
+    "name": "Jehangir Chowk",
+    "type": "junction",
+    "lat": 34.07165852386485,
+    "lon": 74.80410376489633,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "jk-bank-hq",
+    "name": "JK Bank HQ",
+    "type": "junction",
+    "lat": 34.07625759790265,
+    "lon": 74.8279106670135,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "kaksarai",
+    "name": "KakSarai",
+    "type": "junction",
+    "lat": 34.08639790102582,
+    "lon": 74.79581929047261,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "karan-nagar",
+    "name": "Karan Nagar",
+    "type": "junction",
+    "lat": 34.07952568614196,
+    "lon": 74.79989526819637,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "khanyar",
+    "name": "Khanyar",
+    "type": "junction",
+    "lat": 34.09146120394743,
+    "lon": 74.81368032305842,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "khanyar-near-police-station",
+    "name": "Khanyar near police station",
+    "type": "junction",
+    "lat": 34.09285328048873,
+    "lon": 74.81286077375134,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "khayam-chowk-p-1",
+    "name": "Khayam Chowk P-1",
+    "type": "junction",
+    "lat": 34.08468772135853,
+    "lon": 74.82292219832252,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "kohni-khan-dalgate",
+    "name": "Kohni Khan Dalgate",
+    "type": "junction",
+    "lat": 34.08308374863562,
+    "lon": 74.82473249453125,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "kral-sangri",
+    "name": "Kral sangri",
+    "type": "junction",
+    "lat": 34.10392801356496,
+    "lon": 74.87726754603862,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "mehjoor",
+    "name": "Mehjoor",
+    "type": "junction",
+    "lat": 34.04006629833136,
+    "lon": 74.8774608852949,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "mill-stop",
+    "name": "Mill stop",
+    "type": "junction",
+    "lat": 34.12050278296245,
+    "lon": 74.80682123584667,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "natipora",
+    "name": "Natipora",
+    "type": "junction",
+    "lat": 34.04717228387619,
+    "lon": 74.80859161198057,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "nawakadal",
+    "name": "Nawakadal",
+    "type": "junction",
+    "lat": 34.0958313594322,
+    "lon": 74.79841079229416,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "nit",
+    "name": "NIT",
+    "type": "junction",
+    "lat": 34.12522365073983,
+    "lon": 74.8374228303545,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "nowgam-bypass",
+    "name": "Nowgam Bypass",
+    "type": "junction",
+    "lat": 34.02690653076882,
+    "lon": 74.82473548909789,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "nowgam-pohuru",
+    "name": "Nowgam Pohuru",
+    "type": "junction",
+    "lat": 34.02822751163246,
+    "lon": 74.83052540552545,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "nowhatta",
+    "name": "Nowhatta",
+    "type": "junction",
+    "lat": 34.09837366894878,
+    "lon": 74.8112293644603,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "pandach",
+    "name": "Pandach",
+    "type": "junction",
+    "lat": 34.19619434492482,
+    "lon": 74.80676910984744,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "poloview",
+    "name": "Poloview",
+    "type": "junction",
+    "lat": 34.07264230112177,
+    "lon": 74.82024222523864,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "presentation-convent",
+    "name": "Presentation convent",
+    "type": "junction",
+    "lat": 34.07034106196536,
+    "lon": 74.82143139436225,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "qamerwari",
+    "name": "Qamerwari",
+    "type": "junction",
+    "lat": 34.09110508181837,
+    "lon": 74.77762503877663,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "rainawari-hospital",
+    "name": "Rainawari Hospital",
+    "type": "junction",
+    "lat": 34.09711044820283,
+    "lon": 74.82202139146709,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "rainawari",
+    "name": "Rainawari",
+    "type": "junction",
+    "lat": 34.09785887709697,
+    "lon": 74.82297104130264,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "rajbagh-near-ps",
+    "name": "RajBagh Near PS",
+    "type": "junction",
+    "lat": 34.06560187317297,
+    "lon": 74.82181961551971,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "rajouri-kadal",
+    "name": "Rajouri Kadal",
+    "type": "junction",
+    "lat": 34.0993887538755,
+    "lon": 74.80543505155832,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "rambagh",
+    "name": "Rambagh",
+    "type": "junction",
+    "lat": 34.05176227208715,
+    "lon": 74.80479818169806,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "regal-crossing",
+    "name": "Regal Crossing",
+    "type": "junction",
+    "lat": 34.07339249780709,
+    "lon": 74.81569084166745,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "rek-chowk",
+    "name": "Rek Chowk",
+    "type": "junction",
+    "lat": 34.07239617208778,
+    "lon": 74.79573947133609,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "seikdafr",
+    "name": "Seikdafr",
+    "type": "junction",
+    "lat": 34.09543062614423,
+    "lon": 74.79178620834273,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "sanat-nagar",
+    "name": "Sanat Nagar",
+    "type": "junction",
+    "lat": 34.02909476351923,
+    "lon": 74.79821483407213,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "sangermal",
+    "name": "Sangermal",
+    "type": "junction",
+    "lat": 34.07478841215519,
+    "lon": 74.82138854761855,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "secretariate",
+    "name": "Secretariate",
+    "type": "junction",
+    "lat": 34.07359951972955,
+    "lon": 74.79928788653952,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "sheeraz",
+    "name": "Sheeraz",
+    "type": "junction",
+    "lat": 34.09183496295034,
+    "lon": 74.81922617383061,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "sonwar",
+    "name": "Sonwar",
+    "type": "junction",
+    "lat": 34.07363392324676,
+    "lon": 74.83576156097617,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "skims",
+    "name": "SKIMS",
+    "type": "junction",
+    "lat": 34.13581135202519,
+    "lon": 74.80328533252701,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "stadium-curve",
+    "name": "Stadium Curve",
+    "type": "junction",
+    "lat": 34.06216096278168,
+    "lon": 74.80606060846638,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "tengpora-crossing-by-pass",
+    "name": "Tengpora crossing By pass",
+    "type": "junction",
+    "lat": 34.06244916147492,
+    "lon": 74.78446555658545,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "tengpora-2",
+    "name": "Tengpora-2",
+    "type": "junction",
+    "lat": 34.06517646271336,
+    "lon": 74.77939950228517,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "trc",
+    "name": "TRC",
+    "type": "junction",
+    "lat": 34.07306103536837,
+    "lon": 74.82880269142811,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "yarkand-sarai",
+    "name": "Yarkand Sarai",
+    "type": "junction",
+    "lat": 34.0903258423671,
+    "lon": 74.79290354618811,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "zakura-crossing",
+    "name": "Zakura Crossing",
+    "type": "junction",
+    "lat": 34.15028690161564,
+    "lon": 74.83638629781666,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "zero-bridge-rajbagh",
+    "name": "Zero Bridge Rajbagh",
+    "type": "junction",
+    "lat": 34.06816907082852,
+    "lon": 74.82750801537826,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-2",
+    "name": "Router 2",
+    "type": "router",
+    "lat": 34.10384072406244,
+    "lon": 74.73590029663156,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-1",
+    "name": "Router 1",
+    "type": "router",
+    "lat": 34.10502243122728,
+    "lon": 74.73626664542586,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-3",
+    "name": "Router 3",
+    "type": "router",
+    "lat": 34.09542677097104,
+    "lon": 74.79128339883746,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-4",
+    "name": "Router 4",
+    "type": "router",
+    "lat": 34.03865785992618,
+    "lon": 74.7916119001146,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-5",
+    "name": "Router 5",
+    "type": "router",
+    "lat": 34.04220321698313,
+    "lon": 74.87532522233047,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-6",
+    "name": "Router 6",
+    "type": "router",
+    "lat": 34.18891844874196,
+    "lon": 74.79990759577521,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-7",
+    "name": "Router 7",
+    "type": "router",
+    "lat": 34.09220667451994,
+    "lon": 74.81180662689299,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-8",
+    "name": "Router 8",
+    "type": "router",
+    "lat": 34.07629584586058,
+    "lon": 74.82778668561431,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-9",
+    "name": "Router 9",
+    "type": "router",
+    "lat": 34.07038373914101,
+    "lon": 74.82165869542031,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-10",
+    "name": "Router 10",
+    "type": "router",
+    "lat": 34.07169110364568,
+    "lon": 74.80447993001684,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "router-11",
+    "name": "Router 11",
+    "type": "router",
+    "lat": 34.13911137771917,
+    "lon": 74.84089209185403,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "tattoo-ground",
+    "name": "Tattoo Ground",
+    "type": "junction",
+    "lat": 34.08162328744444,
+    "lon": 74.78429143128899,
+    "has_coordinates": true,
+    "source": "KMZ"
+  },
+  {
+    "id": "abdullah-bridge",
+    "name": "Abdullah Bridge",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "balidan-stambh",
+    "name": "Balidan Stambh",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "balidan-gates",
+    "name": "Balidan gates",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "bus-depot-panthachowk",
+    "name": "Bus Depot PanthaChowk",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "data-center",
+    "name": "Data Center",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "exchange-road",
+    "name": "Exchange Road",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "lala-rukh",
+    "name": "Lala Rukh",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "river-front",
+    "name": "River Front",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "yatri-niwas",
+    "name": "Yatri Niwas",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "zero-bridge-junction",
+    "name": "Zero Bridge Junction",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "Excel-only (needs coordinates)"
+  },
+  {
+    "id": "nowgam-chowk",
+    "name": "Nowgam Chowk",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "IP_inventory_2026-07 (needs real coordinates)"
+  },
+  {
+    "id": "tengpora-1",
+    "name": "Tengpora 1",
+    "type": "junction",
+    "lat": null,
+    "lon": null,
+    "has_coordinates": false,
+    "source": "IP_inventory_2026-07 (needs real coordinates)"
+  }
+]

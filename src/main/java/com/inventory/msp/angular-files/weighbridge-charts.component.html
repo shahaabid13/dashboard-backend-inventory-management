@@ -1,0 +1,143 @@
+<div class="weighbridge-charts-container">
+  <!-- Header -->
+  <div class="charts-header">
+    <h2>Weighbridge Charts & Analytics</h2>
+    <p class="subtitle">Real-time monitoring and trend analysis</p>
+  </div>
+
+  <!-- Date Filters -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <label for="wbSelect">Weighbridge:</label>
+      <select id="wbSelect" [(ngModel)]="selectedWbId" (change)="onDateOrWbChange()" class="form-control">
+        <option [value]="''">-- Select Weighbridge --</option>
+        <option *ngFor="let wb of wbIdOptions" [value]="wb.id">{{ wb.name }}</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="startDate">Start Date:</label>
+      <input
+        type="date"
+        id="startDate"
+        [(ngModel)]="startDate"
+        (change)="onDateOrWbChange()"
+        class="form-control"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label for="endDate">End Date:</label>
+      <input
+        type="date"
+        id="endDate"
+        [(ngModel)]="endDate"
+        (change)="onDateOrWbChange()"
+        class="form-control"
+      />
+    </div>
+
+    <div class="filter-buttons">
+      <button (click)="resetFilters()" class="btn btn-secondary">Reset</button>
+      <button (click)="loadCharts()" class="btn btn-primary">Apply</button>
+      <button (click)="exportChartData()" class="btn btn-info">Export CSV</button>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="chartError" class="alert alert-danger">
+    {{ chartError }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoadingCharts" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading charts...</p>
+  </div>
+
+  <!-- Charts Grid -->
+  <div *ngIf="!isLoadingCharts" class="charts-grid">
+
+    <!-- Net Weight Trend Chart -->
+    <div class="chart-panel">
+      <div class="chart-title">
+        <h3>Net Weight Trend</h3>
+        <span class="chart-info">kg</span>
+      </div>
+      <div class="chart-container">
+        <canvas
+          *ngIf="netWeightChartData.labels && netWeightChartData.labels.length > 0"
+          baseChart
+          type="line"
+          [data]="netWeightChartData"
+          [options]="netWeightChartOptions">
+        </canvas>
+        <div *ngIf="!netWeightChartData.labels || netWeightChartData.labels.length === 0" class="no-data">
+          No data available
+        </div>
+      </div>
+    </div>
+
+    <!-- Gross Weight Trend Chart -->
+    <div class="chart-panel">
+      <div class="chart-title">
+        <h3>Gross Weight Trend</h3>
+        <span class="chart-info">kg</span>
+      </div>
+      <div class="chart-container">
+        <canvas
+          *ngIf="grossWeightChartData.labels && grossWeightChartData.labels.length > 0"
+          baseChart
+          type="line"
+          [data]="grossWeightChartData"
+          [options]="grossWeightChartOptions">
+        </canvas>
+        <div *ngIf="!grossWeightChartData.labels || grossWeightChartData.labels.length === 0" class="no-data">
+          No data available
+        </div>
+      </div>
+    </div>
+
+    <!-- Last 24 Hours Chart -->
+    <div class="chart-panel">
+      <div class="chart-title">
+        <h3>Last 24 Hours Activity</h3>
+        <span class="chart-info">Trips</span>
+      </div>
+      <div class="chart-container">
+        <canvas
+          *ngIf="last24HoursChartData.labels && last24HoursChartData.labels.length > 0"
+          baseChart
+          type="bar"
+          [data]="last24HoursChartData"
+          [options]="last24HoursChartOptions">
+        </canvas>
+        <div *ngIf="!last24HoursChartData.labels || last24HoursChartData.labels.length === 0" class="no-data">
+          No data available
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle Trend Chart -->
+    <div class="chart-panel full-width">
+      <div class="chart-title">
+        <h3>Top Vehicles by Net Weight</h3>
+        <span class="chart-info">kg</span>
+      </div>
+      <div class="chart-container">
+        <canvas
+          *ngIf="vehicleTrendChartData.labels && vehicleTrendChartData.labels.length > 0"
+          baseChart
+          type="bar"
+          [data]="vehicleTrendChartData"
+          [options]="vehicleTrendChartOptions">
+        </canvas>
+        <div *ngIf="!vehicleTrendChartData.labels || vehicleTrendChartData.labels.length === 0" class="no-data">
+          No data available
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
