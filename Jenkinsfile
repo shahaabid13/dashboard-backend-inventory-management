@@ -32,6 +32,10 @@ pipeline {
                         credentialsId: 'windows-staging-winrm',
                         usernameVariable: 'WIN_USER',
                         passwordVariable: 'WIN_PASSWORD'
+                    ),
+                    string(
+                        credentialsId: 'ad-ldap-password',
+                        variable: 'AD_LDAP_PASSWORD'
                     )
                 ]) {
                     sh '''
@@ -40,7 +44,8 @@ pipeline {
                           /var/lib/jenkins/ansible/backend/deploy.yml \
                           -e "backend_jar=$WORKSPACE/target/msp-0.0.1-SNAPSHOT.jar" \
                           -e "ansible_user=$WIN_USER" \
-                          -e "ansible_password=$WIN_PASSWORD"
+                          -e "ansible_password=$WIN_PASSWORD" \
+                          -e "ad_ldap_password=$AD_LDAP_PASSWORD"
                     '''
                 }
             }
@@ -57,3 +62,4 @@ pipeline {
         }
     }
 }
+
