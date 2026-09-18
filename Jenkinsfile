@@ -6,7 +6,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 echo 'Building Spring Boot backend...'
-                sh './mvnw clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
