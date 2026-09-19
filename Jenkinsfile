@@ -6,6 +6,7 @@ pipeline {
         stage('Build Backend') {
             steps {
                 echo 'Building Spring Boot backend...'
+
                 sh 'mvn clean package -DskipTests'
             }
         }
@@ -23,29 +24,25 @@ pipeline {
             }
         }
 
-        stage('Deploy Backend to Staging') {
+        stage('Copy Backend JAR to Staging') {
             steps {
-                echo 'Deploying backend JAR to Windows staging...'
+                echo 'Copying backend JAR to Windows staging...'
 
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'windows-staging-winrm',
                         usernameVariable: 'WIN_USER',
                         passwordVariable: 'WIN_PASSWORD'
-                    ),
-                    string(
-                        credentialsId: 'ad-ldap-password',
-                        variable: 'AD_LDAP_PASSWORD'
                     )
                 ]) {
+
                     sh '''
                         ansible-playbook \
                           -i /var/lib/jenkins/ansible/backend/inventory.ini \
                           /var/lib/jenkins/ansible/backend/deploy.yml \
                           -e "backend_jar=$WORKSPACE/target/msp-0.0.1-SNAPSHOT.jar" \
                           -e "ansible_user=$WIN_USER" \
-                          -e "ansible_password=$WIN_PASSWORD" \
-                          -e "ad_ldap_password=$AD_LDAP_PASSWORD"
+                          -e "ansible_password=$WIN_PASSWORD"
                     '''
                 }
             }
@@ -53,13 +50,13 @@ pipeline {
     }
 
     post {
+
         success {
-            echo 'Backend build and deployment completed successfully.'
+            echo 'Backend JAR build and copy completed successfully.'
         }
 
         failure {
-            echo 'Backend build or deployment failed.'
+            echo 'Backend build or JAR copy failed.'
         }
     }
 }
-
