@@ -24,9 +24,9 @@ pipeline {
             }
         }
 
-        stage('Copy Backend JAR to Staging') {
+        stage('Deploy Backend to Staging') {
             steps {
-                echo 'Copying backend JAR to Windows staging...'
+                echo 'Deploying backend to Windows staging...'
 
                 withCredentials([
                     usernamePassword(
@@ -50,13 +50,12 @@ pipeline {
     }
 
     post {
-
         success {
-            echo 'Backend JAR build and copy completed successfully.'
+            echo 'Backend build and deployment completed successfully.'
         }
 
         failure {
-            echo 'Backend build or JAR copy failed.'
+            echo 'Backend build or deployment failed.'
         }
     }
 }
