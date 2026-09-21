@@ -35,6 +35,7 @@ public class TicketResponse {
     private Long reviewerId;
     private String reviewerUsername;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private LocalDateTime coordinatorAckedAt;
     private LocalDateTime assignedAt;
     private LocalDateTime closedAt;

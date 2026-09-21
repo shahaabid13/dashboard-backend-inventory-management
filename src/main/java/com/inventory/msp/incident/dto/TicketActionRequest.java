@@ -14,8 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TicketActionRequest {
 
-    @NotBlank(message = "Notes are required")
-    private String notes;
+    private String action;
+
+    private String remarks;
 
     // Optional — populated by the mobile field-person app when a photo is
     // captured alongside the acknowledgment. Null/absent for web-app callers.
@@ -28,4 +29,12 @@ public class TicketActionRequest {
     @DecimalMin(value = "-180.0", message = "Longitude must be >= -180")
     @DecimalMax(value = "180.0", message = "Longitude must be <= 180")
     private Double longitude;
+
+    public String getNotes() {
+        return this.remarks;
+    }
+
+    public void setNotes(String notes) {
+        this.remarks = notes;
+    }
 }

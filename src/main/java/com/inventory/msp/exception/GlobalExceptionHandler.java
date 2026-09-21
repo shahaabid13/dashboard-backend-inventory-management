@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.orm.jpa.JpaOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -131,5 +133,30 @@ public class GlobalExceptionHandler {
 
         log.error("Data integrity violation for {}: {}", req.getRequestURI(), message, ex);
         return build(HttpStatus.CONFLICT, safeMessage, req);
+    }
+
+    @ExceptionHandler({ObjectOptimisticLockingFailureException.class, JpaOptimisticLockingFailureException.class})
+    public ResponseEntity<ErrorResponse> handleOptimisticLocking(Exception ex, HttpServletRequest req) {
+        String ticketId = extractTicketId(req.getRequestURI());
+        String message = ticketId != null
+                ? "Ticket #" + ticketId + " could not be updated because it was modified by another request. Please refresh and try again."
+                : "This record was modified by another request. Please refresh and try again.";
+
+        log.warn("Optimistic locking failure for {}: {}", req.getRequestURI(), ex.getMessage());
+        return build(HttpStatus.CONFLICT, message, req);
+    }
+
+    private String extractTicketId(String requestUri) {
+        if (requestUri == null || requestUri.isBlank()) {
+            return null;
+        }
+        String[] parts = requestUri.split("/");
+        for (int i = parts.length - 1; i >= 0; i--) {
+            String part = parts[i];
+            if (part.matches("\\d+")) {
+                return part;
+            }
+        }
+        return null;
     }
 }

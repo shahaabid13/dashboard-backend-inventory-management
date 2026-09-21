@@ -78,8 +78,10 @@ public class NotificationService {
                 "TICKET_ACKNOWLEDGED",
                 "TICKET_ASSIGNED",
                 "TICKET_RESOLVED",
+                "TICKET_REVALIDATION_REQUESTED",
                 "TICKET_ON_HOLD",
                 "TICKET_REOPENED",
+                "TICKET_SENT_FOR_REVIEW",
                 "TICKET_REJECTED"
         );
         if (eventType == null || !valid.contains(eventType)) {
@@ -179,8 +181,10 @@ public class NotificationService {
             case "TICKET_ACKNOWLEDGED" -> "Ticket Acknowledged";
             case "TICKET_ASSIGNED" -> "Reviewer Assigned";
             case "TICKET_RESOLVED" -> "Ticket Resolved";
+            case "TICKET_REVALIDATION_REQUESTED" -> "Revalidation Requested";
             case "TICKET_ON_HOLD" -> "Ticket On Hold";
             case "TICKET_REOPENED" -> "Ticket Reopened";
+            case "TICKET_SENT_FOR_REVIEW" -> "Sent for Review";
             case "TICKET_REJECTED" -> "Ticket Rejected";
             default -> "Ticket Update";
         };
@@ -201,6 +205,33 @@ public class NotificationService {
 
     private Set<UserContact> resolveRecipients(Ticket ticket, String eventType) {
         Set<UserContact> out = new HashSet<>();
+
+        if ("TICKET_REVALIDATION_REQUESTED".equals(eventType)) {
+            AppUser raisedBy = ticket.getRaisedByUser();
+            if (raisedBy != null) {
+                NotificationSettings ns = settingsRepository.findByUsername(raisedBy.getUsername()).orElse(null);
+                out.add(UserContact.fromAppUser(raisedBy, ns));
+            }
+            return out;
+        }
+
+        if ("TICKET_REOPENED".equals(eventType)) {
+            if (ticket.getFieldPerson() != null && ticket.getFieldPerson().getUser() != null) {
+                AppUser fpUser = ticket.getFieldPerson().getUser();
+                NotificationSettings ns = settingsRepository.findByUsername(fpUser.getUsername()).orElse(null);
+                out.add(UserContact.fromAppUser(fpUser, ns));
+            }
+            return out;
+        }
+
+        if ("TICKET_RESOLVED".equals(eventType) || "TICKET_SENT_FOR_REVIEW".equals(eventType)) {
+            if (ticket.getReviewer() != null) {
+                AppUser reviewer = ticket.getReviewer();
+                NotificationSettings ns = settingsRepository.findByUsername(reviewer.getUsername()).orElse(null);
+                out.add(UserContact.fromAppUser(reviewer, ns));
+            }
+            return out;
+        }
 
         // SUPPORT_ENGINEER who raised the ticket
         AppUser raisedBy = ticket.getRaisedByUser();
@@ -245,7 +276,7 @@ public class NotificationService {
         }
 
         // ADMINs for events that require admin notification. Which events include admins per spec:
-        List<String> adminEvents = Arrays.asList("TICKET_CREATED", "TICKET_ACKNOWLEDGED", "TICKET_ASSIGNED", "TICKET_RESOLVED", "TICKET_REOPENED", "TICKET_REJECTED");
+        List<String> adminEvents = Arrays.asList("TICKET_CREATED", "TICKET_ACKNOWLEDGED", "TICKET_ASSIGNED", "TICKET_RESOLVED", "TICKET_REVALIDATION_REQUESTED", "TICKET_REOPENED", "TICKET_REJECTED", "TICKET_SENT_FOR_REVIEW");
         if (adminEvents.contains(eventType)) {
             List<AppUser> admins = userRepository.findByRole(UserRole.ADMIN);
             for (AppUser admin : admins) {

@@ -6,6 +6,7 @@ public enum TicketStatus {
     ASSIGNED_TO_REVIEWER,
     PENDING,
     RESOLVED,
+    REVALIDATION,
     REOPENED,
     REJECTED
 }

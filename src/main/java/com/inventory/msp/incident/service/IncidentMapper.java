@@ -6,7 +6,10 @@ import com.inventory.msp.model.AppUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +30,7 @@ public class IncidentMapper {
                 .fieldPersonId(ticket.getFieldPerson().getId())
                 .fieldPersonName(ticket.getFieldPerson().getName())
                 .priority(ticket.getPriority())
-                .description(ticket.getDescription())
+                .description(normalizeOptionalText(ticket.getDescription()))
                 .status(ticket.getStatus())
                 .raisedByUserId(ticket.getRaisedByUser().getId())
                 .raisedByUsername(ticket.getRaisedByUser().getUsername())
@@ -36,6 +39,7 @@ public class IncidentMapper {
                 .reviewerId(ticket.getReviewer() != null ? ticket.getReviewer().getId() : null)
                 .reviewerUsername(ticket.getReviewer() != null ? ticket.getReviewer().getUsername() : null)
                 .createdAt(ticket.getCreatedAt())
+                .updatedAt(ticket.getUpdatedAt())
                 .coordinatorAckedAt(ticket.getCoordinatorAckedAt())
                 .assignedAt(ticket.getAssignedAt())
                 .closedAt(ticket.getClosedAt())
@@ -44,6 +48,11 @@ public class IncidentMapper {
     }
 
     public TicketDetailResponse toTicketDetailResponse(Ticket ticket, List<TicketHistory> history) {
+        return toTicketDetailResponse(ticket, history, List.of());
+    }
+
+    public TicketDetailResponse toTicketDetailResponse(Ticket ticket, List<TicketHistory> history, List<String> allowedActions) {
+        List<TicketHistory> normalizedHistory = normalizeHistory(history);
         return TicketDetailResponse.builder()
                 .id(ticket.getId())
                 .incidentTypeId(ticket.getIncidentType().getId())
@@ -58,7 +67,7 @@ public class IncidentMapper {
                 .fieldPersonName(ticket.getFieldPerson().getName())
                 .fieldPersonPhone(ticket.getFieldPerson().getPhone())
                 .priority(ticket.getPriority())
-                .description(ticket.getDescription())
+                .description(normalizeOptionalText(ticket.getDescription()))
                 .status(ticket.getStatus())
                 .raisedByUserId(ticket.getRaisedByUser().getId())
                 .raisedByUsername(ticket.getRaisedByUser().getUsername())
@@ -69,25 +78,74 @@ public class IncidentMapper {
                 .reviewerUsername(ticket.getReviewer() != null ? ticket.getReviewer().getUsername() : null)
                 .reviewNotes(ticket.getReviewNotes())
                 .createdAt(ticket.getCreatedAt())
+                .updatedAt(ticket.getUpdatedAt())
                 .coordinatorAckedAt(ticket.getCoordinatorAckedAt())
                 .assignedAt(ticket.getAssignedAt())
                 .closedAt(ticket.getClosedAt())
                 .reopenedAt(ticket.getReopenedAt())
-                .history(history.stream().map(this::toTicketHistoryResponse).collect(Collectors.toList()))
+                .allowedActions(allowedActions == null ? List.of() : allowedActions)
+                .history(normalizedHistory.stream().map(this::toTicketHistoryResponse).collect(Collectors.toList()))
                 .build();
     }
 
     public TicketHistoryResponse toTicketHistoryResponse(TicketHistory history) {
+        String notes = history.getRemarks() != null ? history.getRemarks() : history.getNotes();
         return TicketHistoryResponse.builder()
                 .id(history.getId())
                 .ticketId(history.getTicket().getId())
-                .changedByUserId(history.getChangedByUser().getId())
-                .changedByUsername(history.getChangedByUser().getUsername())
+                .changedByUserId(history.getChangedByUser() != null ? history.getChangedByUser().getId() : null)
+                .changedByUsername(history.getChangedByUser() != null ? history.getChangedByUser().getUsername() : null)
+                .action(history.getAction() != null ? history.getAction().name() : null)
                 .fromStatus(history.getFromStatus())
                 .toStatus(history.getToStatus())
-                .notes(history.getNotes())
-                .changedAt(history.getChangedAt())
+                .notes(notes)
+                .changedAt(history.getPerformedAt() != null ? history.getPerformedAt() : history.getChangedAt())
+                .performedAt(history.getPerformedAt() != null ? history.getPerformedAt() : history.getChangedAt())
+                .assignedToUserId(history.getAssignedToUser() != null ? history.getAssignedToUser().getId() : null)
+                .assignedToUsername(history.getAssignedToUser() != null ? history.getAssignedToUser().getUsername() : null)
+                .assignedToRole(history.getAssignedToRole())
                 .build();
+    }
+
+    private String normalizeOptionalText(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
+        return trimmed.isEmpty() ? null : trimmed;
+    }
+
+    private List<TicketHistory> normalizeHistory(List<TicketHistory> history) {
+        if (history == null || history.isEmpty()) {
+            return List.of();
+        }
+        Map<String, TicketHistory> merged = new LinkedHashMap<>();
+        for (TicketHistory item : history) {
+            String key = (item.getTicket() != null ? item.getTicket().getId() : "ticket") + ":"
+                    + (item.getChangedByUser() != null ? item.getChangedByUser().getId() : "n/a") + ":"
+                    + (item.getPerformedAt() != null ? item.getPerformedAt() : item.getChangedAt());
+            TicketHistory existing = merged.get(key);
+            if (existing == null) {
+                merged.put(key, item);
+                continue;
+            }
+            if (existing.getFromStatus() == null && item.getFromStatus() != null) {
+                existing.setFromStatus(item.getFromStatus());
+            }
+            if (existing.getToStatus() == null && item.getToStatus() != null) {
+                existing.setToStatus(item.getToStatus());
+            }
+            if (existing.getRemarks() == null && item.getRemarks() != null) {
+                existing.setRemarks(item.getRemarks());
+            }
+            if (existing.getNotes() == null && item.getNotes() != null) {
+                existing.setNotes(item.getNotes());
+            }
+            if (existing.getAction() == null && item.getAction() != null) {
+                existing.setAction(item.getAction());
+            }
+        }
+        return new ArrayList<>(merged.values());
     }
 
     public IncidentTypeResponse toIncidentTypeResponse(IncidentType incidentType) {

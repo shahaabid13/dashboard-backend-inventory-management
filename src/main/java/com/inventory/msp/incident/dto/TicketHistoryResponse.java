@@ -16,9 +16,14 @@ public class TicketHistoryResponse {
     private Long ticketId;
     private Long changedByUserId;
     private String changedByUsername;
+    private String action;
     private String fromStatus;
     private String toStatus;
     private String notes;
     private LocalDateTime changedAt;
+    private LocalDateTime performedAt;
+    private Long assignedToUserId;
+    private String assignedToUsername;
+    private String assignedToRole;
 }
 
