@@ -36,6 +36,7 @@ public class TicketController {
     private final IncidentMapper incidentMapper;
     private final UserRepository userRepository;
     private final FieldPersonRepository fieldPersonRepository;
+    private final com.inventory.msp.incident.service.TicketWorkflowService ticketWorkflowService;
 
     // ========== SUPPORT ENGINEER ENDPOINTS ==========
 
@@ -129,22 +130,71 @@ public class TicketController {
         AppUser fieldPerson = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found"));
         Ticket ticket = ticketService.getTicket(id);
-        
+
         FieldPerson fieldPersonProfile = fieldPersonRepository.findByUserId(fieldPerson.getId())
                 .orElse(null);
-        
+
         if (fieldPersonProfile == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("message", "No associated field person profile found"));
         }
-        
-        if (!ticket.getFieldPerson().getId().equals(fieldPersonProfile.getId())) {
+
+        if (ticket.getFieldPerson() == null || !ticket.getFieldPerson().getId().equals(fieldPersonProfile.getId())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body(Map.of("message", "You can only acknowledge tickets assigned to you"));
+                    .body(Map.of("message", "You can only act on tickets assigned to you"));
         }
-        
-        Ticket updated = ticketService.acknowledgeTicket(id, request.getNotes(), fieldPerson);
-        return ResponseEntity.ok(incidentMapper.toTicketResponse(updated));
+
+        String action = request.getAction();
+        String remarks = request.getRemarks();
+        if (action == null || action.isBlank()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "action", "message", "Action is required"));
+        }
+        if (remarks == null || remarks.trim().length() < 5) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "remarks", "message", "Remarks are required and must be at least 5 characters"));
+        }
+
+        try {
+            Ticket updated = ticketService.handleFieldPersonAction(id, action, remarks, fieldPerson);
+            return ResponseEntity.ok(Map.of(
+                    "ticket", incidentMapper.toTicketResponse(updated),
+                    "message", "Ticket #" + id + " updated successfully",
+                    "assignedTo", updated.getReviewer() != null ? updated.getReviewer().getUsername() : updated.getRaisedByUser().getUsername()
+            ));
+        } catch (com.inventory.msp.incident.exception.InvalidTicketStateTransitionException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
+        }
+    }
+
+    @PostMapping("/{id}/revalidation-action")
+    @PreAuthorize("hasRole('SUPPORT_ENGINEER')")
+    public ResponseEntity<?> handleSupportEngineerRevalidationAction(
+            @PathVariable Long id,
+            @Valid @RequestBody TicketActionRequest request,
+            Authentication authentication) {
+        AppUser supportEngineer = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+        if (request.getAction() == null || request.getAction().isBlank()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "action", "message", "Action is required"));
+        }
+        if ("REOPEN".equalsIgnoreCase(request.getAction())
+                && (request.getRemarks() == null || request.getRemarks().trim().length() < 5)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "remarks", "message", "Remarks are required and must be at least 5 characters"));
+        }
+        if ("SEND_FOR_REVIEW".equalsIgnoreCase(request.getAction())
+                && request.getRemarks() != null && request.getRemarks().trim().length() < 5) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "remarks", "message", "Remarks must be at least 5 characters when provided"));
+        }
+        try {
+            Ticket updated = ticketService.handleSupportEngineerAction(id, request.getAction(), request.getRemarks(), supportEngineer);
+            return ResponseEntity.ok(incidentMapper.toTicketResponse(updated));
+        } catch (com.inventory.msp.incident.exception.InvalidTicketStateTransitionException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
+        }
     }
 
     @PutMapping("/{id}/assign-reviewer")
@@ -294,7 +344,8 @@ public class TicketController {
         }
 
         List<TicketHistory> history = ticketService.getTicketHistory(id);
-        return ResponseEntity.ok(incidentMapper.toTicketDetailResponse(ticket, history));
+        List<String> allowedActions = ticketWorkflowService.allowedActionsFor(ticket, user);
+        return ResponseEntity.ok(incidentMapper.toTicketDetailResponse(ticket, history, allowedActions));
     }
 }
 

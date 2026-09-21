@@ -70,10 +70,14 @@ public class Ticket {
     private String reviewNotes;
 
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private LocalDateTime coordinatorAckedAt;
     private LocalDateTime assignedAt;
     private LocalDateTime closedAt;
     private LocalDateTime reopenedAt;
+
+    @Version
+    private Long version;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TicketHistory> history = new ArrayList<>();
@@ -83,6 +87,14 @@ public class Ticket {
         if (this.createdAt == null) {
             this.createdAt = LocalDateTime.now();
         }
+        if (this.updatedAt == null) {
+            this.updatedAt = this.createdAt;
+        }
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }
 

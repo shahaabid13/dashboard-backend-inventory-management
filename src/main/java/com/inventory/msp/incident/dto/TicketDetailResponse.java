@@ -39,10 +39,12 @@ public class TicketDetailResponse {
     private String reviewerUsername;
     private String reviewNotes;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private LocalDateTime coordinatorAckedAt;
     private LocalDateTime assignedAt;
     private LocalDateTime closedAt;
     private LocalDateTime reopenedAt;
+    private List<String> allowedActions;
 
     private List<TicketHistoryResponse> history;
 }
