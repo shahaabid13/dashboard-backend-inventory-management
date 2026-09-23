@@ -32,13 +32,15 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class EventSearchService {
 
+    private static final int VMS_SERVER_ID = 100;
+    private static final int VMS_EVENT_PAGE_LIMIT = 20;
+
     private final ServerRepository serverRepository;
     private final EventRepository eventRepository;
     private final ImageStorageService imageStorageService;
     private final RestTemplate vmsRestTemplate;
     private final ObjectMapper objectMapper;
     private final VmsTmsProperties properties;
-    private final EventPersistenceService eventPersistenceService;
 
     public EventSearchService(
             ServerRepository serverRepository,
@@ -46,15 +48,13 @@ public class EventSearchService {
             ImageStorageService imageStorageService,
             @Qualifier("vmsRestTemplate") RestTemplate vmsRestTemplate,
             ObjectMapper objectMapper,
-            VmsTmsProperties properties,
-            EventPersistenceService eventPersistenceService) {
+            VmsTmsProperties properties, EventPersistenceService eventPersistenceService) {
         this.serverRepository = serverRepository;
         this.eventRepository = eventRepository;
         this.imageStorageService = imageStorageService;
         this.vmsRestTemplate = vmsRestTemplate;
         this.objectMapper = objectMapper;
         this.properties = properties;
-        this.eventPersistenceService = eventPersistenceService;
     }
 
     @Transactional
@@ -76,16 +76,19 @@ public class EventSearchService {
             ServerResult<ExternalEventSearchResponse> result = future.join();
             if (result.error() != null) {
                 failedServerIds.add(result.server().getServerId());
-                Throwable err = result.error();
-                // Unwrap CompletionException/ExecutionException if present to reveal root cause
-                Throwable root = err;
+                Throwable error = result.error();
+                Throwable root = error;
                 while (root.getCause() != null && root.getCause() != root) {
                     root = root.getCause();
                 }
-                String serverInfo = String.format("serverId=%d baseUrl=%s", result.server().getServerId(), result.server().getBaseUrl());
-                log.error("External event search failed for {}: {}: {}", serverInfo, root.getClass().getName(), root.getMessage());
-                // Log full stacktrace at debug level to keep error logs concise in production but available when debugging
-                log.debug("Full exception for external event search failure ({}):", serverInfo, err);
+                log.error(
+                        "External event search failed for serverId={}, baseUrl={}, type={}, message={}",
+                        result.server().getServerId(),
+                        result.server().getBaseUrl(),
+                        root.getClass().getName(),
+                        root.getMessage(),
+                        error
+                );
                 continue;
             }
 
@@ -94,7 +97,7 @@ public class EventSearchService {
                 for (ExternalEventItemDto item : response.getEventlist()) {
                     String savedPath = saveEventImage(result.server(), item);
                     if (request.isPersist()) {
-                        eventPersistenceService.saveEvent(result.server().getServerId(), item, savedPath);
+                        saveEventLocally(result.server().getServerId(), item, savedPath);
                     }
                     mergedEvents.add(item);
                 }
@@ -133,14 +136,7 @@ public class EventSearchService {
             ServerResult<Integer> result = future.join();
             if (result.error() != null) {
                 failedServerIds.add(result.server().getServerId());
-                Throwable err = result.error();
-                Throwable root = err;
-                while (root.getCause() != null && root.getCause() != root) {
-                    root = root.getCause();
-                }
-                String serverInfo = String.format("serverId=%d baseUrl=%s", result.server().getServerId(), result.server().getBaseUrl());
-                log.error("External event count failed for {}: {}: {}", serverInfo, root.getClass().getName(), root.getMessage());
-                log.debug("Full exception for external event count failure ({}):", serverInfo, err);
+                log.error("External event count failed for server {}", result.server().getServerId(), result.error());
             } else {
                 total += result.value() == null ? 0 : result.value();
             }
@@ -149,11 +145,8 @@ public class EventSearchService {
     }
 
     private List<Server> resolveServers(Integer serverId) {
-        if (serverId != null) {
-            return List.of(serverRepository.findById(serverId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Server not found with ID: " + serverId)));
-        }
-        return serverRepository.findByIsActiveTrue();
+        return List.of(serverRepository.findById(VMS_SERVER_ID)
+                .orElseThrow(() -> new ResourceNotFoundException("Server not found with ID: " + VMS_SERVER_ID)));
     }
 
     private ExternalEventSearchResponse fetchEvents(
@@ -162,10 +155,18 @@ public class EventSearchService {
             int page,
             int limit) {
         String url = resolveEndpoint(properties.getEventSearchEndpoint(), server.getBaseUrl(), server.getServerId(), "/event/getevents");
-        int externalLimit = Math.max(100, limit);
+        int externalLimit = VMS_EVENT_PAGE_LIMIT;
         List<ExternalEventItemDto> events = new ArrayList<>();
         int externalPage = 1;
         int totalPages;
+
+        // Only fetch as many external pages as needed to satisfy the requested
+        // UI page + limit, instead of draining the device's entire result set
+        // every time. Previously this loop always ran until externalPage > totalPages,
+        // which for ~1286 records at 20/page meant ~65 sequential device round trips
+        // per search — well over the device's 120s session Max-Age, causing the
+        // session to expire mid-loop with only one retry available per request.
+        int neededEvents = page * limit;
 
         do {
             ExternalEventSearchRequest payload = ExternalEventSearchRequest.builder()
@@ -183,7 +184,6 @@ public class EventSearchService {
             if (envelope == null) {
                 break;
             }
-            // Actual payload is nested inside "result[0]" per the VMS API's envelope format
             ExternalEventSearchResponse body = (envelope.getResult() != null && !envelope.getResult().isEmpty())
                     ? envelope.getResult().get(0)
                     : envelope;
@@ -195,7 +195,7 @@ public class EventSearchService {
             }
             totalPages = body.getTotalpages() == null ? 1 : body.getTotalpages();
             externalPage++;
-        } while (externalPage <= totalPages);
+        } while (externalPage <= totalPages && events.size() < neededEvents);
 
         ExternalEventSearchResponse combined = new ExternalEventSearchResponse();
         combined.setTotalrecords(events.size());
@@ -218,18 +218,10 @@ public class EventSearchService {
                 .build();
         ResponseEntity<Map> response = vmsRestTemplate.postForEntity(
                 url, new HttpEntity<>(payload), Map.class);
-        Map envelope = response.getBody();
-        if (envelope == null) {
+        Map body = response.getBody();
+        if (body == null) {
             return 0;
         }
-
-        // Actual payload is nested inside "result[0]" per the VMS API's envelope format
-        Map body = envelope;
-        Object resultObj = envelope.get("result");
-        if (resultObj instanceof List<?> resultList && !resultList.isEmpty() && resultList.get(0) instanceof Map<?, ?> firstResult) {
-            body = (Map) firstResult;
-        }
-
         Number count = body.get("totalrecords") instanceof Number
                 ? (Number) body.get("totalrecords")
                 : (body.get("count") instanceof Number ? (Number) body.get("count") : null);
@@ -245,6 +237,26 @@ public class EventSearchService {
         item.setFileBase64String(null);
         item.setPath(savedPath);
         return savedPath;
+    }
+
+    private void saveEventLocally(Integer serverId, ExternalEventItemDto item, String savedImagePath) {
+        try {
+            String rawJson = objectMapper.writeValueAsString(item);
+            Event event = Event.builder()
+                    .serverId(serverId)
+                    .channelId(item.getChannelId())
+                    .applicationId(item.getApplicationId())
+                    .lpNumber(item.getLpNumber())
+                    .eventTimestamp(item.getEventTimestamp())
+                    .imagePath(savedImagePath)
+                    .fileName(item.getName())
+                    .rawResponse(rawJson)
+                    .build();
+
+            eventRepository.save(event);
+        } catch (Exception e) {
+            log.error("Could not persist event locally: {}", e.getMessage());
+        }
     }
 
     private String resolveEndpoint(

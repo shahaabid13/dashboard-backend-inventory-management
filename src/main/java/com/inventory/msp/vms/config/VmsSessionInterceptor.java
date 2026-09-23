@@ -46,14 +46,15 @@ public class VmsSessionInterceptor implements ClientHttpRequestInterceptor {
     }
 
     private boolean isSessionInvalid(BufferedClientHttpResponse response) throws IOException {
-        if (response.getStatusCode() == HttpStatus.UNAUTHORIZED) {
-            String bodyText = response.getBodyAsString();
-            if (bodyText != null) {
-                String lowerBody = bodyText.toLowerCase();
-                return bodyText.contains("\"code\":4000") || lowerBody.contains("invalid session");
-            }
-        }
-        return false;
+        // This device doesn't consistently return a JSON body on session-related
+        // 401s — sometimes {"code":4000,"message":"Invalid session"}, sometimes a
+        // completely empty body (confirmed via logs: "401 ... [no body]" on
+        // /event/getevents for serverId=100). Since a cookie-based session either
+        // works or doesn't — real credential checks only happen at login — treat
+        // ANY 401 on a data-endpoint request as session-invalid and let the
+        // existing refresh+retry logic in intercept() handle it, instead of only
+        // matching one specific JSON shape the device doesn't always send.
+        return response.getStatusCode() == HttpStatus.UNAUTHORIZED;
     }
 
     private Integer extractServerId(HttpRequest request) {

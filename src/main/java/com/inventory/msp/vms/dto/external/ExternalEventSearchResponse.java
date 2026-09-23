@@ -15,6 +15,4 @@ public class ExternalEventSearchResponse {
     private List<ExternalEventItemDto> eventlist;
     private boolean partial;
     private List<Integer> failedServerIds;
-    private String lastSyncAt;
-    private String lastFailureAt;
 }

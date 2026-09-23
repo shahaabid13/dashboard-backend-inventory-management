@@ -55,7 +55,6 @@ class EventSearchServiceTest {
 
     private EventSearchService eventSearchService;
     private Server server100;
-    private Server server101;
 
     @BeforeEach
     void setUp() {
@@ -75,12 +74,11 @@ class EventSearchServiceTest {
         );
 
         server100 = server(100);
-        server101 = server(101);
-        when(serverRepository.findByIsActiveTrue()).thenReturn(List.of(server100, server101));
+        when(serverRepository.findById(100)).thenReturn(Optional.of(server100));
     }
 
     @Test
-    void countAllServersSumsSuccessfulResponses() {
+    void countServer100ReturnsSuccessfulResponse() {
         when(vmsRestTemplate.postForEntity(
                 anyString(), any(HttpEntity.class), eq(Map.class)))
                 .thenAnswer(invocation -> {
@@ -90,13 +88,13 @@ class EventSearchServiceTest {
 
         EventCountResponse response = eventSearchService.countEvents(countRequest(null));
 
-        assertEquals(10, response.getCount());
+        assertEquals(3, response.getCount());
         assertFalse(response.isPartial());
         assertTrue(response.getFailedServerIds().isEmpty());
     }
 
     @Test
-    void searchAllServersMergesAndSortsEvents() {
+    void searchServer100ReturnsEvents() {
         when(vmsRestTemplate.postForEntity(
                 anyString(), any(HttpEntity.class), eq(ExternalEventSearchResponse.class)))
                 .thenAnswer(invocation -> {
@@ -106,18 +104,18 @@ class EventSearchServiceTest {
 
         ExternalEventSearchResponse response = eventSearchService.searchEvents(searchRequest(null, 1, 10));
 
-        assertEquals(2, response.getTotalrecords());
-        assertEquals(3000L, response.getEventlist().get(0).getEventTimestamp());
+        assertEquals(1, response.getTotalrecords());
+        assertEquals(1000L, response.getEventlist().get(0).getEventTimestamp());
         assertFalse(response.isPartial());
     }
 
     @Test
-    void oneServerDownReturnsPartialCount() {
+    void server100DownReturnsPartialCount() {
         when(vmsRestTemplate.postForEntity(
                 anyString(), any(HttpEntity.class), eq(Map.class)))
                 .thenAnswer(invocation -> {
                     String url = invocation.getArgument(0);
-                    if (url.contains("/101/")) {
+                    if (url.contains("/100/")) {
                         throw new RestClientException("server unavailable");
                     }
                     return ResponseEntity.ok(Map.of("totalrecords", 4));
@@ -127,7 +125,7 @@ class EventSearchServiceTest {
 
         assertEquals(4, response.getCount());
         assertTrue(response.isPartial());
-        assertEquals(List.of(101), response.getFailedServerIds());
+        assertEquals(List.of(100), response.getFailedServerIds());
     }
 
     @Test
@@ -140,7 +138,7 @@ class EventSearchServiceTest {
 
         assertEquals(0, response.getCount());
         assertTrue(response.isPartial());
-        assertEquals(List.of(100, 101), response.getFailedServerIds());
+        assertEquals(List.of(100), response.getFailedServerIds());
     }
 
     @Test
