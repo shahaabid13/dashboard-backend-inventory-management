@@ -8,6 +8,8 @@ import com.inventory.msp.repository.DeviceHistoryRepository;
 import com.inventory.msp.repository.DeviceRepository;
 import com.inventory.msp.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +18,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DeviceService {
+
+    private static final Logger log = LoggerFactory.getLogger(DeviceService.class);
 
     private final DeviceRepository deviceRepository;
     private final DeviceHistoryRepository historyRepository;
@@ -91,17 +95,29 @@ public class DeviceService {
     }
 
     public List<Device> getAllDevices() {
-        return deviceRepository.findAll();
+        List<Device> devices = deviceRepository.findAll();
+        if (log.isDebugEnabled()) {
+            devices.forEach(d -> log.debug("[DeviceService] Loaded device id={} serial='{}'", d.getId(), d.getSerialNumber()));
+        }
+        return devices;
     }
 
     public Device getDevice(Long id) {
-        return deviceRepository.findById(id)
+        Device d = deviceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Device not found"));
+        if (log.isDebugEnabled()) {
+            log.debug("[DeviceService] getDevice id={} serial='{}'", d.getId(), d.getSerialNumber());
+        }
+        return d;
     }
 
     public Device getBySerial(String serial) {
-        return deviceRepository.findBySerialNumber(serial)
+        Device d = deviceRepository.findBySerialNumber(serial)
                 .orElseThrow(() -> new RuntimeException("Serial not found"));
+        if (log.isDebugEnabled()) {
+            log.debug("[DeviceService] getBySerial lookup='{}' -> id={} serial='{}'", serial, d.getId(), d.getSerialNumber());
+        }
+        return d;
     }
 
     public Device saveDevice(Device device) {

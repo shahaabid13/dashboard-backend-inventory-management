@@ -5,6 +5,8 @@ import com.inventory.msp.dto.DeviceRequest;
 import com.inventory.msp.model.Device;
 import com.inventory.msp.services.DeviceService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/devices")
 @RequiredArgsConstructor
 public class DeviceController {
+
+    private static final Logger log = LoggerFactory.getLogger(DeviceController.class);
 
     private final DeviceService deviceService;
 
@@ -111,6 +115,9 @@ public class DeviceController {
 
     // Convert ENTITY → DTO
     private DeviceDto toDto(Device d) {
+        if (log.isDebugEnabled()) {
+            log.debug("[DeviceController] Mapping entity -> dto id={} dbSerial='{}'", d.getId(), d.getSerialNumber());
+        }
         DeviceDto dto = new DeviceDto();
         dto.setId(d.getId());
         dto.setSerialNumber(d.getSerialNumber());
@@ -124,6 +131,9 @@ public class DeviceController {
         dto.setStatus(d.getStatus());
         dto.setLocationName(d.getLocation() != null ? d.getLocation().getName() : null);
         dto.setApproachRoad(d.getApproachRoad() != null ? d.getApproachRoad().getRoadName() : null);
+        if (log.isDebugEnabled()) {
+            log.debug("[DeviceController] Mapped dto id={} dtoSerial='{}'", dto.getId(), dto.getSerialNumber());
+        }
         return dto;
     }
 }  // ← this closing brace was missing

@@ -7,6 +7,7 @@ import com.inventory.msp.vms.dto.external.ExternalEventSearchResponse;
 import com.inventory.msp.vms.dto.request.EventCountFilterRequest;
 import com.inventory.msp.vms.dto.request.EventSearchFilterRequest;
 import com.inventory.msp.vms.dto.response.EventCountResponse;
+import com.inventory.msp.vms.entity.Event;
 import com.inventory.msp.vms.entity.Server;
 import com.inventory.msp.vms.repository.EventRepository;
 import com.inventory.msp.vms.repository.ServerRepository;
@@ -16,6 +17,7 @@ import com.inventory.msp.vms.service.ImageStorageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpEntity;
@@ -29,10 +31,12 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,7 +78,7 @@ class EventSearchServiceTest {
         );
 
         server100 = server(100);
-        when(serverRepository.findById(100)).thenReturn(Optional.of(server100));
+        org.mockito.Mockito.lenient().when(serverRepository.findById(100)).thenReturn(Optional.of(server100));
     }
 
     @Test
@@ -107,6 +111,22 @@ class EventSearchServiceTest {
         assertEquals(1, response.getTotalrecords());
         assertEquals(1000L, response.getEventlist().get(0).getEventTimestamp());
         assertFalse(response.isPartial());
+    }
+
+    @Test
+    void eventPersistenceServiceUsesEventTimeFallbackWhenEventTimestampMissing() {
+        EventPersistenceService realPersistenceService = new EventPersistenceService(eventRepository, new ObjectMapper());
+        ExternalEventItemDto item = new ExternalEventItemDto();
+        item.setChannelId("CH01");
+        item.setApplicationId("APP");
+        item.setEventTime("10-03-2024 12:34:56");
+
+        realPersistenceService.saveEvent(100, item, null);
+
+        ArgumentCaptor<Event> eventCaptor = ArgumentCaptor.forClass(Event.class);
+        verify(eventRepository).save(eventCaptor.capture());
+        assertNotNull(eventCaptor.getValue().getEventTimestamp());
+        assertTrue(eventCaptor.getValue().getEventTimestamp() > 0L);
     }
 
     @Test

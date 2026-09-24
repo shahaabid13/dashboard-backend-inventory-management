@@ -126,7 +126,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/weighbridge/**").permitAll()
                         .requestMatchers("/api/weighbridge/report").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/sdnet-monitor/**").authenticated()
+                                                .requestMatchers("/api/debug/**").permitAll()
+                                                .requestMatchers("/api/sdnet-monitor/**").authenticated()
                         // VMS/TMS Module endpoints
                         .requestMatchers(HttpMethod.GET, "/api/servers", "/api/servers/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/channels", "/api/channels/**").permitAll()

@@ -2,11 +2,13 @@ package com.inventory.msp.dto;
 
 import com.inventory.msp.model.DeviceType;
 import com.inventory.msp.model.JunctionBoxType;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 @Data
 
 public class DeviceRequest {
+    @JsonAlias({"serial","deviceSerial","serial_no","device_serial","serialNumber"})
     private String serialNumber;
     private DeviceType deviceType;
     private Boolean ecbPresent;

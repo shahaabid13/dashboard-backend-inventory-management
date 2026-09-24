@@ -1,13 +1,17 @@
 package com.inventory.msp.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.inventory.msp.model.DeviceType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class DeviceResponse {
     private Long id;
+    @JsonProperty("serialNumber")
     private String serialNumber;
     private DeviceType deviceType;
     private Boolean ecbPresent;

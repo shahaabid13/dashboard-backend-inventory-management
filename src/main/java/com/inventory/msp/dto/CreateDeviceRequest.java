@@ -2,12 +2,14 @@ package com.inventory.msp.dto;
 
 
 import com.inventory.msp.model.DeviceType;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
 public class CreateDeviceRequest {
 
+    @JsonAlias({"serial","deviceSerial","serial_no","device_serial","serialNumber"})
     private String serialNumber;
     private DeviceType deviceType;
 

@@ -41,6 +41,7 @@ public class EventSearchService {
     private final RestTemplate vmsRestTemplate;
     private final ObjectMapper objectMapper;
     private final VmsTmsProperties properties;
+    private final EventPersistenceService eventPersistenceService;
 
     public EventSearchService(
             ServerRepository serverRepository,
@@ -48,13 +49,15 @@ public class EventSearchService {
             ImageStorageService imageStorageService,
             @Qualifier("vmsRestTemplate") RestTemplate vmsRestTemplate,
             ObjectMapper objectMapper,
-            VmsTmsProperties properties, EventPersistenceService eventPersistenceService) {
+            VmsTmsProperties properties,
+            EventPersistenceService eventPersistenceService) {
         this.serverRepository = serverRepository;
         this.eventRepository = eventRepository;
         this.imageStorageService = imageStorageService;
         this.vmsRestTemplate = vmsRestTemplate;
         this.objectMapper = objectMapper;
         this.properties = properties;
+        this.eventPersistenceService = eventPersistenceService;
     }
 
     @Transactional
@@ -240,22 +243,13 @@ public class EventSearchService {
     }
 
     private void saveEventLocally(Integer serverId, ExternalEventItemDto item, String savedImagePath) {
+        if (item == null) {
+            return;
+        }
         try {
-            String rawJson = objectMapper.writeValueAsString(item);
-            Event event = Event.builder()
-                    .serverId(serverId)
-                    .channelId(item.getChannelId())
-                    .applicationId(item.getApplicationId())
-                    .lpNumber(item.getLpNumber())
-                    .eventTimestamp(item.getEventTimestamp())
-                    .imagePath(savedImagePath)
-                    .fileName(item.getName())
-                    .rawResponse(rawJson)
-                    .build();
-
-            eventRepository.save(event);
+            eventPersistenceService.saveEvent(serverId, item, savedImagePath);
         } catch (Exception e) {
-            log.error("Could not persist event locally: {}", e.getMessage());
+            log.error("Could not persist event locally: {}", e.getMessage(), e);
         }
     }
 

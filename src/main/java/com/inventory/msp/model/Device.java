@@ -16,7 +16,8 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "serial_number", nullable = false, unique = true)
+    @com.fasterxml.jackson.annotation.JsonAlias({"serial","deviceSerial","serial_no","device_serial","serialNumber"})
     private String serialNumber;
 
     @Builder.Default

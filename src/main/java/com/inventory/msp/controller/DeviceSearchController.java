@@ -5,6 +5,8 @@ import com.inventory.msp.model.Device;
 import com.inventory.msp.model.DeviceType;
 import com.inventory.msp.services.DeviceSearchService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("/api/devices")
 @RequiredArgsConstructor
 public class DeviceSearchController {
+
+    private static final Logger log = LoggerFactory.getLogger(DeviceSearchController.class);
 
     private final DeviceSearchService service;
 
@@ -72,6 +76,9 @@ public class DeviceSearchController {
 
     // Convert ENTITY → DTO
     private DeviceDto toDto(Device d) {
+        if (log.isDebugEnabled()) {
+            log.debug("[DeviceSearchController] Mapping entity -> dto id={} dbSerial='{}'", d.getId(), d.getSerialNumber());
+        }
         DeviceDto dto = new DeviceDto();
         dto.setId(d.getId());
         dto.setSerialNumber(d.getSerialNumber());
@@ -85,6 +92,9 @@ public class DeviceSearchController {
         dto.setStatus(d.getStatus());
         dto.setLocationName(d.getLocation() != null ? d.getLocation().getName() : null);
         dto.setApproachRoad(d.getApproachRoad() != null ? d.getApproachRoad().getRoadName() : null);
+        if (log.isDebugEnabled()) {
+            log.debug("[DeviceSearchController] Mapped dto id={} dtoSerial='{}'", dto.getId(), dto.getSerialNumber());
+        }
         return dto;
     }
 }

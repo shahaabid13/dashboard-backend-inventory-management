@@ -2,6 +2,7 @@ package com.inventory.msp.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.inventory.msp.model.DeviceType;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,8 @@ import lombok.Setter;
 public class DeviceDto {
 
     private Long id;
+    @JsonProperty("serialNumber")
+    @JsonAlias({"serial","deviceSerial","serial_no","device_serial","serialNumber"})
     private String serialNumber;
     private DeviceType deviceType;
     private Boolean poles;
