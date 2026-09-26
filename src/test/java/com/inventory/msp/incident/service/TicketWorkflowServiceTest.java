@@ -51,6 +51,17 @@ class TicketWorkflowServiceTest {
     }
 
     @Test
+    void supportEngineerCanReassignOpenTicketToFutureFieldPerson() {
+        AppUser supportEngineer = AppUser.builder().id(20L).username("support").role(UserRole.SUPPORT_ENGINEER).build();
+        AppUser fieldPersonUser = AppUser.builder().id(10L).username("fielduser").role(UserRole.FIELD_PERSON).build();
+        FieldPerson fieldPerson = FieldPerson.builder().id(5L).name("Field Person").user(fieldPersonUser).active(true).build();
+        Ticket ticket = Ticket.builder().id(25L).fieldPerson(fieldPerson).raisedByUser(supportEngineer).status(TicketStatus.OPEN).build();
+
+        assertDoesNotThrow(() -> ticketWorkflowService.validateTransition(ticket, supportEngineer, TicketAction.REASSIGNED));
+        assertEquals(List.of("REASSIGN"), ticketWorkflowService.allowedActionsFor(ticket, supportEngineer));
+    }
+
+    @Test
     void invalidStatusTransitionThrowsConflict() {
         AppUser supportEngineer = AppUser.builder().id(20L).username("support").role(UserRole.SUPPORT_ENGINEER).build();
         AppUser fieldPersonUser = AppUser.builder().id(10L).username("fielduser").role(UserRole.FIELD_PERSON).build();

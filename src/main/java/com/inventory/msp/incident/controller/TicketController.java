@@ -20,6 +20,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -214,6 +215,41 @@ public class TicketController {
         
         Ticket updated = ticketService.assignReviewer(id, request.getReviewerId(), fieldPerson);
         return ResponseEntity.ok(incidentMapper.toTicketResponse(updated));
+    }
+
+    @RequestMapping(value = "/{id}/reassign", method = {RequestMethod.POST, RequestMethod.PUT})
+    @PreAuthorize("hasRole('SUPPORT_ENGINEER')")
+    public ResponseEntity<?> reassignTicket(
+            @PathVariable Long id,
+            @Valid @RequestBody TicketReassignmentRequest request,
+            Authentication authentication) {
+        AppUser supportEngineer = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        if (request.getFieldPersonId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "fieldPersonId", "message", "Field person ID is required"));
+        }
+        if (request.getScheduledDate() == null || request.getScheduledDate().isBefore(LocalDate.now())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("field", "scheduledDate", "message", "Reassignment date cannot be in the past"));
+        }
+
+        try {
+            Ticket updated = ticketService.reassignTicketToFieldPerson(
+                    id,
+                    request.getFieldPersonId(),
+                    request.getScheduledDate(),
+                    request.getRemarks(),
+                    supportEngineer);
+            return ResponseEntity.ok(Map.of(
+                    "ticket", incidentMapper.toTicketResponse(updated),
+                    "message", "Ticket reassigned to field person for " + request.getScheduledDate().toString()));
+        } catch (com.inventory.msp.incident.exception.InvalidTicketStateTransitionException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
+        } catch (NotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", ex.getMessage()));
+        }
     }
 
     @GetMapping("/reviewers")

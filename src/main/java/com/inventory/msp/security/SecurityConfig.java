@@ -141,6 +141,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/incidents/tickets/my-ticket-history").hasRole("FIELD_PERSON")
                         .requestMatchers(HttpMethod.PUT, "/api/incidents/tickets/*/acknowledge").hasRole("FIELD_PERSON")
                         .requestMatchers(HttpMethod.POST, "/api/incidents/tickets/*/revalidation-action").hasRole("SUPPORT_ENGINEER")
+                        .requestMatchers(HttpMethod.PUT, "/api/incidents/tickets/*/reassign").hasRole("SUPPORT_ENGINEER")
+                        .requestMatchers(HttpMethod.POST, "/api/incidents/tickets/*/reassign").hasRole("SUPPORT_ENGINEER")
                         .requestMatchers(HttpMethod.PUT, "/api/incidents/tickets/*/assign-reviewer").hasRole("FIELD_PERSON")
                         .requestMatchers(HttpMethod.GET, "/api/incidents/tickets/reviewers").hasAnyRole("FIELD_PERSON", "SUPPORT_ENGINEER")
                         .requestMatchers(HttpMethod.GET, "/api/incidents/tickets/review-queue").hasRole("REVIEWER")

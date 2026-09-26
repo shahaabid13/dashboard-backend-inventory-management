@@ -44,6 +44,11 @@ public class TicketWorkflowService {
                     UserRole.SUPPORT_ENGINEER,
                     Set.of(TicketStatus.REVALIDATION),
                     TicketStatus.ASSIGNED_TO_REVIEWER),
+            TicketAction.REASSIGNED, new WorkflowRule(
+                    TicketAction.REASSIGNED,
+                    UserRole.SUPPORT_ENGINEER,
+                    Set.of(TicketStatus.OPEN),
+                    TicketStatus.OPEN),
             TicketAction.TICKET_CREATED, new WorkflowRule(
                     TicketAction.TICKET_CREATED,
                     UserRole.SUPPORT_ENGINEER,
@@ -102,6 +107,12 @@ public class TicketWorkflowService {
             }
             throw new NotFoundException("Ticket raiser not found");
         }
+        if (TicketAction.REASSIGNED.equals(action)) {
+            if (ticket.getFieldPerson() != null && ticket.getFieldPerson().getUser() != null) {
+                return ticket.getFieldPerson().getUser();
+            }
+            throw new NotFoundException("Assigned field person not found");
+        }
         if (TicketAction.REOPENED.equals(action)) {
             if (ticket.getFieldPerson() != null && ticket.getFieldPerson().getUser() != null) {
                 return ticket.getFieldPerson().getUser();
@@ -143,6 +154,12 @@ public class TicketWorkflowService {
                 && Objects.equals(ticket.getRaisedByUser().getId(), actor.getId())
                 && TicketStatus.REVALIDATION.equals(ticket.getStatus())) {
             return List.of("REOPEN", "SEND_FOR_REVIEW");
+        }
+        if (UserRole.SUPPORT_ENGINEER.equals(actor.getRole())
+                && ticket.getRaisedByUser() != null
+                && Objects.equals(ticket.getRaisedByUser().getId(), actor.getId())
+                && TicketStatus.OPEN.equals(ticket.getStatus())) {
+            return List.of("REASSIGN");
         }
         return List.of();
     }

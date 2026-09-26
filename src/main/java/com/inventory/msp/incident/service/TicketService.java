@@ -187,6 +187,9 @@ public class TicketService {
         if ("SEND_FOR_REVIEW".equals(upper)) {
             return TicketAction.SENT_FOR_REVIEW;
         }
+        if ("REASSIGN".equals(upper)) {
+            return TicketAction.REASSIGNED;
+        }
         try {
             return TicketAction.valueOf(upper);
         } catch (IllegalArgumentException ex) {
@@ -271,6 +274,59 @@ public class TicketService {
         return saved;
     }
 
+    @Transactional
+    public Ticket reassignTicketToFieldPerson(Long ticketId, Long fieldPersonId, LocalDate scheduledDate, String remarks, AppUser actor) {
+        if (actor == null) {
+            throw new InvalidTicketStateTransitionException("Actor is required");
+        }
+        if (!UserRole.SUPPORT_ENGINEER.equals(actor.getRole())) {
+            throw new InvalidTicketStateTransitionException("Only a support engineer can reassign tickets");
+        }
+
+        Ticket ticket = getTicket(ticketId);
+        if (ticket.getRaisedByUser() == null || !ticket.getRaisedByUser().getId().equals(actor.getId())) {
+            throw new InvalidTicketStateTransitionException("Only the ticket creator can reassign this ticket");
+        }
+        if (ticket.getStatus() != TicketStatus.OPEN
+                && ticket.getStatus() != TicketStatus.REOPENED
+                && ticket.getStatus() != TicketStatus.REVALIDATION) {
+            throw new InvalidTicketStateTransitionException(
+                    "Ticket can only be reassigned while OPEN, REOPENED, or REVALIDATION. Current status: " + ticket.getStatus());
+        }
+        if (fieldPersonId == null) {
+            throw new InvalidTicketStateTransitionException("Field person ID is required");
+        }
+        if (scheduledDate == null || scheduledDate.isBefore(LocalDate.now())) {
+            throw new InvalidTicketStateTransitionException("Reassignment date cannot be in the past");
+        }
+
+        FieldPerson assignedFieldPerson = fieldPersonRepository.findById(fieldPersonId)
+                .orElseThrow(() -> new NotFoundException("Field person not found with id: " + fieldPersonId));
+        if (!Boolean.TRUE.equals(assignedFieldPerson.getActive())) {
+            throw new InvalidTicketStateTransitionException("Selected field person is not active");
+        }
+        if (assignedFieldPerson.getUser() == null) {
+            throw new InvalidTicketStateTransitionException("Selected field person is not linked to a valid user account");
+        }
+
+        TicketStatus previousStatus = ticket.getStatus();
+        ticket.setFieldPerson(assignedFieldPerson);
+        ticket.setStatus(TicketStatus.OPEN);
+        ticket.setAssignedAt(scheduledDate.atStartOfDay());
+        ticket.setReviewer(null);
+        ticket.setUpdatedAt(LocalDateTime.now());
+
+        Ticket saved = ticketRepository.save(ticket);
+        recordStatusChange(saved, previousStatus, TicketStatus.OPEN, actor, TicketAction.REASSIGNED,
+                normalizeRemarks(remarks), assignedFieldPerson.getUser(), UserRole.FIELD_PERSON);
+
+        try {
+            notificationService.notifyForTicketEvent(saved.getId(), "TICKET_ASSIGNED");
+        } catch (Exception ignored) {
+        }
+        return saved;
+    }
+
     private void validateActionRemarks(TicketAction action, String remarks) {
         String normalized = normalizeRemarks(remarks);
         boolean required = action == TicketAction.RESOLVED || action == TicketAction.REVALIDATION_REQUESTED || action == TicketAction.REOPENED;
@@ -295,13 +351,15 @@ public class TicketService {
             );
         }
 
-        ticket.setStatus(TicketStatus.COORDINATOR_REVIEW);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.COORDINATOR_REVIEW;
+        ticket.setStatus(nextStatus);
         ticket.setCoordinator(fieldPerson);
         ticket.setCoordinatorAckNotes(notes);
         ticket.setCoordinatorAckedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, ticket.getStatus().name(), TicketStatus.COORDINATOR_REVIEW.name(), notes, fieldPerson);
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, fieldPerson);
 
         try {
             notificationService.notifyForTicketEvent(saved.getId(), "TICKET_ACKNOWLEDGED");
@@ -323,12 +381,14 @@ public class TicketService {
         AppUser reviewer = userRepository.findById(reviewerId)
                 .orElseThrow(() -> new NotFoundException("Reviewer not found with id: " + reviewerId));
 
-        ticket.setStatus(TicketStatus.ASSIGNED_TO_REVIEWER);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.ASSIGNED_TO_REVIEWER;
+        ticket.setStatus(nextStatus);
         ticket.setReviewer(reviewer);
         ticket.setAssignedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, TicketStatus.COORDINATOR_REVIEW.name(), TicketStatus.ASSIGNED_TO_REVIEWER.name(),
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(),
                 "Assigned to reviewer: " + reviewer.getUsername(), coordinator);
 
                 try {
@@ -349,12 +409,14 @@ public class TicketService {
             );
         }
 
-        ticket.setStatus(TicketStatus.RESOLVED);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.RESOLVED;
+        ticket.setStatus(nextStatus);
         ticket.setReviewNotes(notes);
         ticket.setClosedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, ticket.getStatus().name(), TicketStatus.RESOLVED.name(), notes, reviewer);
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_RESOLVED");
@@ -374,11 +436,13 @@ public class TicketService {
             );
         }
 
-        ticket.setStatus(TicketStatus.PENDING);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.PENDING;
+        ticket.setStatus(nextStatus);
         ticket.setReviewNotes(notes);
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, TicketStatus.ASSIGNED_TO_REVIEWER.name(), TicketStatus.PENDING.name(), notes, reviewer);
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_ON_HOLD");
@@ -398,12 +462,14 @@ public class TicketService {
             );
         }
 
-        ticket.setStatus(TicketStatus.REOPENED);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.REOPENED;
+        ticket.setStatus(nextStatus);
         ticket.setReopenedAt(LocalDateTime.now());
         ticket.setReviewNotes(notes);
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, TicketStatus.RESOLVED.name(), TicketStatus.REOPENED.name(), notes, reviewer);
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_REOPENED");
@@ -423,12 +489,14 @@ public class TicketService {
             );
         }
 
-        ticket.setStatus(TicketStatus.REJECTED);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.REJECTED;
+        ticket.setStatus(nextStatus);
         ticket.setReviewNotes(notes);
         ticket.setClosedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, TicketStatus.ASSIGNED_TO_REVIEWER.name(), TicketStatus.REJECTED.name(), notes, reviewer);
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_REJECTED");
@@ -448,10 +516,12 @@ public class TicketService {
             );
         }
 
-        ticket.setStatus(TicketStatus.ASSIGNED_TO_REVIEWER);
+        TicketStatus previousStatus = ticket.getStatus();
+        TicketStatus nextStatus = TicketStatus.ASSIGNED_TO_REVIEWER;
+        ticket.setStatus(nextStatus);
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, TicketStatus.PENDING.name(), TicketStatus.ASSIGNED_TO_REVIEWER.name(),
+        recordStatusChange(saved, previousStatus.name(), nextStatus.name(),
                 "Resumed review", reviewer);
 
         return saved;

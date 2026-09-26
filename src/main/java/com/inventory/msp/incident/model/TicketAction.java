@@ -5,5 +5,6 @@ public enum TicketAction {
     RESOLVED,
     REVALIDATION_REQUESTED,
     REOPENED,
-    SENT_FOR_REVIEW
+    SENT_FOR_REVIEW,
+    REASSIGNED
 }
