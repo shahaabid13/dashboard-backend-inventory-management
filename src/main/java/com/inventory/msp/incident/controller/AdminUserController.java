@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,29 +32,39 @@ public class AdminUserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createUser(
             @Valid @RequestBody CreateUserRequest request) {
-        UserRole role = UserRole.valueOf(request.getRole().toUpperCase());
+        String roleValue = request.getRole() == null ? null : request.getRole().trim();
+        if (roleValue == null || roleValue.isBlank()) {
+            return ResponseEntity.badRequest().body(new ErrorResponse("Role is required"));
+        }
+
+        UserRole role;
+        try {
+            role = UserRole.valueOf(roleValue.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(new ErrorResponse("Invalid role: " + roleValue));
+        }
 
         // Validate FIELD_PERSON requirements
         if (role == UserRole.FIELD_PERSON) {
             if (request.getName() == null || request.getName().isBlank()) {
-                return ResponseEntity.badRequest()
-                        .body(new ErrorResponse("Name is required for FIELD_PERSON role"));
+               return ResponseEntity.badRequest()
+                       .body(new ErrorResponse("Name is required for FIELD_PERSON role"));
             }
             if (request.getPhone() == null || request.getPhone().isBlank()) {
-                return ResponseEntity.badRequest()
-                        .body(new ErrorResponse("Phone is required for FIELD_PERSON role"));
+               return ResponseEntity.badRequest()
+                       .body(new ErrorResponse("Phone is required for FIELD_PERSON role"));
             }
         }
 
         AppUser user = authService.createUser(
-                request.getUsername(),
-                request.getPassword(),
-                role,
-                request.getAgencyName(),
-                request.getName(),
-                request.getPhone(),
-                request.getFullName(),
-                request.getEmail()
+               request.getUsername(),
+               request.getPassword(),
+               role,
+               request.getAgencyName(),
+               request.getName(),
+               request.getPhone(),
+               request.getFullName(),
+               request.getEmail()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(incidentMapper.toAppUserResponse(user));
     }

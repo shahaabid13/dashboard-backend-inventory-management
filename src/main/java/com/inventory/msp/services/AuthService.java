@@ -6,12 +6,15 @@ import com.inventory.msp.incident.model.FieldPerson;
 import com.inventory.msp.incident.repository.FieldPersonRepository;
 import com.inventory.msp.repository.UserRepository;
 import com.inventory.msp.security.JwtUtil;
+import com.inventory.msp.security.LdapUserProvisioningService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.inventory.msp.security.LdapAuthService;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -21,70 +24,46 @@ public class AuthService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final LdapAuthService ldapAuthService;
+    private final LdapUserProvisioningService ldapUserProvisioningService; // NEW
 
-    /**
-     * Hybrid login: local DB (bcrypt) first, then fallback to LDAP. On successful LDAP login,
-     * ensure an AppUser row exists (create if missing) with password=null and a default role.
-     */
     @Transactional
     public String login(String username, String password) {
-        if (username == null) username = "";
-        String trimmed = username.trim();
-        if (trimmed.isBlank() || password == null || password.isBlank()) {
+        String normalizedUsername = username == null ? "" : username.trim();
+        if (normalizedUsername.isBlank() || password == null || password.isBlank()) {
             throw new RuntimeException("Invalid credentials");
         }
 
-        // 1) Try local DB auth if user exists and has a password set
-        AppUser local = userRepository.findByUsername(trimmed).orElse(null);
-        if (local != null && local.getPassword() != null && !local.getPassword().isBlank()) {
-            if (!passwordEncoder.matches(password, local.getPassword())) {
-                throw new RuntimeException("Invalid credentials");
-            }
-            return jwtUtil.generateToken(local.getUsername(), local.getRole().name());
-        }
-
-        // 2) Fallback to LDAP authenticate
-        var maybe = ldapAuthService.authenticate(trimmed, password);
-        if (maybe.isEmpty()) {
+        java.util.Optional<com.inventory.msp.security.LdapAuthService.AdLoginResult> adLogin =
+                ldapAuthService.authenticate(normalizedUsername, password);
+        if (adLogin.isEmpty()) {
             throw new RuntimeException("Invalid credentials");
         }
 
-        LdapAuthService.AdLoginResult ad = maybe.get();
-        String normalizedUsername = ad.username();
-        String displayName = ad.displayName();
-        String email = ad.email();
-        String mappedRoleStr = ad.role();
+        com.inventory.msp.security.LdapAuthService.AdLoginResult loginResult = adLogin.get();
+        AppUser user = userRepository.findByUsername(loginResult.username())
+                .orElseGet(() -> {
+                    AppUser newUser = AppUser.builder()
+                            .username(loginResult.username())
+                            .password(null)
+                            .role(UserRole.valueOf(loginResult.role()))
+                            .fullName(loginResult.displayName())
+                            .email(loginResult.email())
+                            .build();
+                    return userRepository.save(newUser);
+                });
 
-        // 3) Ensure AppUser exists locally (create if needed). Password remains null for AD users.
-        AppUser user = userRepository.findByUsername(normalizedUsername).orElse(null);
-        if (user == null) {
-            UserRole role = UserRole.VIEWER; // safe default
-            if (mappedRoleStr != null) {
-                try {
-                    role = UserRole.valueOf(mappedRoleStr.toUpperCase());
-                } catch (Exception ignored) { }
-            }
-            AppUser u = AppUser.builder()
-                    .username(normalizedUsername)
-                    .password(null)
-                    .role(role)
-                    .fullName(displayName)
-                    .email(email)
-                    .build();
-            user = userRepository.save(u);
-            // create linked profiles if role requires them (syncRoleProfile is safe)
-            syncRoleProfile(user, displayName, null);
-        } else {
-            // Optionally update profile info if missing
-            boolean changed = false;
-            if ((user.getFullName() == null || user.getFullName().isBlank()) && displayName != null) {
-                user.setFullName(displayName); changed = true;
-            }
-            if ((user.getEmail() == null || user.getEmail().isBlank()) && email != null) {
-                user.setEmail(email); changed = true;
-            }
-            if (changed) userRepository.save(user);
+        if (user.getRole() == null) {
+            user.setRole(UserRole.valueOf(loginResult.role()));
         }
+        if (user.getFullName() == null && loginResult.displayName() != null) {
+            user.setFullName(loginResult.displayName());
+        }
+        if (user.getEmail() == null && loginResult.email() != null) {
+            user.setEmail(loginResult.email());
+        }
+        userRepository.save(user);
+        syncRoleProfile(user, user.getFullName(), user.getPhone());
+
         return jwtUtil.generateToken(user.getUsername(), user.getRole().name());
     }
 
@@ -103,101 +82,127 @@ public class AuthService {
             }
         }
 
-        AppUser user = AppUser.builder()
-                .username(username)
-                .password(passwordEncoder.encode(rawPassword))
-                .role(role)
-                .agencyName(agencyName)
-                .fullName(fullName != null ? fullName : name)
-                .email(email)
-                .phone(phone)
-                .build();
-        AppUser savedUser = userRepository.save(user);
+        String resolvedFullName = fullName != null ? fullName : name;
 
-        // Ensures any role-specific linked profile (currently only FIELD_PERSON) exists.
-        syncRoleProfile(savedUser, name != null ? name : fullName, phone);
+        // 1) Create the user in Active Directory FIRST. AD is now the source of
+        // truth for credentials — if this fails, we never touch the local DB.
+        ldapUserProvisioningService.createAdUser(
+                username,
+                rawPassword,
+                resolvedFullName,
+                email,
+                phone,
+                role.name()
+        );
 
-        return savedUser;
+        try {
+            // 2) Mirror into local DB — password intentionally left NULL.
+            // This matches the same pattern already used for AD users created
+            // via the login() JIT-provisioning path above.
+            AppUser user = AppUser.builder()
+                    .username(username)
+                    .password(null)
+                    .role(role)
+                    .agencyName(agencyName)
+                    .fullName(resolvedFullName)
+                    .email(email)
+                    .phone(phone)
+                    .build();
+            AppUser savedUser = userRepository.save(user);
+
+            // Ensures any role-specific linked profile (currently only FIELD_PERSON) exists.
+            syncRoleProfile(savedUser, name != null ? name : fullName, phone);
+
+            return savedUser;
+
+        } catch (Exception dbException) {
+            // DB failed after AD succeeded — roll back the AD account so the two
+            // systems don't drift (an AD account with no corresponding local row).
+            log.error("DB save failed after AD user '{}' was created. Rolling back AD account.",
+                    username, dbException);
+            try {
+                ldapUserProvisioningService.deleteAdUser(username);
+            } catch (Exception cleanupEx) {
+                log.error("CRITICAL: AD user '{}' exists but DB save failed AND AD rollback also failed. " +
+                        "Manual AD cleanup required immediately.", username, cleanupEx);
+            }
+            throw dbException;
+        }
     }
 
     @Transactional
-    public AppUser updateUser(Long id, String role, String agencyName, String rawPassword, String fullName, String email, String phone) {
-        AppUser user = userRepository.findById(id)
+    public AppUser updateUser(Long userId, String roleText, String agencyName, String rawPassword,
+                             String fullName, String email, String phone) {
+        AppUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (role != null) {
-            user.setRole(UserRole.valueOf(role.toUpperCase()));
+        if (roleText != null && !roleText.isBlank()) {
+            user.setRole(UserRole.valueOf(roleText.toUpperCase()));
         }
         if (agencyName != null) {
             user.setAgencyName(agencyName);
         }
-        if (rawPassword != null && !rawPassword.isEmpty()) {
+        if (rawPassword != null && !rawPassword.isBlank()) {
             user.setPassword(passwordEncoder.encode(rawPassword));
         }
-
-        if (fullName != null) user.setFullName(fullName);
-        if (email != null) user.setEmail(email);
-        if (phone != null) user.setPhone(phone);
+        if (fullName != null) {
+            user.setFullName(fullName);
+        }
+        if (email != null) {
+            user.setEmail(email);
+        }
+        if (phone != null) {
+            user.setPhone(phone);
+        }
 
         AppUser saved = userRepository.save(user);
-
-        // Ensures a FieldPerson profile exists/stays in sync whenever the role
-        // is (or becomes) FIELD_PERSON — covers role changes made after creation.
-        syncRoleProfile(saved, fullName, phone);
-
+        syncRoleProfile(saved, saved.getFullName(), saved.getPhone());
         return saved;
     }
 
-    public void deleteUser(Long id) {
-        AppUser user = userRepository.findById(id)
+    @Transactional
+    public void deleteUser(Long userId) {
+        AppUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (user.getRole() == UserRole.FIELD_PERSON) {
+            fieldPersonRepository.findByUserId(userId).ifPresent(fieldPersonRepository::delete);
+        }
+
         userRepository.delete(user);
     }
 
-    /**
-     * Single source of truth for keeping role-specific linked profiles in sync
-     * with an AppUser's current role. Currently only FIELD_PERSON has a linked
-     * profile table (FieldPerson); other roles (REVIEWER, ADMIN, SUPPORT_ENGINEER,
-     * VIEWER, AGENCY) are read directly off AppUser and need no linked row.
-     *
-     * Safe to call after ANY create or update, from ANY entry point (admin-created
-     * users, AD JIT-provisioned users, role changes) — it creates the profile if
-     * missing, updates name/phone if one already exists, and does nothing for
-     * roles that don't need a linked profile.
-     */
-    public void syncRoleProfile(AppUser user, String preferredName, String phone) {
+    @Transactional
+    protected void syncRoleProfile(AppUser user, String name, String phone) {
+        if (user == null) {
+            return;
+        }
+
         if (user.getRole() != UserRole.FIELD_PERSON) {
             return;
         }
 
-        FieldPerson fieldPerson = fieldPersonRepository.findByUserId(user.getId()).orElse(null);
-        String resolvedName = (preferredName != null && !preferredName.isBlank())
-                ? preferredName
-                : (user.getFullName() != null && !user.getFullName().isBlank() ? user.getFullName() : user.getUsername());
-        String resolvedPhone = (phone != null && !phone.isBlank()) ? phone : user.getPhone();
-
-        if (fieldPerson == null) {
-            fieldPerson = FieldPerson.builder()
-                    .name(resolvedName)
-                    .phone(resolvedPhone)
+        FieldPerson existing = fieldPersonRepository.findByUserId(user.getId()).orElse(null);
+        if (existing == null) {
+            FieldPerson fieldPerson = FieldPerson.builder()
+                    .name(name != null && !name.isBlank() ? name : user.getFullName() != null ? user.getFullName() : user.getUsername())
                     .role("Field Person")
+                    .phone(phone)
                     .active(true)
                     .user(user)
                     .build();
             fieldPersonRepository.save(fieldPerson);
-        } else {
-            boolean changed = false;
-            if (resolvedName != null && !resolvedName.equals(fieldPerson.getName())) {
-                fieldPerson.setName(resolvedName);
-                changed = true;
-            }
-            if (resolvedPhone != null && !resolvedPhone.equals(fieldPerson.getPhone())) {
-                fieldPerson.setPhone(resolvedPhone);
-                changed = true;
-            }
-            if (changed) {
-                fieldPersonRepository.save(fieldPerson);
-            }
+            return;
         }
+
+        if (name != null && !name.isBlank()) {
+            existing.setName(name);
+        }
+        if (phone != null) {
+            existing.setPhone(phone);
+        }
+        existing.setUser(user);
+        existing.setActive(true);
+        fieldPersonRepository.save(existing);
     }
 }
