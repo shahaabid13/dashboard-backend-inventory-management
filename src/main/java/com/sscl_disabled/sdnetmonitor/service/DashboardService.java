@@ -22,7 +22,7 @@ public class DashboardService {
 
     public DashboardSummaryDto summary() {
         long junctionCount = junctionRepository.findAll().stream()
-                .filter(j -> j.getType() == JunctionType.JUNCTION).count();
+                .filter(j -> j.getType() == JunctionType.JUNCTION || j.getType() == JunctionType.SWITCH).count();
         long routerCount = junctionRepository.findAll().stream()
                 .filter(j -> j.getType() == JunctionType.ROUTER).count();
 

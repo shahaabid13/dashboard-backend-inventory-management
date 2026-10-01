@@ -9,12 +9,14 @@ import org.springframework.ldap.core.support.BaseLdapPathContextSource;
 import org.springframework.ldap.support.LdapNameBuilder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.InvalidNameException;
 import javax.naming.Name;
+import javax.naming.ldap.LdapName;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Slf4j
@@ -33,9 +35,6 @@ public class LdapUserProvisioningService {
     @Value("${app.ldap.domain-suffix}")
     private String domainSuffix;
 
-    // Maps our application role -> exact CN of the AD security group.
-    // MUST match LdapAuthService.mapGroupToRole() substrings exactly.
-    // Confirm these CNs with your AD admin before relying on this in production.
     private static final Map<String, String> ROLE_TO_GROUP_CN = Map.of(
             "ADMIN", "SG_APP_INVENTORY_ADMIN",
             "AGENCY", "SG_APP_INVENTORY_AGENCY",
@@ -49,67 +48,74 @@ public class LdapUserProvisioningService {
         return new LdapTemplate(contextSource);
     }
 
-    /**
-     * Creates a new user in Active Directory: disabled -> set password -> enabled
-     * -> add to the AD group matching the given application role.
-     *
-     * Throws on any failure. Caller is responsible for DB rollback semantics.
-     */
     public void createAdUser(String username, String password, String fullName,
                              String email, String phone, String role) {
 
-        String groupCn = ROLE_TO_GROUP_CN.get(role);
+        String normalizedUsername = normalizeUsername(username);
+        String normalizedRole = role == null ? "" : role.trim().toUpperCase(Locale.ROOT);
+        String groupCn = ROLE_TO_GROUP_CN.get(normalizedRole);
+
+        if (normalizedUsername.isBlank()) {
+            throw new IllegalArgumentException("Username is required for AD user creation");
+        }
+        if (password == null || password.isBlank()) {
+            throw new IllegalArgumentException("Password is required for AD user creation");
+        }
         if (groupCn == null) {
             throw new IllegalArgumentException(
-                    "No AD group mapping configured for role: " + role +
+                    "No AD group mapping configured for role: " + normalizedRole +
                             ". User will authenticate but LdapAuthService.mapGroupToRole() will reject them.");
         }
 
-        Name userDn = buildUserDn(username);
+        String displayName = fullName == null || fullName.isBlank() ? normalizedUsername : fullName.trim();
+        String[] nameParts = splitDisplayName(displayName);
+
+        Name userDn = buildUserDn(normalizedUsername);
 
         try {
-            // Step 1: create the account, disabled (userAccountControl=514)
             DirContextAdapter context = new DirContextAdapter(userDn);
             context.setAttributeValues("objectClass", new String[] { "top", "person", "organizationalPerson", "user" });
-            context.setAttributeValue("cn", username);
-            context.setAttributeValue("sAMAccountName", username);
-            context.setAttributeValue("userPrincipalName", username + "@" + domainSuffix);
-            context.setAttributeValue("displayName", fullName);
-            context.setAttributeValue("userAccountControl", "514"); // normal account, disabled
+            context.setAttributeValue("cn", normalizedUsername);
+            context.setAttributeValue("sAMAccountName", normalizedUsername);
+            context.setAttributeValue("userPrincipalName", normalizedUsername + "@" + domainSuffix);
+            context.setAttributeValue("displayName", displayName);
+            context.setAttributeValue("name", displayName);
+            if (nameParts[0] != null) {
+                context.setAttributeValue("givenName", nameParts[0]);
+            }
+            if (nameParts[1] != null) {
+                context.setAttributeValue("sn", nameParts[1]);
+            }
+            context.setAttributeValue("userAccountControl", String.valueOf(514));
 
             if (email != null && !email.isBlank()) {
-                context.setAttributeValue("mail", email);
+                context.setAttributeValue("mail", email.trim());
             }
             if (phone != null && !phone.isBlank()) {
-                context.setAttributeValue("telephoneNumber", phone);
+                context.setAttributeValue("telephoneNumber", phone.trim());
             }
 
             ldapTemplate().bind(context);
-            log.info("AD account created (disabled) for user: {}", username);
+            log.info("AD account created (disabled) for user: {}", normalizedUsername);
 
-            // Step 2: set password — REQUIRES ldaps:// connection, which app.ldap.urls already uses
             setPassword(userDn, password);
-            log.info("Password set for AD user: {}", username);
+            log.info("Password set for AD user: {}", normalizedUsername);
 
-            // Step 3: enable the account (userAccountControl=512)
             enableAccount(userDn);
-            log.info("AD account enabled for user: {}", username);
+            log.info("AD account enabled for user: {}", normalizedUsername);
 
-            // Step 4: add to the role's security group
             addUserToGroup(userDn, groupCn);
-            log.info("AD user {} added to group {}", username, groupCn);
+            log.info("AD user {} added to group {}", normalizedUsername, groupCn);
 
         } catch (Exception e) {
-            log.error("Failed to fully provision AD user '{}', attempting cleanup of partial state", username, e);
-            // Best-effort cleanup: if the account object was created but a later
-            // step failed, remove it rather than leaving a broken/disabled AD account behind.
+            log.error("Failed to fully provision AD user '{}', attempting cleanup of partial state", normalizedUsername, e);
             try {
-                deleteAdUser(username);
+                deleteAdUser(normalizedUsername);
             } catch (Exception cleanupEx) {
                 log.error("Cleanup of partially-created AD user '{}' also failed. Manual AD cleanup required.",
-                        username, cleanupEx);
+                        normalizedUsername, cleanupEx);
             }
-            throw new RuntimeException("Failed to provision AD user: " + username, e);
+            throw new RuntimeException("Failed to provision AD user: " + normalizedUsername, e);
         }
     }
 
@@ -132,48 +138,79 @@ public class LdapUserProvisioningService {
     private void enableAccount(Name userDn) {
         ModificationItem[] mods = new ModificationItem[] {
                 new ModificationItem(DirContext.REPLACE_ATTRIBUTE,
-                        new BasicAttribute("userAccountControl", "512"))
+                        new BasicAttribute("userAccountControl", String.valueOf(512)))
         };
         ldapTemplate().modifyAttributes(userDn, mods);
     }
 
     private void addUserToGroup(Name userDn, String groupCn) {
-        Name groupDn = LdapNameBuilder.newInstance(groupSearchBase)
-                .add("CN", groupCn)
-                .build();
+        Name groupDn = buildGroupDn(groupCn);
 
-        ModificationItem[] mods = new ModificationItem[] {
-                new ModificationItem(DirContext.ADD_ATTRIBUTE,
-                        new BasicAttribute("member", userDn.toString() + "," + contextSource.getBaseLdapPathAsString()))
-        };
-        // Note: 'member' attribute value must be the FULL absolute DN of the user.
-        // Since userDn here is built relative to contextSource's base, LdapTemplate
-        // resolves it correctly when passed directly — see caution below.
         ldapTemplate().modifyAttributes(groupDn, new ModificationItem[] {
                 new ModificationItem(DirContext.ADD_ATTRIBUTE,
-                        new BasicAttribute("member", buildFullUserDn(userDn.toString())))
+                        new BasicAttribute("member", userDn.toString()))
         });
     }
 
-    /**
-     * Deletes an AD user. Used both for explicit admin-triggered deletion and
-     * as a rollback compensating action if DB write fails after AD creation succeeds.
-     */
     public void deleteAdUser(String username) {
-        Name userDn = buildUserDn(username);
+        Name userDn = buildUserDn(normalizeUsername(username));
         ldapTemplate().unbind(userDn);
     }
 
     private Name buildUserDn(String username) {
-        return LdapNameBuilder.newInstance(userCreateBase)
-                .add("CN", username)
-                .build();
+        String normalizedUsername = normalizeUsername(username);
+        if (normalizedUsername.isBlank()) {
+            throw new IllegalArgumentException("Username cannot be blank");
+        }
+        try {
+            return new LdapName("CN=" + normalizedUsername + "," + userCreateBase);
+        } catch (InvalidNameException e) {
+            throw new IllegalArgumentException("Invalid AD user DN for username: " + normalizedUsername, e);
+        }
     }
 
-    private String buildFullUserDn(String relativeDn) {
-        // contextSource has no base path configured (per LdapConfig comment: "No base DN
-        // appended here"), so DNs used with LdapTemplate are already absolute. This helper
-        // exists in case that assumption changes — verify against your actual LdapConfig.
-        return relativeDn;
+    private Name buildGroupDn(String groupCn) {
+        String normalizedGroupCn = groupCn == null ? "" : groupCn.trim();
+        if (normalizedGroupCn.isBlank()) {
+            throw new IllegalArgumentException("Group CN cannot be blank");
+        }
+        try {
+            return new LdapName("CN=" + normalizedGroupCn + "," + groupSearchBase);
+        } catch (InvalidNameException e) {
+            throw new IllegalArgumentException("Invalid AD group DN for group: " + normalizedGroupCn, e);
+        }
+    }
+
+    private String normalizeUsername(String username) {
+        if (username == null) {
+            return "";
+        }
+
+        String normalized = username.trim();
+        if (normalized.isBlank()) {
+            return "";
+        }
+
+        if (normalized.contains(",") || normalized.contains("=") || normalized.contains("\\") || normalized.contains("/")) {
+            throw new IllegalArgumentException("Invalid AD username: " + username);
+        }
+
+        return normalized;
+    }
+
+    private String[] splitDisplayName(String displayName) {
+        if (displayName == null || displayName.isBlank()) {
+            return new String[] { null, null };
+        }
+
+        String trimmed = displayName.trim();
+        int firstSpace = trimmed.indexOf(' ');
+        if (firstSpace <= 0) {
+            return new String[] { trimmed, trimmed };
+        }
+
+        String givenName = trimmed.substring(0, firstSpace).trim();
+        String surname = trimmed.substring(firstSpace + 1).trim();
+        return new String[] { givenName, surname };
     }
 }

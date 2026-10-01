@@ -148,8 +148,18 @@ public class EventSearchService {
     }
 
     private List<Server> resolveServers(Integer serverId) {
+        if (serverId != null) {
+            return List.of(serverRepository.findById(serverId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Server not found with ID: " + serverId)));
+        }
+
+        List<Server> activeServers = serverRepository.findByIsActiveTrue();
+        if (activeServers != null && !activeServers.isEmpty()) {
+            return activeServers;
+        }
+
         return List.of(serverRepository.findById(VMS_SERVER_ID)
-                .orElseThrow(() -> new ResourceNotFoundException("Server not found with ID: " + VMS_SERVER_ID)));
+                .orElseThrow(() -> new ResourceNotFoundException("No active VMS servers found and default server " + VMS_SERVER_ID + " is unavailable")));
     }
 
     private ExternalEventSearchResponse fetchEvents(

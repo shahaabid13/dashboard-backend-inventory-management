@@ -1,4 +1,7 @@
 package com.inventory.msp.dto;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -22,6 +25,8 @@ public class WeighbridgeApiDTO {
     private String mts;
     private String ward;
 
+    @JsonProperty("wb_id")
+    @JsonAlias({"wbId", "wbid"})
     private String wb_id;
 }
 

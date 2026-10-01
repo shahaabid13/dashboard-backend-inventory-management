@@ -14,12 +14,18 @@ public class LdapConfig {
     @Value("${app.ldap.manager-dn}")
     private String managerDn;
 
-    @Value("${AD_LDAP_PASSWORD:}")
+    @Value("${app.ldap.manager-password:${AD_LDAP_PASSWORD:}}")
     private String managerPassword;
 
     @Bean
     public DefaultSpringSecurityContextSource contextSource() {
-        // No base DN appended here — all search bases below are now FULL/absolute DNs instead.
+        if (managerDn == null || managerDn.isBlank()) {
+            throw new IllegalStateException("LDAP manager DN is blank. Set app.ldap.manager-dn or the AD_LDAP_PASSWORD env.");
+        }
+        if (managerPassword == null || managerPassword.isBlank()) {
+            throw new IllegalStateException("LDAP manager password is blank. Set AD_LDAP_PASSWORD or app.ldap.manager-password.");
+        }
+
         DefaultSpringSecurityContextSource contextSource =
                 new DefaultSpringSecurityContextSource(ldapUrl);
         contextSource.setUserDn(managerDn);

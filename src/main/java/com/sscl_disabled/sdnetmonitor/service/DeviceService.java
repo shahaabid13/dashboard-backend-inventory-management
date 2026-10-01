@@ -61,6 +61,10 @@ public class DeviceService {
     }
 
     public DeviceDto toDto(Device d) {
+        if (d == null) {
+            return null;
+        }
+
         Junction junction = d.getJunction();
         return new DeviceDto(
                 d.getId(),
@@ -71,9 +75,9 @@ public class DeviceService {
                 junction != null && junction.isHasCoordinates(),
                 d.getDeviceLabel(),
                 d.getIpAddress(),
-                d.getCategory().name(),
+                d.getCategory() != null ? d.getCategory().name() : null,
                 d.isNetworkSwitch(),
-                d.getCurrentStatus().name(),
+                d.getCurrentStatus() != null ? d.getCurrentStatus().name() : "UNKNOWN",
                 d.getLastStatusChange(),
                 d.getLastCheckedAt(),
                 d.getLastUpAt(),

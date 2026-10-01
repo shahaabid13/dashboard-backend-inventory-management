@@ -79,6 +79,7 @@ class EventSearchServiceTest {
 
         server100 = server(100);
         org.mockito.Mockito.lenient().when(serverRepository.findById(100)).thenReturn(Optional.of(server100));
+        org.mockito.Mockito.lenient().when(serverRepository.findByIsActiveTrue()).thenReturn(List.of(server100));
     }
 
     @Test
@@ -131,6 +132,8 @@ class EventSearchServiceTest {
 
     @Test
     void server100DownReturnsPartialCount() {
+        Server server101 = server(101);
+        when(serverRepository.findByIsActiveTrue()).thenReturn(List.of(server100, server101));
         when(vmsRestTemplate.postForEntity(
                 anyString(), any(HttpEntity.class), eq(Map.class)))
                 .thenAnswer(invocation -> {
@@ -150,6 +153,8 @@ class EventSearchServiceTest {
 
     @Test
     void bothServersDownReturnEmptyPartialResults() {
+        Server server101 = server(101);
+        when(serverRepository.findByIsActiveTrue()).thenReturn(List.of(server100, server101));
         when(vmsRestTemplate.postForEntity(
                 anyString(), any(HttpEntity.class), eq(Map.class)))
                 .thenThrow(new RestClientException("servers unavailable"));
@@ -158,7 +163,7 @@ class EventSearchServiceTest {
 
         assertEquals(0, response.getCount());
         assertTrue(response.isPartial());
-        assertEquals(List.of(100), response.getFailedServerIds());
+        assertEquals(List.of(100, 101), response.getFailedServerIds());
     }
 
     @Test

@@ -51,6 +51,10 @@ public class FibreLinkService {
     }
 
     public FibreLinkDto toDto(FibreLink link) {
+        if (link == null) {
+            return null;
+        }
+
         Junction from = link.getFromJunction();
         Junction to = link.getToJunction();
         return new FibreLinkDto(
@@ -65,7 +69,7 @@ public class FibreLinkService {
                 link.getLengthMeters(),
                 link.isConfirmed(),
                 link.isDiagramConfirmed(),
-                link.getCurrentStatus().name(),
+                link.getCurrentStatus() != null ? link.getCurrentStatus().name() : "UNKNOWN",
                 link.getLastStatusChange(),
                 parsePath(link.getPathGeojson())
         );

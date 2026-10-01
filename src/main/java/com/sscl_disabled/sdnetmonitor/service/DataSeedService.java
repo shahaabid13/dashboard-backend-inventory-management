@@ -123,6 +123,7 @@ public class DataSeedService implements CommandLineRunner {
     private JunctionType mapJunctionType(String rawType) {
         if (rawType == null) return JunctionType.JUNCTION;
         return switch (rawType.toLowerCase()) {
+            case "switch" -> JunctionType.SWITCH;
             case "router" -> JunctionType.ROUTER;
             case "data_center", "datacenter" -> JunctionType.DATA_CENTER;
             default -> JunctionType.JUNCTION;

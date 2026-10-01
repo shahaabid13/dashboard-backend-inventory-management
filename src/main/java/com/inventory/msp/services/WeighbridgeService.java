@@ -31,28 +31,36 @@ public class WeighbridgeService {
         WeighbridgeApiDTO[] data =
                 restTemplate.getForObject(EXTERNAL_API, WeighbridgeApiDTO[].class);
 
-        if (data == null){
-            log.info("No data found from external api WeighBridge Service, Dumping site: {}");
+        if (data == null) {
+            log.info("No data found from external api WeighBridge Service");
             return;
         }
 
         int newRecords = 0;
         int skippedRecords = 0;
+        int invalidRecords = 0;
 
         for (WeighbridgeApiDTO d : data) {
+            String wbId = normalizeWbId(d);
+            Integer slipNo = d.getSlipno();
 
-            WeighBridgeKey key = new WeighBridgeKey();
-            key.setSlipno(d.getSlipno());
-            key.setWbId(d.getWb_id());
-
-            // Check if this record already exists (by composite key: slipno + wbId)
-            if (repo.existsBySlipnoAndWbId(d.getSlipno(), d.getWb_id())) {
-                log.debug("Record with slip number {} and weighbridge ID {} already exists. Skipping...", d.getSlipno(), d.getWb_id());
-                skippedRecords++;
-                continue;  // Skip to next record - do not replace existing data
+            if (wbId == null || slipNo == null) {
+                invalidRecords++;
+                log.warn("Skipping weighbridge sync record with missing required data. slipNo={}, wbId={}, vehicleNo={}",
+                        slipNo, d.getWb_id(), d.getVno());
+                continue;
             }
 
-            // Only save new records
+            WeighBridgeKey key = new WeighBridgeKey();
+            key.setSlipno(slipNo);
+            key.setWbId(wbId);
+
+            if (repo.existsBySlipnoAndWbId(slipNo, wbId)) {
+                log.debug("Record with slip number {} and weighbridge ID {} already exists. Skipping...", slipNo, wbId);
+                skippedRecords++;
+                continue;
+            }
+
             WeighBridgeEntry entry = new WeighBridgeEntry();
             entry.setId(key);
 
@@ -74,6 +82,21 @@ public class WeighbridgeService {
             newRecords++;
         }
 
-        log.info("Weighbridge data sync completed - New records inserted: {}, Existing records skipped: {}", newRecords, skippedRecords);
+        log.info("Weighbridge data sync completed - New records inserted: {}, Existing records skipped: {}, Invalid records skipped: {}",
+                newRecords, skippedRecords, invalidRecords);
+    }
+
+    private String normalizeWbId(WeighbridgeApiDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        String wbId = dto.getWb_id();
+        if (wbId == null) {
+            return null;
+        }
+
+        String normalized = wbId.trim();
+        return normalized.isEmpty() ? null : normalized;
     }
 }

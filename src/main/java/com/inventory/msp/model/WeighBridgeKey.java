@@ -9,8 +9,9 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public class WeighBridgeKey implements Serializable {
+    @Column(name = "slipno", nullable = false)
     private Integer slipno;
 
-    @Column(name = "wb_id")
+    @Column(name = "wb_id", nullable = false)
     private String wbId;
 }
