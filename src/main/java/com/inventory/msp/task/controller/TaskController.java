@@ -83,13 +83,15 @@ public class TaskController {
      */
     @PutMapping("/{id}/action")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<TaskResponse> takeAction(@PathVariable Long id,
+    public ResponseEntity<?> takeAction(@PathVariable Long id,
                                                     @Valid @RequestBody TaskActionRequest request,
                                                     Authentication authentication) {
         AppUser user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        TaskResponse response = taskService.takeAction(id, request, user.getId());
-        return ResponseEntity.ok(response);
+        TaskService.TaskActionResult result = taskService.takeAction(id, request, user.getId());
+        return ResponseEntity.ok(java.util.Map.of(
+                "task", result.task(),
+                "taskHistoryId", result.taskHistoryId()));
     }
 
     /**

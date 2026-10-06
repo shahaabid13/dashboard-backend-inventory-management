@@ -46,6 +46,9 @@ public class TicketService {
     private final com.inventory.msp.incident.service.NotificationService notificationService;
     private final TicketWorkflowService ticketWorkflowService;
 
+    public record TicketActionResult(Ticket ticket, Long ticketHistoryId) {
+    }
+
     // ========== TICKET CREATION ==========
 
     @Transactional
@@ -198,7 +201,7 @@ public class TicketService {
     }
 
     @Transactional
-    public Ticket handleFieldPersonAction(Long ticketId, String rawAction, String remarks, AppUser actor) {
+    public TicketActionResult handleFieldPersonAction(Long ticketId, String rawAction, String remarks, AppUser actor) {
         Ticket ticket = getTicket(ticketId);
         TicketAction action = parseAction(rawAction);
         validateActionRemarks(action, remarks);
@@ -220,7 +223,7 @@ public class TicketService {
         ticket.setUpdatedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus, nextStatus, actor, action, remarks, assignedTo, UserRole.FIELD_PERSON);
+        TicketHistory history = recordStatusChange(saved, previousStatus, nextStatus, actor, action, remarks, assignedTo, UserRole.FIELD_PERSON);
 
         String event = switch (action) {
             case RESOLVED -> "TICKET_RESOLVED";
@@ -231,11 +234,11 @@ public class TicketService {
             notificationService.notifyForTicketEvent(saved.getId(), event);
         } catch (Exception ignored) {
         }
-        return saved;
+        return new TicketActionResult(saved, history.getId());
     }
 
     @Transactional
-    public Ticket handleSupportEngineerAction(Long ticketId, String rawAction, String remarks, AppUser actor) {
+    public TicketActionResult handleSupportEngineerAction(Long ticketId, String rawAction, String remarks, AppUser actor) {
         Ticket ticket = getTicket(ticketId);
         TicketAction action = parseAction(rawAction);
         validateActionRemarks(action, remarks);
@@ -259,7 +262,7 @@ public class TicketService {
         ticket.setUpdatedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus, nextStatus, actor, action, remarks, assignedTo,
+        TicketHistory history = recordStatusChange(saved, previousStatus, nextStatus, actor, action, remarks, assignedTo,
                 TicketAction.REOPENED.equals(action) ? UserRole.FIELD_PERSON : UserRole.REVIEWER);
 
         String event = switch (action) {
@@ -271,11 +274,11 @@ public class TicketService {
             notificationService.notifyForTicketEvent(saved.getId(), event);
         } catch (Exception ignored) {
         }
-        return saved;
+        return new TicketActionResult(saved, history.getId());
     }
 
     @Transactional
-    public Ticket reassignTicketToFieldPerson(Long ticketId, Long fieldPersonId, LocalDate scheduledDate, String remarks, AppUser actor) {
+    public TicketActionResult reassignTicketToFieldPerson(Long ticketId, Long fieldPersonId, LocalDate scheduledDate, String remarks, AppUser actor) {
         if (actor == null) {
             throw new InvalidTicketStateTransitionException("Actor is required");
         }
@@ -317,14 +320,14 @@ public class TicketService {
         ticket.setUpdatedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus, TicketStatus.OPEN, actor, TicketAction.REASSIGNED,
+        TicketHistory history = recordStatusChange(saved, previousStatus, TicketStatus.OPEN, actor, TicketAction.REASSIGNED,
                 normalizeRemarks(remarks), assignedFieldPerson.getUser(), UserRole.FIELD_PERSON);
 
         try {
             notificationService.notifyForTicketEvent(saved.getId(), "TICKET_ASSIGNED");
         } catch (Exception ignored) {
         }
-        return saved;
+        return new TicketActionResult(saved, history.getId());
     }
 
     private void validateActionRemarks(TicketAction action, String remarks) {
@@ -399,7 +402,7 @@ public class TicketService {
     }
 
     @Transactional
-    public Ticket resolveTicket(Long ticketId, String notes, AppUser reviewer) {
+    public TicketActionResult resolveTicket(Long ticketId, String notes, AppUser reviewer) {
         Ticket ticket = getTicket(ticketId);
 
         // Validate transition: ASSIGNED_TO_REVIEWER or PENDING -> RESOLVED
@@ -416,17 +419,17 @@ public class TicketService {
         ticket.setClosedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
+        TicketHistory history = recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_RESOLVED");
                 } catch (Exception e) { }
 
-                return saved;
+                return new TicketActionResult(saved, history.getId());
     }
 
     @Transactional
-    public Ticket holdTicketPending(Long ticketId, String notes, AppUser reviewer) {
+    public TicketActionResult holdTicketPending(Long ticketId, String notes, AppUser reviewer) {
         Ticket ticket = getTicket(ticketId);
 
         // Validate transition: ASSIGNED_TO_REVIEWER -> PENDING
@@ -442,17 +445,17 @@ public class TicketService {
         ticket.setReviewNotes(notes);
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
+        TicketHistory history = recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_ON_HOLD");
                 } catch (Exception e) { }
 
-                return saved;
+                return new TicketActionResult(saved, history.getId());
     }
 
     @Transactional
-    public Ticket reopenTicket(Long ticketId, String notes, AppUser reviewer) {
+    public TicketActionResult reopenTicket(Long ticketId, String notes, AppUser reviewer) {
         Ticket ticket = getTicket(ticketId);
 
         // Validate transition: RESOLVED -> REOPENED
@@ -469,17 +472,17 @@ public class TicketService {
         ticket.setReviewNotes(notes);
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
+        TicketHistory history = recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_REOPENED");
                 } catch (Exception e) { }
 
-                return saved;
+                return new TicketActionResult(saved, history.getId());
     }
 
     @Transactional
-    public Ticket rejectTicket(Long ticketId, String notes, AppUser reviewer) {
+    public TicketActionResult rejectTicket(Long ticketId, String notes, AppUser reviewer) {
         Ticket ticket = getTicket(ticketId);
 
         // Validate transition: ASSIGNED_TO_REVIEWER -> REJECTED
@@ -496,13 +499,13 @@ public class TicketService {
         ticket.setClosedAt(LocalDateTime.now());
 
         Ticket saved = ticketRepository.save(ticket);
-        recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
+        TicketHistory history = recordStatusChange(saved, previousStatus.name(), nextStatus.name(), notes, reviewer);
 
                 try {
                     notificationService.notifyForTicketEvent(saved.getId(), "TICKET_REJECTED");
                 } catch (Exception e) { }
 
-                return saved;
+                return new TicketActionResult(saved, history.getId());
     }
 
     @Transactional
@@ -529,13 +532,13 @@ public class TicketService {
 
     // ========== HISTORY RECORDING ==========
 
-    private void recordStatusChange(Ticket ticket, String fromStatus, String toStatus, String notes, AppUser changedByUser) {
+    private TicketHistory recordStatusChange(Ticket ticket, String fromStatus, String toStatus, String notes, AppUser changedByUser) {
         TicketStatus from = fromStatus == null ? null : TicketStatus.valueOf(fromStatus);
         TicketStatus to = toStatus == null ? TicketStatus.OPEN : TicketStatus.valueOf(toStatus);
-        recordStatusChange(ticket, from, to, changedByUser, null, notes, null, null);
+        return recordStatusChange(ticket, from, to, changedByUser, null, notes, null, null);
     }
 
-    private void recordStatusChange(Ticket ticket, TicketStatus fromStatus, TicketStatus toStatus,
+    private TicketHistory recordStatusChange(Ticket ticket, TicketStatus fromStatus, TicketStatus toStatus,
                                    AppUser changedByUser, TicketAction action, String remarks,
                                    AppUser assignedToUser, UserRole assignedToRole) {
         String normalizedRemarks = normalizeRemarks(remarks);
@@ -553,7 +556,7 @@ public class TicketService {
                 .changedAt(LocalDateTime.now())
                 .performedAt(LocalDateTime.now())
                 .build();
-        ticketHistoryRepository.save(history);
+        return ticketHistoryRepository.save(history);
     }
 
     @Transactional(readOnly = true)

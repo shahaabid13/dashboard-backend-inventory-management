@@ -28,6 +28,9 @@ public class TaskService {
     private final UserRepository userRepository;
     private final TaskMapper taskMapper;
 
+    public record TaskActionResult(TaskResponse task, Long taskHistoryId) {
+    }
+
     public TaskService(TaskRepository taskRepository, TaskHistoryRepository taskHistoryRepository,
                        UserRepository userRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
@@ -127,7 +130,7 @@ public class TaskService {
      * Records a task_history entry with the action taken.
      */
     @Transactional
-    public TaskResponse takeAction(Long taskId, TaskActionRequest request, Long actingUserId) {
+    public TaskActionResult takeAction(Long taskId, TaskActionRequest request, Long actingUserId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new NotFoundException("Task not found with ID: " + taskId));
 
@@ -189,12 +192,12 @@ public class TaskService {
                 .changedByUser(actingUser)
                 .build();
 
-        taskHistoryRepository.save(history);
+        TaskHistory savedHistory = taskHistoryRepository.save(history);
 
         log.info("Task {} transitioned from {} to {} by user {}", taskId, oldStatus.name(), newStatus.name(),
                 actingUser.getUsername());
 
-        return taskMapper.toTaskResponse(task);
+        return new TaskActionResult(taskMapper.toTaskResponse(task), savedHistory.getId());
     }
 
     /**

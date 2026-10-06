@@ -44,14 +44,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (!jwtUtil.validateToken(token)) {
             log.warn("Invalid or expired JWT token");
-            filterChain.doFilter(request, response);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
             return;
         }
 
         String username = jwtUtil.getUsernameFromToken(token);
         AppUser user = userRepository.findByUsername(username).orElse(null);
 
-        if (user != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (user == null || user.getRole() == null) {
+            log.warn("Authenticated user not found or has no role: {}", username);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
+            return;
+        }
+
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
             List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
 
             // DEBUG: Log the exact authorities being assigned
@@ -68,8 +74,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             );
             SecurityContextHolder.getContext().setAuthentication(auth);
             log.info("Authentication set for user: {} with authorities: {}", username, authoritiesStr);
-        } else if (user == null) {
-            log.warn("User not found in database: {}", username);
         }
 
         filterChain.doFilter(request, response);

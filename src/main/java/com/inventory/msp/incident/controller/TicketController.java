@@ -157,11 +157,13 @@ public class TicketController {
         }
 
         try {
-            Ticket updated = ticketService.handleFieldPersonAction(id, action, remarks, fieldPerson);
+            TicketService.TicketActionResult result = ticketService.handleFieldPersonAction(id, action, remarks, fieldPerson);
+            Ticket updated = result.ticket();
             return ResponseEntity.ok(Map.of(
                     "ticket", incidentMapper.toTicketResponse(updated),
                     "message", "Ticket #" + id + " updated successfully",
-                    "assignedTo", updated.getReviewer() != null ? updated.getReviewer().getUsername() : updated.getRaisedByUser().getUsername()
+                    "assignedTo", updated.getReviewer() != null ? updated.getReviewer().getUsername() : updated.getRaisedByUser().getUsername(),
+                    "ticketHistoryId", result.ticketHistoryId()
             ));
         } catch (com.inventory.msp.incident.exception.InvalidTicketStateTransitionException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
@@ -191,8 +193,10 @@ public class TicketController {
                     .body(Map.of("field", "remarks", "message", "Remarks must be at least 5 characters when provided"));
         }
         try {
-            Ticket updated = ticketService.handleSupportEngineerAction(id, request.getAction(), request.getRemarks(), supportEngineer);
-            return ResponseEntity.ok(incidentMapper.toTicketResponse(updated));
+            TicketService.TicketActionResult result = ticketService.handleSupportEngineerAction(id, request.getAction(), request.getRemarks(), supportEngineer);
+            return ResponseEntity.ok(Map.of(
+                    "ticket", incidentMapper.toTicketResponse(result.ticket()),
+                    "ticketHistoryId", result.ticketHistoryId()));
         } catch (com.inventory.msp.incident.exception.InvalidTicketStateTransitionException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
         }
@@ -236,15 +240,17 @@ public class TicketController {
         }
 
         try {
-            Ticket updated = ticketService.reassignTicketToFieldPerson(
+            TicketService.TicketActionResult result = ticketService.reassignTicketToFieldPerson(
                     id,
                     request.getFieldPersonId(),
                     request.getScheduledDate(),
                     request.getRemarks(),
                     supportEngineer);
+            Ticket updated = result.ticket();
             return ResponseEntity.ok(Map.of(
                     "ticket", incidentMapper.toTicketResponse(updated),
-                    "message", "Ticket reassigned to field person for " + request.getScheduledDate().toString()));
+                    "message", "Ticket reassigned to field person for " + request.getScheduledDate().toString(),
+                    "ticketHistoryId", result.ticketHistoryId()));
         } catch (com.inventory.msp.incident.exception.InvalidTicketStateTransitionException ex) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
         } catch (NotFoundException ex) {
@@ -276,50 +282,58 @@ public class TicketController {
 
     @PutMapping("/{id}/resolve")
     @PreAuthorize("hasRole('REVIEWER')")
-    public ResponseEntity<TicketResponse> resolveTicket(
+    public ResponseEntity<?> resolveTicket(
             @PathVariable Long id,
             @Valid @RequestBody TicketActionRequest request,
             Authentication authentication) {
         AppUser reviewer = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        Ticket ticket = ticketService.resolveTicket(id, request.getNotes(), reviewer);
-        return ResponseEntity.ok(incidentMapper.toTicketResponse(ticket));
+        TicketService.TicketActionResult result = ticketService.resolveTicket(id, request.getNotes(), reviewer);
+        return ResponseEntity.ok(Map.of(
+                "ticket", incidentMapper.toTicketResponse(result.ticket()),
+                "ticketHistoryId", result.ticketHistoryId()));
     }
 
     @PutMapping("/{id}/pending")
     @PreAuthorize("hasRole('REVIEWER')")
-    public ResponseEntity<TicketResponse> holdTicketPending(
+    public ResponseEntity<?> holdTicketPending(
             @PathVariable Long id,
             @Valid @RequestBody TicketActionRequest request,
             Authentication authentication) {
         AppUser reviewer = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        Ticket ticket = ticketService.holdTicketPending(id, request.getNotes(), reviewer);
-        return ResponseEntity.ok(incidentMapper.toTicketResponse(ticket));
+        TicketService.TicketActionResult result = ticketService.holdTicketPending(id, request.getNotes(), reviewer);
+        return ResponseEntity.ok(Map.of(
+                "ticket", incidentMapper.toTicketResponse(result.ticket()),
+                "ticketHistoryId", result.ticketHistoryId()));
     }
 
     @PutMapping("/{id}/reopen")
     @PreAuthorize("hasRole('REVIEWER')")
-    public ResponseEntity<TicketResponse> reopenTicket(
+    public ResponseEntity<?> reopenTicket(
             @PathVariable Long id,
             @Valid @RequestBody TicketActionRequest request,
             Authentication authentication) {
         AppUser reviewer = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        Ticket ticket = ticketService.reopenTicket(id, request.getNotes(), reviewer);
-        return ResponseEntity.ok(incidentMapper.toTicketResponse(ticket));
+        TicketService.TicketActionResult result = ticketService.reopenTicket(id, request.getNotes(), reviewer);
+        return ResponseEntity.ok(Map.of(
+                "ticket", incidentMapper.toTicketResponse(result.ticket()),
+                "ticketHistoryId", result.ticketHistoryId()));
     }
 
     @PutMapping("/{id}/reject")
     @PreAuthorize("hasRole('REVIEWER')")
-    public ResponseEntity<TicketResponse> rejectTicket(
+    public ResponseEntity<?> rejectTicket(
             @PathVariable Long id,
             @Valid @RequestBody TicketActionRequest request,
             Authentication authentication) {
         AppUser reviewer = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new NotFoundException("User not found"));
-        Ticket ticket = ticketService.rejectTicket(id, request.getNotes(), reviewer);
-        return ResponseEntity.ok(incidentMapper.toTicketResponse(ticket));
+        TicketService.TicketActionResult result = ticketService.rejectTicket(id, request.getNotes(), reviewer);
+        return ResponseEntity.ok(Map.of(
+                "ticket", incidentMapper.toTicketResponse(result.ticket()),
+                "ticketHistoryId", result.ticketHistoryId()));
     }
 
     // ========== ADMIN ENDPOINTS ==========
