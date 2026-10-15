@@ -77,6 +77,8 @@ public class SecurityConfig {
                     mapped.add(new SimpleGrantedAuthority("ROLE_VIEWER"));
                 } else if (normalized.contains("SG_APP_INVENTORY_REVIEWER")) {
                     mapped.add(new SimpleGrantedAuthority("ROLE_REVIEWER"));
+                } else if (normalized.contains("SG_APP_INVENTORY_COORDINATOR")) {
+                    mapped.add(new SimpleGrantedAuthority("ROLE_COORDINATOR"));
                 } else if (normalized.contains("SG_APP_INVENTORY_FIELD_PERSON")) {
                     mapped.add(new SimpleGrantedAuthority("ROLE_FIELD_PERSON"));
                 } else if (normalized.contains("SG_APP_INVENTORY_SUPPORT_ENGINEER")) {

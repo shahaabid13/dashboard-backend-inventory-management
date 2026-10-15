@@ -541,6 +541,9 @@ public class TicketService {
     private TicketHistory recordStatusChange(Ticket ticket, TicketStatus fromStatus, TicketStatus toStatus,
                                    AppUser changedByUser, TicketAction action, String remarks,
                                    AppUser assignedToUser, UserRole assignedToRole) {
+        if (action != TicketAction.TICKET_CREATED) {
+            ticket.setFlagged(false);
+        }
         String normalizedRemarks = normalizeRemarks(remarks);
         TicketHistory history = TicketHistory.builder()
                 .ticket(ticket)

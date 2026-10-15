@@ -98,6 +98,7 @@ public class LdapAuthService {
             if (group.contains("SG_APP_INVENTORY_ADMIN")) return "ADMIN";
             if (group.contains("SG_APP_INVENTORY_AGENCY")) return "AGENCY";
             if (group.contains("SG_APP_INVENTORY_VIEWER")) return "VIEWER";
+            if (group.contains("SG_APP_INVENTORY_COORDINATOR")) return "COORDINATOR";
             if (group.contains("SG_APP_INVENTORY_REVIEWER")) return "REVIEWER";
             if (group.contains("SG_APP_INVENTORY_FIELD_PERSON")) return "FIELD_PERSON";
             if (group.contains("SG_APP_INVENTORY_SUPPORT_ENGINEER")) return "SUPPORT_ENGINEER";

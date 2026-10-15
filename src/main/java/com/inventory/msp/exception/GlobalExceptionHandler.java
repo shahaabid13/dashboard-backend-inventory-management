@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ldap.NameAlreadyBoundException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.orm.jpa.JpaOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,6 +35,19 @@ public class GlobalExceptionHandler {
                 req.getRequestURI()
         );
         return new ResponseEntity<>(body, status);
+    }
+
+    @ExceptionHandler(DirectoryProvisioningException.class)
+    public ResponseEntity<ErrorResponse> handleDirectoryProvisioning(
+            DirectoryProvisioningException ex, HttpServletRequest req) {
+        log.error("Directory provisioning failed for {}", req.getRequestURI(), ex);
+        return build(ex.getStatus(), ex.getMessage(), req);
+    }
+
+    @ExceptionHandler({NameAlreadyBoundException.class, javax.naming.NameAlreadyBoundException.class})
+    public ResponseEntity<ErrorResponse> handleDirectoryUserAlreadyExists(
+            Exception ex, HttpServletRequest req) {
+        return build(HttpStatus.CONFLICT, "User already exists in the directory", req);
     }
 
     //  Resource Not Found

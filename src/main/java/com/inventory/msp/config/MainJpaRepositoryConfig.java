@@ -13,7 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                 "com.inventory.msp.repository",
                 "com.inventory.msp.incident.repository",
                 "com.inventory.msp.task.repository",
-                "com.inventory.msp.vms.repository"
+                "com.inventory.msp.vms.repository",
+                "com.inventory.msp.notification.repository"
         },
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager"

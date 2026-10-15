@@ -1,5 +1,6 @@
 package com.inventory.msp.incident.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -22,14 +23,16 @@ public class CreateUserRequest {
     @NotNull(message = "Role is required")
     private String role;
 
+    @JsonAlias("agency_name")
     private String agencyName;
 
     // For FIELD_PERSON role
     private String name;
+    @JsonAlias({"mobile", "phoneNumber", "phone_number"})
     private String phone;
 
     // New fields to store on AppUser
+    @JsonAlias("full_name")
     private String fullName;
     private String email;
 }
-

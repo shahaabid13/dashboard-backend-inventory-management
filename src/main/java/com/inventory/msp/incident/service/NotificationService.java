@@ -5,18 +5,25 @@ import com.inventory.msp.incident.dto.SmsNotificationRequest;
 import com.inventory.msp.incident.model.NotificationSettings;
 import com.inventory.msp.incident.model.Ticket;
 import com.inventory.msp.incident.repository.NotificationSettingsRepository;
+import com.inventory.msp.notification.model.InAppNotification;
+import com.inventory.msp.notification.repository.InAppNotificationRepository;
 import com.inventory.msp.incident.repository.TicketRepository;
 import com.inventory.msp.model.AppUser;
 import com.inventory.msp.model.UserRole;
 import com.inventory.msp.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Service
 @Slf4j
@@ -25,6 +32,7 @@ public class NotificationService {
     private final EmailSender emailSender;
     private final SmsSender smsSender;
     private final NotificationSettingsRepository settingsRepository;
+    private final InAppNotificationRepository inAppNotificationRepository;
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
 
@@ -35,13 +43,71 @@ public class NotificationService {
     public NotificationService(EmailSender emailSender,
                                SmsSender smsSender,
                                NotificationSettingsRepository settingsRepository,
+                               InAppNotificationRepository inAppNotificationRepository,
                                UserRepository userRepository,
                                TicketRepository ticketRepository) {
         this.emailSender = emailSender;
         this.smsSender = smsSender;
         this.settingsRepository = settingsRepository;
+        this.inAppNotificationRepository = inAppNotificationRepository;
         this.userRepository = userRepository;
         this.ticketRepository = ticketRepository;
+    }
+
+    @Transactional(transactionManager = "transactionManager", propagation = Propagation.REQUIRES_NEW)
+    public InAppNotification createInAppNotification(
+            Long userId, String username, String type, Long referenceId, String title, String message) {
+        if (userId == null || userId <= 0) {
+            throw new IllegalArgumentException("Notification recipient user id is required");
+        }
+        if (username == null || username.isBlank()) {
+            throw new IllegalArgumentException("Notification recipient username is required");
+        }
+        if (type == null || type.isBlank()) {
+            throw new IllegalArgumentException("Notification type is required");
+        }
+        return inAppNotificationRepository.save(InAppNotification.builder()
+                .username(username)
+                .userId(userId)
+                .type(type)
+                .referenceId(referenceId)
+                .title(title)
+                .message(message)
+                .read(false)
+                .createdAt(LocalDateTime.now(ZoneId.of("Asia/Kolkata")))
+                .build());
+    }
+
+    @Transactional(transactionManager = "transactionManager", readOnly = true)
+    public List<com.inventory.msp.notification.dto.InAppNotificationDTO> getInAppNotifications(
+            String username, boolean unreadOnly, String type, Long sinceId) {
+        return inAppNotificationRepository.findForUser(
+                        username, unreadOnly, type, sinceId, PageRequest.of(0, 100)).stream()
+                .map(com.inventory.msp.notification.dto.InAppNotificationDTO::from)
+                .toList();
+    }
+
+    @Transactional(transactionManager = "transactionManager", readOnly = true)
+    public long getUnreadNotificationCount(String username) {
+        return inAppNotificationRepository.countByUsernameAndReadFalse(username);
+    }
+
+    @Transactional("transactionManager")
+    public boolean markNotificationRead(String username, Long notificationId) {
+        return inAppNotificationRepository.markReadForUser(notificationId, username) > 0;
+    }
+
+    @Transactional("transactionManager")
+    public int markAllNotificationsRead(String username) {
+        return inAppNotificationRepository.markAllReadForUser(username);
+    }
+
+    public void sendFlagReminderEmail(String username, String subject, String message) {
+        settingsRepository.findByUsername(username)
+                .filter(settings -> Boolean.TRUE.equals(settings.getEmailEnabled()))
+                .map(NotificationSettings::getEmail)
+                .filter(email -> email != null && !email.isBlank())
+                .ifPresent(email -> emailSender.sendAsync(email, subject, message));
     }
 
     // ----------------- frontend-initiated endpoints -----------------

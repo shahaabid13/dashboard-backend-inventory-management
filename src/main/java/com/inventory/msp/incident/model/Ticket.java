@@ -76,6 +76,18 @@ public class Ticket {
     private LocalDateTime closedAt;
     private LocalDateTime reopenedAt;
 
+    @Column(nullable = false)
+    private boolean flagged = false;
+
+    @Column(name = "flagged_at")
+    private LocalDateTime flaggedAt;
+
+    @Column(name = "last_reminder_at")
+    private LocalDateTime lastReminderAt;
+
+    @Column(name = "reminder_count", nullable = false)
+    private int reminderCount = 0;
+
     @Version
     private Long version;
 
@@ -85,7 +97,7 @@ public class Ticket {
     @PrePersist
     protected void onCreate() {
         if (this.createdAt == null) {
-            this.createdAt = LocalDateTime.now();
+            this.createdAt = LocalDateTime.now(TicketQueueRules.REPORT_ZONE);
         }
         if (this.updatedAt == null) {
             this.updatedAt = this.createdAt;
@@ -94,7 +106,6 @@ public class Ticket {
 
     @PreUpdate
     protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now(TicketQueueRules.REPORT_ZONE);
     }
 }
-

@@ -6,5 +6,6 @@ public enum UserRole {
     VIEWER,
     SUPPORT_ENGINEER,
     FIELD_PERSON,
-    REVIEWER
+    REVIEWER,
+    COORDINATOR
 }

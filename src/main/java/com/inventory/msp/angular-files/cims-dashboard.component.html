@@ -1,0 +1,85 @@
+<section class="cims-dashboard">
+  <article class="dashboard-card">
+    <h2>Queue summary</h2>
+    <p *ngIf="summary.loading">Loading...</p>
+    <p *ngIf="summary.error" role="alert">{{ summary.error }}
+      <button type="button" (click)="loadSummary()">Retry</button>
+    </p>
+    <dl *ngIf="summary.data as data">
+      <dt>Tickets in queue</dt><dd>{{ data.totalInQueue }}</dd>
+      <dt>Flagged tickets</dt><dd>{{ data.flaggedCount }}</dd>
+      <dt>Average age (days)</dt><dd>{{ data.avgAgeDays }}</dd>
+      <dt>Oldest age (days)</dt><dd>{{ data.oldestAgeDays }}</dd>
+      <dt>Pending tasks</dt><dd>{{ data.tasksPending }}</dd>
+      <dt>Overdue tasks</dt><dd>{{ data.tasksOverdue }}</dd>
+      <dt>Completed this week</dt><dd>{{ data.tasksCompletedThisWeek }}</dd>
+    </dl>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Tickets by assignee</h2>
+    <p *ngIf="ticketsByAssignee.loading">Loading...</p>
+    <p *ngIf="ticketsByAssignee.error" role="alert">{{ ticketsByAssignee.error }}
+      <button type="button" (click)="loadTicketsByAssignee()">Retry</button>
+    </p>
+    <p *ngFor="let row of ticketsByAssignee.data">{{ row.userName }}: {{ row.count }}</p>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Tickets by status</h2>
+    <p *ngIf="ticketsByStatus.loading">Loading...</p>
+    <p *ngIf="ticketsByStatus.error" role="alert">{{ ticketsByStatus.error }}
+      <button type="button" (click)="loadTicketsByStatus()">Retry</button>
+    </p>
+    <p *ngFor="let row of ticketsByStatus.data">{{ row.status }}: {{ row.count }}</p>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Tickets by incident type</h2>
+    <p *ngIf="ticketsByIncidentType.loading">Loading...</p>
+    <p *ngIf="ticketsByIncidentType.error" role="alert">{{ ticketsByIncidentType.error }}
+      <button type="button" (click)="loadTicketsByIncidentType()">Retry</button>
+    </p>
+    <p *ngFor="let row of ticketsByIncidentType.data">{{ row.type }}: {{ row.count }}</p>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Ticket ageing</h2>
+    <p *ngIf="ageingBuckets.loading">Loading...</p>
+    <p *ngIf="ageingBuckets.error" role="alert">{{ ageingBuckets.error }}
+      <button type="button" (click)="loadAgeingBuckets()">Retry</button>
+    </p>
+    <p *ngFor="let row of ageingBuckets.data">{{ row.bucket }}: {{ row.count }}</p>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Ticket trend (30 days)</h2>
+    <p *ngIf="ticketTrend.loading">Loading...</p>
+    <p *ngIf="ticketTrend.error" role="alert">{{ ticketTrend.error }}
+      <button type="button" (click)="loadTicketTrend()">Retry</button>
+    </p>
+    <p *ngFor="let row of ticketTrend.data">
+      {{ row.date }}: {{ row.created }} created, {{ row.closed }} closed
+    </p>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Tasks by status</h2>
+    <p *ngIf="tasksByStatus.loading">Loading...</p>
+    <p *ngIf="tasksByStatus.error" role="alert">{{ tasksByStatus.error }}
+      <button type="button" (click)="loadTasksByStatus()">Retry</button>
+    </p>
+    <p *ngFor="let row of tasksByStatus.data">{{ row.status }}: {{ row.count }}</p>
+  </article>
+
+  <article class="dashboard-card">
+    <h2>Tasks by assignee</h2>
+    <p *ngIf="tasksByAssignee.loading">Loading...</p>
+    <p *ngIf="tasksByAssignee.error" role="alert">{{ tasksByAssignee.error }}
+      <button type="button" (click)="loadTasksByAssignee()">Retry</button>
+    </p>
+    <p *ngFor="let row of tasksByAssignee.data">
+      {{ row.userName }}: {{ row.pending }} pending, {{ row.overdue }} overdue
+    </p>
+  </article>
+</section>

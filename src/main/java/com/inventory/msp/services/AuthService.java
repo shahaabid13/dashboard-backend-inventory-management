@@ -86,7 +86,7 @@ public class AuthService {
 
         // 1) Create the user in Active Directory FIRST. AD is now the source of
         // truth for credentials — if this fails, we never touch the local DB.
-        ldapUserProvisioningService.createAdUser(
+        boolean createdInDirectory = ldapUserProvisioningService.createAdUser(
                 username,
                 rawPassword,
                 resolvedFullName,
@@ -120,11 +120,13 @@ public class AuthService {
             // systems don't drift (an AD account with no corresponding local row).
             log.error("DB save failed after AD user '{}' was created. Rolling back AD account.",
                     username, dbException);
-            try {
-                ldapUserProvisioningService.deleteAdUser(username);
-            } catch (Exception cleanupEx) {
-                log.error("CRITICAL: AD user '{}' exists but DB save failed AND AD rollback also failed. " +
-                        "Manual AD cleanup required immediately.", username, cleanupEx);
+            if (createdInDirectory) {
+                try {
+                    ldapUserProvisioningService.deleteAdUser(username);
+                } catch (Exception cleanupEx) {
+                    log.error("CRITICAL: AD user '{}' exists but DB save failed AND AD rollback also failed. " +
+                            "Manual AD cleanup required immediately.", username, cleanupEx);
+                }
             }
             throw dbException;
         }
