@@ -1,8 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="MspApplication" type="Application" factoryName="Application">
     <envs>
+<<<<<<< HEAD
       <env name="AD_LDAP_PASSWORD" value="Admin@245" />
       <env name="SDNET_DB_PASSWORD" value="#Root@321#" />
+=======
+      <env name="AD_LDAP_PASSWORD" value="YOUR_AD_LDAP_PASSWORD" />
+      <env name="SDNET_DB_PASSWORD" value="YOUR_SDNET_DB_PASSWORD" />
+>>>>>>> 9ef025098d86db3f85cd377679ee6b39756e7de6
     </envs>
     <option name="MAIN_CLASS_NAME" value="com.inventory.msp.MspApplication" />
     <module name="msp" />

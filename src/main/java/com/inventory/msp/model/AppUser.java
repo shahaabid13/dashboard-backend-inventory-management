@@ -32,8 +32,11 @@ public class AppUser {
 
     @Column(name = "phone")
     private String phone; // E.164 or local format depending on data
+<<<<<<< HEAD
 
     @Column(name = "is_active", nullable = false)
     @Builder.Default
     private boolean active = true;
+=======
+>>>>>>> 9ef025098d86db3f85cd377679ee6b39756e7de6
 }
